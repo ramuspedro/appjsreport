@@ -1,0 +1,30 @@
+{
+  "name": "appjsreport",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-util": "^3.0.8",
+    "gulp-webserver": "^0.9.1",
+    "jsreport-core": "^1.0.10",
+    "jsreport-jsrender": "^1.0.1",
+    "jsreport-phantom-pdf": "^1.2.0",
+    "phantom-html-to-pdf": "^0.4.9",
+    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "2.1.4",
+    "shelljs": "^0.7.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "description": ""
+}

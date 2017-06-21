@@ -1,0 +1,916 @@
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+<img src="http://dev-buscar-banco.branch.terras.agr.br/img/terrastool-credito.png" style="height: 66px;float:left;" alt="">
+<img src="http://dev-buscar-banco.branch.terras.agr.br/img/creditorural/logo-amazonia.png" style="height: 70px;float:right;" alt="">
+
+<table style='border-style:solid'>
+  <tr>
+    <th>Name</th>
+    <th>Author</th>
+    <th>Sales</th>
+  </tr>
+  {{#each books}}
+  <tr>
+    <td>{{name}}</td>
+    <td>{{author}}</td>
+    <td>{{sales}}</td>
+  </tr>  
+  {{/each}}    
+</table>
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="http://www.w3schools.com/lib/w3data.js"></script>
+    <body>
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <div>{{conteudo}}</div>
+        </div>
+        <script>
+            var app = angular.module('myApp', []);
+            app.controller('myCtrl', function ($scope, $http) {
+                $http.get('https://bitbucket.org/product')
+                        .success(function (data) {                          
+                            $scope.conteudo = data;
+                        })
+                        .error(function (data) {
+                            console.log('Error:');
+                        });
+                $scope.count = 0;
+                $scope.hello = "Hello";
+            });
+        </script> 
+
+    </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />        <title>	PDF::SIGAM </title>	
+    </head>
+    <body>
+
+
+        <link rel="stylesheet" type="text/css" href="http://sigam.org.br/pa/tailandia_teste/sectma/css/pdfs_paragominas.css" />
+
+        <div backtop="12mm" backbottom="12mm" backleft="1mm" backright="1mm" style="font-size: 10pt;">
+            <page_header>
+                <table class="table-pdf header_top_cabecalho" style="background-color: #eeeeee; border: 1px #000 solid; ; " >
+                    <col style="width:20%">
+                    <col style="width:60%">
+                    <col style="width:20%">
+                    <tr class="table-pdf">
+                        <td>
+                            <img style="height: 50px; margin-left: 15px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/logo_sigam.png" />
+                        </td>
+                        <td  class="table-pdf">
+                            <h3 style="text-align: center;"><img style=" height: 50px; " src="http://sigam.org.br/pa/tailandia_teste/sectma/img/prefeitura_brasao_tailandia-pa.jpg" /></h3>
+
+                            <h5 class="title" style="color: #000; margin-top: -10px; text-align: center;"> PREFEITURA DE TAILÂNDIA</h5>
+                            <h6 class="title" style="color: #000; margin-top: -15px; text-align: center;">  Secretaria Municipal de Ciência, Tecnologia e Meio Ambiente-SECTMA </h6>
+                        </td>
+                        <td>
+                            <img style="height: 50px; margin-left:60px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/logo_sectma_tailandia.png" />
+                        </td>
+                    </tr>
+                    <tr class="table-pdf">
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </page_header>
+
+            <div style="page-break-before: always;"></div>
+            <table style='border-style:solid'>
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Sales</th>
+                </tr>
+                {{#each books}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{author}}</td>
+                    <td>{{sales}}</td>
+                </tr>  
+                {{/each}}    
+            </table>
+            <div class="page_body page_body" style="margin-top:40px;">
+                <div  style="position: relative; top: 0; left: 0;">
+                    <div>
+                        <table class="table-pdf page_header">
+                            <tr class="table-pdf">
+                                <td class="table-pdf" style="width: 100%; text-align: center">
+                                    <b> Laudo Geoprocessamento</b>
+                                </td>
+                            </tr>
+                        </table><br>
+                        <table class="table-pdf">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+
+                            <tr class="table-pdf">
+                                <th class="table-pdf">Nº </th>
+                                <th class="table-pdf">Data</th>
+                                <th class="table-pdf">Protocolo Nº </th>
+                                <th class="table-pdf">CAR nº</th>
+                            </tr>
+                            <tr class="table-pdf">
+                                <td class="table-pdf">5</td>
+                                <td class="table-pdf">01/12/2016</td>
+                                <td class="table-pdf">2016/5</td>
+                                <td class="table-pdf">PA-1500602-9804DB102BE848F19ED4F5E92F929F2B</td>
+                            </tr>
+                        </table><br>
+                    </div><!--Fim Laudo Técnico-->
+
+                    <div> <!--Informações Gerais-->
+                        <table class="table-pdf page_header">
+                            <tr class="table-pdf">
+                                <td class="table-pdf" style="width: 100%; text-align: center">
+                                    <b> Informações Gerais</b>
+                                </td>
+                            </tr>
+                        </table><br>
+                        <table class="table-pdf">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <tr class="table-pdf">
+                                <th class="table-pdf">Nome/Razão Social </th>
+                                <th class="table-pdf">CPF/CNPJ</th>
+                                <th class="table-pdf">Endereço</th>
+                                <th class="table-pdf">Localização</th>
+                            </tr>
+                            <tr class="table-pdf">
+                                <td class="table-pdf">FAZENDA ABC</td>
+                                <td class="table-pdf">93624956191 </td>
+                                <td class="table-pdf">RODOVIA BR 163 ME KM 915</td>
+                                <td class="table-pdf"> ALTAMIRA -  PARÁ </td>
+                            </tr>
+                        </table><br>
+                    </div><!--FIm Informações Gerais-->
+
+                    <div><!--  Análise dos Dados -->
+                        <table class="page_header table-pdf">
+                            <tr class="table-pdf">
+                                <td class="table-pdf" style="width: 100%; text-align: center">
+                                    <b> Análise dos Dados</b>
+                                </td>
+                            </tr>
+                        </table><br>
+                        <div style="min-height:700px; border: solid 1px black;">
+                            <table class="table-pdf" style="width: 100%; border: none">
+                                <tr class="table-pdf" style="width: 100%; "  >
+                                    <td class="table-pdf boxe-body-squre-text"  >
+                                        <br>
+                                        <h2> Objetivo </h2><br>
+                                        <h2> Localização do imóvel</h2><br>
+                                        <h2> Sobreposições (TI, UC, Ass rural, área militar, floresta pública e outros CARs)</h2><br>
+                                        <h2> Áreas contínuas</h2><br>
+                                        <h2> Áreas Prodes</h2><br>
+                                        <h2> Análise temporal (Área Requerida, APP, RL, AUAS não requerida)</h2><br>
+                                        <h2> Limpeza/comunicada </h2><br>
+                                        <h2> Compensação </h2><br>
+                                        <h2> Validação de RL </h2><br>
+                                        <h2> CAR (análise) </h2><br>
+                                        <h2> Conclusão </h2><br>
+
+                                    </td>
+                                </tr><br>
+                            </table>
+                            <strong>OBS: Algumas atividades terão particularidades em relação a sua localização, a exemplo da carvoaria, serraria, aeroportos/pista de pouso, aterros sanitários, entre outros. </strong>:<br><br>
+                        </div>
+                    </div>
+                </div>
+                <div style='position:absolute; ' >
+                    <img style="min-height: 850px; width: 800px; " src="http://sigam.org.br/pa/tailandia_teste/sectma/img/apenas_v.png" />
+                </div>
+
+            </div>
+        </div>
+
+        <div style="page-break-before: always;"></div>
+        <div backtop="12mm" backbottom="12mm" backleft="1mm" backright="1mm" style="font-size: 10pt; margin-top: 450px;">
+            <!--<page_header>
+            <table class="table-pdf header_top_cabecalho" style="background-color: #eeeeee; border: 1px #000 solid; ; " >
+                <col style="width:20%">
+                <col style="width:60%">
+                <col style="width:20%">
+                <tr class="table-pdf">
+                    <td>
+                        <img style="height: 50px; margin-left: 15px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/logo_sigam.png" />
+                    </td>
+                    <td  class="table-pdf">
+                        <h3 style="text-align: center;"><img style=" height: 50px; " src="http://sigam.org.br/pa/tailandia_teste/sectma/img/prefeitura_brasao_tailandia-pa.jpg" /></h3>
+                       
+                        <h5 class="title" style="color: #000; margin-top: -10px; text-align: center;"> PREFEITURA DE TAILÂNDIA</h5>
+                        <h6 class="title" style="color: #000; margin-top: -15px; text-align: center;">  Secretaria Municipal de Ciência, Tecnologia e Meio Ambiente-SECTMA </h6>
+                    </td>
+                    <td>
+                        <img style="height: 50px; margin-left:60px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/logo_sectma_tailandia.png" />
+                    </td>
+                </tr>
+                <tr class="table-pdf">
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+        </page_header>
+            -->
+
+            <div class="page_body" style="margin-top:90px;">
+                <div  style="position: relative; top: 0; left: 0;">
+                    <div> <!--Informações Gerais-->
+                        <table class="table-pdf page_header" border="1">
+                            <tr class="table-pdf">
+                                <td class="table-pdf" style="width:100%; text-align: center">
+                                    <b> DADOS GERAIS</b><br />
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table-pdf borda-pdf">
+                            <col style="width: 12%" class="borda-pdf">
+                            <col style="width: 12%" class="borda-pdf">
+                            <col style="width: 12%" class="borda-pdf">
+                            <col style="width: 12%" class="borda-pdf">
+                            <col style="width: 12%" class="borda-pdf">
+                            <col style="width: 12%" class="borda-pdf">
+                            <col style="width: 12%" class="borda-pdf">
+                            <col style="width: 16%" class="borda-pdf">
+
+                            <tr class="table-pdf borda-pdf">
+                                <th class="table-pdf">NOME</th>
+                                <th class="table-pdf">ÁREA</th>
+                                <th class="table-pdf">Nº DO CAR</th>
+                                <th class="table-pdf">GPS </th>
+                                <th class="table-pdf">SITUAÇÃO</th>
+                                <th class="table-pdf">MUNICÍPIO</th>
+                                <th class="table-pdf">ESTADO</th>
+                                <th class="table-pdf">MÓDULO FISCAL</th>
+                            </tr>
+                            <tr class="table-pdf borda-pdf">
+                                <td class="table-pdf" style="vertical-align: middle;"> FAZENDA ABC</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> 0,0482</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> PA-1500602-9804DB102BE848F19ED4F5E92F929F2B</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> </td>
+                                <td class="table-pdf" style="vertical-align: middle;"> Ativo</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> ALTAMIRA</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> PARÁ</td>
+                                <td class="table-pdf" style="vertical-align: middle; "> Média Propriedade Rural</td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div><!--FIm Informações Gerais-->
+                    <div>
+                        <br>
+                        <table class="table-pdf" cellpadding="5" border="1">
+                            <col style="width: 50%">
+                            <col style="width: 50%">
+                            <tr class="table-pdf" cellpadding="5" border="1" bgcolor="#ccc">
+                                <th class="table-pdf" align="center">
+                                    <b>DECLARADO</b>
+                                </th>
+                                <th class="table-pdf" align="center">
+                                    <b>CALCULADO</b>
+                                </th>
+                            </tr>
+                            <tr class="table-pdf">
+                                <td class="table-pdf" align="center" style="border: solid 1px #eee; width: 350px; min-height: 320px;">
+                                    <img style="margin-top: 10px;" src="http://54.232.117.162/cgi-bin/mapserv?map=/opt/mapfile_tailandia/car_raster.map&car_id=4&layers=raster-mun-1500602&map.extent=-55.1493185436722+-8.5678256210444+-55.0867692461626+-8.54435893994479&mode=map"/>
+                                </td>
+                                <td class="table-pdf" align="center" style="border: solid 1px #eee; width: 350px; min-height: 320px;">
+                                    <img style="margin-top: 10px;" src="http://54.232.117.162/cgi-bin/mapserv?map=/opt/mapfile_tailandia/car_calculado_raster.map&validacao_id=5&layers=raster-mun-1500602&map.extent=-55.1493185436722+-8.5678256210444+-55.0867692461626+-8.54435893994479&mode=map"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><!--Fim Laudo Técnico-->
+                    <div>
+                        <br>
+                        <table class="table-pdf" cellpadding="5" border="1">
+                            <col style="width: 50%">
+                            <col style="width: 50%">
+                            <tr class="table-pdf borda-pdf">
+                                <td class="table-pdf"  align="left" style=" width: 370px; min-height: 250px;">
+                                    <table class="table-pdf" cellpadding="5" style="padding-bottom: 5px;">
+                                        <col style="width: 20%">
+                                        <tr class="borda-pdf">
+                                            <th  align="left">
+                                                <div style="margin-left: 7px;">
+                                                    <b>LEGENDA</b>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </table>
+
+                                    <table class="table-pdf" cellpadding="5" style="padding-bottom: 5px;">
+                                        <col style="width: 10%">
+                                        <col style="width: 90%">
+                                        <tr class="borda-pdf">
+                                            <th  align="left" style="padding-bottom: 10px;">
+                                                <img src="http://sigam.org.br/pa/tailandia_teste/sectma/img/legendas/cadastro_ambiental_rural/declarado/AUAS.png" style="margin-left: 7px;" width="20px"/>
+                                            </th>
+                                            <td  align="left">
+                                                <span style="font-size: 10px;"> AUAS - Área de Uso Alternativo do Solo</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="borda-pdf">
+                                            <th  align="left" style="padding-bottom: 10px;">
+                                                <img src="http://sigam.org.br/pa/tailandia_teste/sectma/img/legendas/cadastro_ambiental_rural/declarado/ARL.png" style="margin-left: 7px;" width="20px"/>
+                                            </th>
+                                            <td  align="left">
+                                                <span style="font-size: 10px;"> ARL - Área de Reserva Legal </span>
+                                            </td>
+                                        </tr>
+                                        <tr class="borda-pdf">
+                                            <td  align="left" style="padding-bottom: 10px;">
+                                                <img src="http://sigam.org.br/pa/tailandia_teste/sectma/img/legendas/cadastro_ambiental_rural/declarado/APRT.png" style="margin-left: 7px;" width="20px"/>
+                                            </td>
+                                            <td  align="left">
+                                                <span style="font-size: 10px;"> APRT - Área da Propriedade Rural Total</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="borda-pdf">
+                                            <th  align="left" style="padding-bottom: 10px;">
+                                                <img src="http://sigam.org.br/pa/tailandia_teste/sectma/img/legendas/cadastro_ambiental_rural/declarado/APP.png" style="margin-left: 7px;" width="20px"/>
+                                            </th>
+                                            <td  align="left">
+                                                <span style="font-size: 10px;"> APP - Área de Preservação Permanente</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="borda-pdf">
+                                            <th  align="left" style="padding-bottom: 10px;">
+                                                <img src="http://sigam.org.br/pa/tailandia_teste/sectma/img/legendas/cadastro_ambiental_rural/sistema/flr.png" style="margin-left: 7px;" width="20px"/>
+                                            </th>
+                                            <td  align="left" style="padding-bottom: 10px;">
+                                                <span style="font-size: 10px;"> FLR08 - Floresta Remanescente até 2008</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="table-pdf" align="center" style=" width: 370px; min-height: 250px;">
+                                    <table class="table-pdf" cellpadding="5" style="padding-bottom: 5px;">
+                                        <col style="width: 20%">
+                                        <tr class="borda-pdf">
+                                            <th  align="left">
+                                                <div style="margin-left: 7px;">
+                                                    <b>LOCALIZAÇÃO: ALTAMIRA</b>
+                                                </div>
+                                                <img style="width: 350px; min-height: 300px; margin-top: 10px;" src="http://54.232.117.162/cgi-bin/mapserv?map=/opt/mapfile_tailandia/localizacao_mun_car.map&car_id=4&map.extent=-55.6258624234773+-9.64732399694792+-51.6455456097797+-2.98672426616014&mode=map"/>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><!--Fim Laudo Técnico-->
+                </div>
+            </div>
+        </div>
+
+        <!-- PÁGINA ANÁLISE FUNDIÁRIO -->
+        <div  backtop="12mm" backbottom="12mm" backleft="1mm" backright="3mm" style="font-size: 10pt;  margin-top: 450px;">
+            <!--<page_header>
+            <table class="table-pdf header_top_cabecalho" style="background-color: #eeeeee; border: 1px #000 solid; ; " >
+                <col style="width:20%">
+                <col style="width:60%">
+                <col style="width:20%">
+                <tr class="table-pdf">
+                    <td>
+                        <img style="height: 50px; margin-left: 15px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/logo_sigam.png" />
+                    </td>
+                    <td  class="table-pdf">
+                        <h3 style="text-align: center;"><img style=" height: 50px; " src="http://sigam.org.br/pa/tailandia_teste/sectma/img/prefeitura_brasao_tailandia-pa.jpg" /></h3>
+                       
+                        <h5 class="title" style="color: #000; margin-top: -10px; text-align: center;"> PREFEITURA DE TAILÂNDIA</h5>
+                        <h6 class="title" style="color: #000; margin-top: -15px; text-align: center;">  Secretaria Municipal de Ciência, Tecnologia e Meio Ambiente-SECTMA </h6>
+                    </td>
+                    <td>
+                        <img style="height: 50px; margin-left:60px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/logo_sectma_tailandia.png" />
+                    </td>
+                </tr>
+                <tr class="table-pdf">
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+        </page_header>
+            -->
+
+            <div class="page_body" style="margin-top:90px;">
+                <div>
+                    <div> <!-- Car em municipio-->
+                        <!--                <table class="table-pdf page_header">
+                                            <tr class="table-pdf">
+                                                <td class="table-pdf" style="width: 100%; text-align: center">
+                                                    <b> Sobreposições</b>
+                                                </td>
+                                            </tr>
+                                        </table><br>-->
+                        <table class="table-pdf page_header">
+                            <tr class="table-pdf">
+                                <td class="table-pdf" style="width: 100%; text-align: center">
+                                    <b> CAR em município</b>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table-pdf">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <tr class="table-pdf">
+                                <th class="table-pdf">Município </th>
+                                <th class="table-pdf">Área (ha)</th>
+                                <th class="table-pdf">Área sobreposta (%)</th>
+                                <th class="table-pdf">Observação</th>
+                            </tr>
+                            <tr class="table-pdf">
+                                <td class="table-pdf" style="border: solid 1px #eee;">ALTAMIRA</td>
+                                <td class="table-pdf" style="border: solid 1px #eee;">481,62</td>
+                                <td class="table-pdf" style="border: solid 1px #eee;">100,00</td>
+                                <td class="table-pdf" style="border: solid 1px #eee;">Município Principal</td>
+                            </tr>
+                        </table><br><br>
+                    </div><!-- Fim Car em municipio-->
+                    <div> <!-- Sobreposições com áreas especiais-->
+
+                        <table class="table-pdf boder-pdf">
+                            <col style="width: 8%" class="borda-pdf">
+                            <col style="width: 17%" class="borda-pdf">
+                            <col style="width: 22%" class="borda-pdf">
+                            <col style="width: 18%" class="borda-pdf">
+                            <col style="width: 18%" class="borda-pdf">
+                            <col style="width: 17%" class="borda-pdf">
+
+                            <tr class="table-pdf page_header">
+                                <td class="table-pdf" colspan="6" style=" text-align: center">
+                                    <b> SOBREPOSIÇÕES COM ÁREAS ESPECIAIS </b>
+                                </td>
+                            </tr>
+                            <tr class="table-pdf borda-pdf">
+                                <th class="table-pdf">STATUS</th>
+                                <th class="table-pdf"> CATEGORIA </th>
+                                <th class="table-pdf"> OBSERVAÇÃO </th>
+                                <th class="table-pdf"> Área (Ha)</th>
+                                <th class="table-pdf"> Percentual da propriedade (%)</th>
+                                <th class="table-pdf"> BASE DE DADOS</th>
+                            </tr>
+                            <tr class="table-pdf borda-pdf">
+                                <td class="table-pdf" style="vertical-align: middle;">
+                                    <img style="width: 20px; min-heightf: 20px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/ok.png" />
+                                </td>
+                                <td class="table-pdf" style="vertical-align: middle;"> Área protegida</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> Propriedade não localizada em área protegida</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> 0,0000</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> 0,0000</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> -</td>
+                            </tr>
+                            <tr class="table-pdf borda-pdf">
+                                <td class="table-pdf" style="vertical-align: middle;">
+                                    <img style="width: 20px; min-height: 20px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/ok.png" />
+                                </td>
+                                <td class="table-pdf" style="vertical-align: middle;"> Área urbana</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> Propriedade não localizada em área urbana</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> 0,0000</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> 0,0000</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> IBGE</td>
+                            </tr>
+                            <tr class="table-pdf borda-pdf">
+                                <td class="table-pdf" style=" vertical-align: middle;">
+                                    <img style="width: 20px; min-height: 20px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/ok.png" />
+                                </td>
+                                <td class="table-pdf" style="vertical-align: middle;"> Área militar</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> Propriedade não localizada em área militar</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> 0,0000</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> 0,0000</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> -</td>
+                            </tr>
+                            <tr class="table-pdf borda-pdf">
+                                <td class="table-pdf" style="vertical-align: middle;">
+                                    <img style="width: 20px; min-height: 20px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/ok.png" />
+                                </td>
+                                <td class="table-pdf" style="vertical-align: middle;"> Massa D'água</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> Não possui Massa D'agua</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> 0,0000</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> 0,0000</td>
+                                <td class="table-pdf" style="vertical-align: middle;"> -</td>
+                            </tr>
+                        </table><br><br>
+                    </div><!-- Fim Sobreposições com áreas especiais-->
+                    <br><br>
+                    <div> <!-- Sobreposições entre propriedade-->
+                        <table class="table-pdf page_header">
+                            <tr class="table-pdf">
+                                <td class="table-pdf" style="width: 100%; text-align: center">
+                                    <b> Sobreposições entre propriedades </b>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="table-pdf">
+                            <col style="width: 8%">
+                            <col style="width: 19%">
+                            <col style="width: 14%">
+                            <col style="width: 19%">
+                            <col style="width: 18%">
+                            <col style="width: 22%">
+                            <tr class="table-pdf">
+                                <th class="table-pdf" style="border: solid 1px #eee;">Status</th>
+                                <th class="table-pdf" style="border: solid 1px #eee;">Nº do CAR sobreposto </th>
+                                <th class="table-pdf" style="border: solid 1px #eee;"> Observação </th>
+                                <th class="table-pdf" style="border: solid 1px #eee;"> CAR analisado (ha)</th>
+                                <th class="table-pdf" style="border: solid 1px #eee;"> CAR sobreposto (%)</th>
+                                <th class="table-pdf" style="border: solid 1px #eee;"> Percentual CAR sobreposto (%)</th>
+                            </tr>
+
+
+                        </table>
+                    </div>  <!-- Fim Sobreposições entre propriedade-->
+                    <br>
+                    <br>
+                    <br>
+                    <div class="page_body" style="margin-top:40px;">
+                        <div  style="position: relative; top: 0; left: 0;">
+                            <div>
+                                <table class="table-pdf page_header" border="1">
+                                    <tr class="table-pdf borda-pdf">
+                                        <td class="table-pdf" style="width: 100%; text-align: center">
+                                            <b> ÁREA DE RESERVA LEGAL (ARL)</b>
+                                        </td>
+                                    </tr>
+                                </table><br>
+                                <div>
+                                    <table class="table-pdf border-pdf">
+                                        <col style="width: 8%" class="borda-pdf">
+                                        <col style="width: 31%" class="borda-pdf">
+                                        <col style="width: 31%" class="borda-pdf">
+                                        <col style="width: 30%" class="borda-pdf">
+                                        <tr class="table-pdf page_header">
+                                            <td class="table-pdf" colspan="4" style="text-align: center">
+                                                <b> DECLARADO</b>
+                                            </td>
+                                        </tr>
+                                        <tr class="table-pdf borda-pdf">
+                                            <th class="table-pdf" style="">STATUS</th>
+                                            <th class="table-pdf" style="vertical-align: middle; ">DESCRIÇÃO </th>
+                                            <th class="table-pdf" style="vertical-align: middle; "> ÁREA (ha) </th>
+                                            <th class="table-pdf" style="vertical-align: middle; "> PERCENTUAL DA PROPRIEDADE (%)</th>
+                                        </tr>
+                                        <tr class="table-pdf borda-pdf">
+                                            <td class="table-pdf"style="" >
+                                                <img style="width: 20px; min-height: 20px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/ok.png" />
+                                            </td>
+                                            <td class="table-pdf"style="vertical-align: middle;" >Área de reserva legal (ARL)</td>
+                                            <td class="table-pdf"style="vertical-align: middle;" >240,8058</td>
+                                            <td class="table-pdf"style="vertical-align: middle;" >49,9988</td>
+                                        </tr>
+                                        <tr class="border-pdf">
+                                            <td class="table-pdf" style="">-</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">Área de Reserva Legal Degradada (ARLD)</td>
+
+                                        </tr>
+                                    </table><br><br>
+                                </div>
+                                <div>
+                                    <table class="table-pdf borda-pdf">
+                                        <col style="width: 8%" class="borda-pdf">
+                                        <col style="width: 24%" class="borda-pdf">
+                                        <col style="width: 10%" class="borda-pdf">
+                                        <col style="width: 20%" class="borda-pdf">
+                                        <col style="width: 20%" class="borda-pdf">
+                                        <col style="width: 18%" class="borda-pdf">
+                                        <tr class="table-pdf page_header">
+                                            <td class="table-pdf" colspan=" 6" style="text-align: center">
+                                                <b> SISTEMA</b>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="table-pdf borda-pdf">
+                                            <th class="table-pdf">STATUS</th>
+                                            <th class="table-pdf">DESCRIÇÃO </th>
+                                            <th class="table-pdf"> ÁREA (ha) </th>
+                                            <th class="table-pdf"> PERCENTUAL DA PROPRIEDADE (%)</th>
+                                            <th class="table-pdf"> OBSERVAÇÃO</th>
+                                            <th class="table-pdf"> NECESSITA INTERPRETAÇÃO VISUAL</TH>
+                                        </TR>
+                                        <tr class="table-pdf borda-pdf">
+                                            <td class="table-pdf"style="vertical-align: middle;" >
+                                                <img style="width: 20px; min-height: 20px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/ok.png" />
+                                            </td>
+                                            <td class="table-pdf" style="vertical-align: middle;">Área de reserva legal (ARL)</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">0,0000</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">0,0000</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">Reserva Legal maior que o necessário.</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">
+                                                não                                    </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">
+                                                Floresta remanescente até 2008 (FLR08)                                    </td>
+                                            <td class="table-pdf" style="vertical-align: middle;">0,0000</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">0,0000</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                        </tr>
+                                        <tr class="borda-pdf">
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">
+                                                Área desmatada até 2008 (RLD08)                                     </td>
+
+                                            <td class="table-pdf"style="vertical-align: middle;" >
+                                                0                                    </td>
+                                            <td class="table-pdf"style="vertical-align: middle;" >
+                                                0,00                                    </td>
+
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                        </tr>
+                                        <tr class="borda-pdf">
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">
+                                                Excedente de vegetação nativa (ENV)                                    </td>
+                                            <td class="table-pdf" style="vertical-align: middle;">
+                                                0                                    </td>
+                                            <td class="table-pdf" style="vertical-align: middle;">
+                                                0,00                                    </td>
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                        </tr>
+                                        <tr class="borda-pdf">
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">
+                                                Reserva legal a recompor (RLR)                                     </td>
+                                            <td class="table-pdf"style="vertical-align: middle;" >
+                                                0                                    </td>
+                                            <td class="table-pdf" style="vertical-align: middle;">
+                                                0,00                                    </td>
+
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">-</td>
+                                        </tr>
+                                    </table><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="page_body" style="margin-top:40px;">
+                        <div  style="position: relative; top: 0; left: 0;">
+                            <div>
+                                <table class="table-pdf page_header">
+                                    <tr class="table-pdf">
+                                        <td class="table-pdf" style="width: 100%; text-align: center">
+                                            <b> Área de preservação permanente (APP)</b>
+                                        </td>
+                                    </tr>
+                                </table><br>
+                                <div>
+                                    <table class="table-pdf page_header">
+                                        <tr class="table-pdf">
+                                            <td class="table-pdf" style="width: 100%; text-align: center">
+                                                <b> Declarado</b>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table class="table-pdf">
+                                        <col style="width: 8%">
+                                        <col style="width: 34%">
+                                        <col style="width: 24%">
+                                        <col style="width: 34%">
+                                        <tr class="table-pdf">
+                                            <th class="table-pdf">Status</th>
+                                            <th class="table-pdf">Descrição </th>
+                                            <th class="table-pdf"> Área (ha) </th>
+                                            <th class="table-pdf"> Percentual da propriedade (%)</th>
+                                        </tr>
+                                        <tr class="table-pdf">
+                                            <td class="table-pdf" style="border: solid 1px #eee;">
+                                                <img style="width: 20px; min-height: 20px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/ok.png" />
+                                            </td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;">Área de preservação permanente (APP)</td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;">26,15</td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;" >5,43</td>
+                                        </tr>
+                                        <tr class="table-pdf">
+                                            <td class="table-pdf"style="border: solid 1px #eee;" >
+                                                <img style="width: 20px; min-height: 20px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/ok.png" />
+                                            </td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;">Área de Preservação Permanente Degradada (APPD)</td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;">
+                                                0,00                                    </td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;">
+                                                0,00                                    </td>
+
+                                        </tr>
+                                    </table><br><br>
+                                </div>
+                                <div>
+                                    <table class="table-pdf page_header">
+                                        <tr class="table-pdf">
+                                            <td class="table-pdf" style="width: 100%; text-align: center">
+                                                <b> Sistema</b>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table class="table-pdf">
+                                        <col style="width: 10%">
+                                        <col style="width: 20%">
+                                        <col style="width: 20%">
+                                        <col style="width: 20%">
+                                        <col style="width: 10%">
+                                        <col style="width: 20%">
+
+                                        <tr class="table-pdf">
+                                            <th class="table-pdf" style="border: solid 1px #eee;">Status</th>
+                                            <th class="table-pdf" style="border: solid 1px #eee;">Descrição </th>
+                                            <th class="table-pdf" style="border: solid 1px #eee;"> Área (ha) </th>
+                                            <th class="table-pdf" style="border: solid 1px #eee;"> Percentual da propriedade (%)</th>
+                                            <th class="table-pdf" style="border: solid 1px #eee;"> Pendência</th>
+                                            <th class="table-pdf" style="border: solid 1px #eee;"> Necessita interpretação visual</th>
+                                        </tr>
+                                        <tr class="table-pdf">
+                                            <td class="table-pdf" style="border: solid 1px #eee;" >
+                                                <img style="width: 20px; min-height: 20px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/ok.png" />
+                                            </td>
+                                            <td class="table-pdf"style="border: solid 1px #eee;" >Área de preservação permanente (APP)</td>
+                                            <td class="table-pdf"style="border: solid 1px #eee;" >0,00</td>
+                                            <td class="table-pdf"style="border: solid 1px #eee;" >0,00</td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;">APP sem pendência</td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;">
+                                                não                                    </td>
+                                        </tr>
+                                        <tr class="table-pdf">
+                                            <td class="table-pdf"style="border: solid 1px #eee;" >
+                                                <img style="width: 20px; min-height: 20px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/ok.png" />
+                                            </td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;">Área de Preservação Permanente Degradada (APPD)</td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;">0,00</td>
+                                            <td class="table-pdf"style="border: solid 1px #eee;" >0,00</td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;">Possui desmatamento menor que o calculado</td>
+                                            <td class="table-pdf" style="border: solid 1px #eee;">
+                                                não                                    </td>
+                                        </tr>
+                                    </table><br>
+                                </div>
+                            </div>
+                        </div>
+                        <!--        <div style='position:absolute; ' >
+                                    <img style="min-height: 850px; width: 800px;   " src="http://sigam.org.br/pa/tailandia_teste/sectma/img/apenas_visualizacao.png" />
+                                </div>-->
+                    </div>
+                    <br>
+                    <br>
+                    <div class="page_body" style="margin-top:40px;" >
+                        <div  style="position: relative; top: 0; left: 0;">
+                            <div>
+                                <table class="table-pdf page_header" border="1">
+                                    <tr class="table-pdf borda-pdf">
+                                        <td class="table-pdf" style="width: 100%; text-align: center">
+                                            <b> ÁREA DE USO ALTERNATIVO DO SOLO (AUAS)</b>
+                                        </td>
+                                    </tr>
+                                </table><br>
+                                <div>
+
+                                    <table class="table-pdf borda-pdf">
+                                        <col style="width: 8%" class="borda-pdf">
+                                        <col style="width: 29%" class="borda-pdf">
+                                        <col style="width: 29%" class="borda-pdf">
+                                        <col style="width: 34%" class="borda-pdf">
+                                        <tr class="table-pdf page_header">
+                                            <td class="table-pdf" colspan="4" style=" text-align: center">
+                                                <b> DECLARADO</b>
+                                            </td>
+                                        </tr>
+                                        <tr class="table-pdf borda-pdf">
+                                            <th class="table-pdf">STATUS</th>
+                                            <th class="table-pdf">DESCRIÇÃO </th>
+                                            <th class="table-pdf"> ÁREA (ha) </th>
+                                            <th class="table-pdf"> PERCENTUAL DA PROPRIEDADE (%)</th>
+                                        </tr>
+                                        <tr class="table-pdf borda-pdf">
+                                            <td class="table-pdf"style="vertical-align: middle;" >
+                                                <img style="width: 18px; min-height: 18px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/remove.png" />
+                                            </td>
+                                            <td class="table-pdf" style="vertical-align: middle;">Área de uso alternativo do solo (AUAS)</td>
+                                            <td class="table-pdf" style="vertical-align: middle;">199,4752</td>
+                                            <td class="table-pdf"style="vertical-align: middle;" >41,4173</td>
+
+                                        </tr>
+                                    </table><br><br>
+                                </div>
+
+                                <div>
+
+                                    <table class="table-pdf borda-pdf">
+                                        <col style="width: 8%" class="borda-pdf">
+                                        <col style="width: 12%" class="borda-pdf">
+                                        <col style="width: 10%" class="borda-pdf">
+                                        <col style="width: 30%" class="borda-pdf">
+                                        <col style="width: 20%" class="borda-pdf">
+                                        <col style="width: 20%" class="borda-pdf">
+                                        <tr class="table-pdf page_header">
+                                            <td class="table-pdf" colspan="6" style="text-align: center">
+                                                <b> Sistema</b>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="table-pdf borda-pdf">
+                                            <th class="table-pdf" style="vertical-align: middle;">STATUS</th>
+                                            <th class="table-pdf" style="vertical-align: middle;">DESCRIÇÃO </th>
+                                            <th class="table-pdf" style="vertical-align: middle;"> ÁREA (ha) </th>
+                                            <th class="table-pdf" style="vertical-align: middle;"> PERCENTUAL DA PROPRIEDADE (%)</th>
+                                            <th class="table-pdf" style="vertical-align: middle;"> OBSERVAÇÃO</th>
+                                            <th class="table-pdf" style="vertical-align: middle;"> NECESSITA INTERPRETAÇÃO VISUAL</th>
+                                        </tr>
+                                        <tr class="table-pdf borda-pdf">
+                                            <td class="table-pdf"style="vertical-align: middle;" >
+                                                <img style="width: 18px; min-height: 18px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/remove.png" />
+                                            </td>
+                                            <td class="table-pdf"style="vertical-align: middle;" >Área de Uso Alternativo do Solo (AUAS)</td>
+                                            <td class="table-pdf"style="vertical-align: middle;" >0,0000</td>
+                                            <td class="table-pdf"style="vertical-align: middle;" >0,0000</td>
+                                            <td class="table-pdf"style="vertical-align: middle;" >AUAS declarada maior que a área ideal.</td>
+                                            <td class="table-pdf"style="vertical-align: middle;" >
+                                                não                                    </td>
+                                        </tr>
+                                    </table><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!-- PÁGINA DE RESERVA LEGAL-->
+
+
+
+        <!--    <page_header>
+        <table class="table-pdf header_top_cabecalho" style="background-color: #eeeeee; border: 1px #000 solid; ; " >
+            <col style="width:20%">
+            <col style="width:60%">
+            <col style="width:20%">
+            <tr class="table-pdf">
+                <td>
+                    <img style="height: 50px; margin-left: 15px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/logo_sigam.png" />
+                </td>
+                <td  class="table-pdf">
+                    <h3 style="text-align: center;"><img style=" height: 50px; " src="http://sigam.org.br/pa/tailandia_teste/sectma/img/prefeitura_brasao_tailandia-pa.jpg" /></h3>
+                   
+                    <h5 class="title" style="color: #000; margin-top: -10px; text-align: center;"> PREFEITURA DE TAILÂNDIA</h5>
+                    <h6 class="title" style="color: #000; margin-top: -15px; text-align: center;">  Secretaria Municipal de Ciência, Tecnologia e Meio Ambiente-SECTMA </h6>
+                </td>
+                <td>
+                    <img style="height: 50px; margin-left:60px;" src="http://sigam.org.br/pa/tailandia_teste/sectma/img/logo_sectma_tailandia.png" />
+                </td>
+            </tr>
+            <tr class="table-pdf">
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+    </page_header>
+        -->
+        <div class="page_body" style="margin-top:40px;" >
+            <div  style="position: relative; top: 0; left: 0;">
+                <div class="page_body" style="margin-top:90px;">
+                    <div  style="position: relative; top: 0; left: 0;">
+                        <div>
+                            <div style="width: 450px; margin-left: 150px; border-bottom: solid 0.3mm black;"></div>
+                            <div style="width: 450px; margin-left: 150px; ">
+                                <h6 align="center"></h6>
+                                <h5 align="center"> Responsável Técnico pela análise</h5>
+                            </div>
+                        </div><br>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--    <script type='text/javascript'>//
+        //    window.print();
+        //    </script>   -->
+    </body>
+</html>
