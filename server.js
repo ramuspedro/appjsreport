@@ -15,6 +15,11 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/www/index.html');
 });
 
+app.get('/execute-pdf', function(req, res) {
+    console.log("TESTE");
+    res.json({message: "OK"});
+});
+
 var port = process.env.PORT || 8082;
 //var port = process.env.PORT || 3000;
 
