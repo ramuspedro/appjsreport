@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html><head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div style="border-top:1px solid #dadad9; margin-top:10px; color:#9d9c9c; font-size:10px;">
+            <span style="font-family: 'PT Sans', sans-serif;">
+                PÁGINA <span id='page'></span> de <span id='topage'></span>
+            </span>
+        </div>
+        <script>
+            var vars = {};
+            var x = window.location.search.substring(1).split('&');
+            for (var i in x) {
+                var z = x[i].split('=', 2);
+                vars[z[0]] = unescape(z[1]);
+            }
+            document.getElementById('page').innerHTML = vars.page;
+            document.getElementById('topage').innerHTML = vars.topage;
+        </script> 
+    </body></html>

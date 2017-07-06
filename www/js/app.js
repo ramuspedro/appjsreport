@@ -4,7 +4,7 @@ $(document).ready(function() {
         console.log("TESTE", editor.getValue());
         $.ajax({
         	type: 'GET',
-        	url: "http://localhost:8082/execute-pdf"
+        	url: "http://localhost:8081/execute-pdf"
         }).then(function(data, status) {
             console.log("Data: ", data);
             console.log("\nStatus: ", status);
