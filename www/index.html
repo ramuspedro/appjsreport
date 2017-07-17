@@ -15,7 +15,7 @@
         overflow: hidden;
         padding-top: 0;
     }
-    
+
     .ace_editor {
         position: relative !important;
         border: 1px solid lightgray;
@@ -23,7 +23,7 @@
         height: 200px;
         width: 80%;
     }
-    
+
     .ace_editor.fullScreen {
         height: auto;
         width: auto;
@@ -36,11 +36,11 @@
         right: 0;
         z-index: 10;
     }
-    
+
     .fullScreen {
         overflow: hidden
     }
-    
+
     .scrollmargin {
         height: 500px;
         text-align: center;
@@ -52,7 +52,7 @@
     /*
  * Typography
  */
-    
+
     h1 {
         margin-bottom: 20px;
         padding-bottom: 9px;
@@ -61,7 +61,7 @@
     /*
  * Sidebar
  */
-    
+
     .sidebar {
         position: fixed;
         top: 0px;
@@ -74,6 +74,7 @@
         /* Scrollable contents if viewport is shorter than content. */
         border-right: 1px solid #eee;
     }
+
     .large-button {
         color: lightblue;
         cursor: pointer;
@@ -83,30 +84,31 @@
         border: medium solid transparent;
         display: inline-block;
     }
+
     .large-button:hover {
         border: medium solid lightgray;
         border-radius: 10px 10px 10px 10px;
         box-shadow: 0 0 12px 0 lightblue;
     }
     /* Sidebar navigation */
-    
+
     .sidebar {
         padding-left: 0;
         padding-right: 0;
     }
-    
+
     .sidebar .nav {
         margin-bottom: 20px;
     }
-    
+
     .sidebar .nav-item {
         width: 100%;
     }
-    
-    .sidebar .nav-item + .nav-item {
+
+    .sidebar .nav-item+.nav-item {
         margin-left: 0;
     }
-    
+
     .sidebar .nav-link {
         border-radius: 0;
     }
@@ -114,25 +116,30 @@
  * Dashboard
  */
     /* Placeholders */
-    
+
     .placeholders {
         padding-bottom: 3rem;
     }
-    
+
     .placeholder img {
         padding-top: 1.5rem;
         padding-bottom: 1.5rem;
     }
+
+    object {
+        width: 100%;
+        height: 400px;
+    }
     </style>
 </head>
 
-<body>
-    <div class="container-fluid">
+<body ng-app="jsReportingApp">
+    <div class="container-fluid" ng-controller="myCtrl">
         <div class="row">
             <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="" id="execute-code">Executar</a>
+                        <a class="nav-link active" href="" id="execute-code" ng-click="executar()">Executar</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Reports</a>
@@ -172,27 +179,24 @@
             </nav>
             <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
                 <!-- <pre id="editor">function foo(items) {
-				    var i;
-				    for (i = 0; i &lt; items.length; i++) {
-				        alert("Ace Rocks " + items[i]);
-				    }
+                    var i;
+                    for (i = 0; i &lt; items.length; i++) {
+                        alert("Ace Rocks " + items[i]);
+                    }
 
-				}</pre>
+                }</pre>
                 <div class="scrollmargin">
                     <div style="padding:20px">
                         press F11 to switch to fullscreen mode
                     </div>
                     <span onclick="add()" class="large-button">
-			        +
-			    </span>
+                    +
+                </span>
                 </div> -->
                 <textarea id="textarea">
-/**
- * This is Ace injected using a bookmarklet.
- */
-function foo() {
-    var bar = true;
-}</textarea>
+                    /** * This is Ace injected using a bookmarklet. */ function foo() { var bar = true; }
+                </textarea>
+                <object data="{{content}}" type="application/pdf"></object>
             </main>
         </div>
     </div>
@@ -227,6 +231,7 @@ function foo() {
     <script>
     window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="./js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -309,7 +314,6 @@ function foo() {
 
     // window.add = add;
     // window.scroll = scroll;
-
     </script>
     <!-- <script src="./js/show_own_source.js"></script> -->
     <script src="./js/app.js"></script>
