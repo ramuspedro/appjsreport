@@ -10,131 +10,10 @@
     <title>Starter Template for Bootstrap</title>
     <!-- Bootstrap core CSS -->
     <link href="./css/styles.min.css" rel="stylesheet">
-    <style type="text/css" media="screen">
-    body {
-        overflow: hidden;
-        padding-top: 0;
-    }
-
-    .ace_editor {
-        position: relative !important;
-        border: 1px solid lightgray;
-        margin: auto;
-        height: 200px;
-        width: 80%;
-    }
-
-    .ace_editor.fullScreen {
-        height: auto;
-        width: auto;
-        border: 0;
-        margin: 0;
-        position: fixed !important;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 10;
-    }
-
-    .fullScreen {
-        overflow: hidden
-    }
-
-    .scrollmargin {
-        height: 500px;
-        text-align: center;
-    }
-    /*
- * Base structure
- */
-    /* Move down content because we have a fixed navbar that is 50px tall */
-    /*
- * Typography
- */
-
-    h1 {
-        margin-bottom: 20px;
-        padding-bottom: 9px;
-        border-bottom: 1px solid #eee;
-    }
-    /*
- * Sidebar
- */
-
-    .sidebar {
-        position: fixed;
-        top: 0px;
-        bottom: 0;
-        left: 0;
-        z-index: 1000;
-        padding: 20px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        /* Scrollable contents if viewport is shorter than content. */
-        border-right: 1px solid #eee;
-    }
-
-    .large-button {
-        color: lightblue;
-        cursor: pointer;
-        font: 30px arial;
-        padding: 20px;
-        text-align: center;
-        border: medium solid transparent;
-        display: inline-block;
-    }
-
-    .large-button:hover {
-        border: medium solid lightgray;
-        border-radius: 10px 10px 10px 10px;
-        box-shadow: 0 0 12px 0 lightblue;
-    }
-    /* Sidebar navigation */
-
-    .sidebar {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .sidebar .nav {
-        margin-bottom: 20px;
-    }
-
-    .sidebar .nav-item {
-        width: 100%;
-    }
-
-    .sidebar .nav-item+.nav-item {
-        margin-left: 0;
-    }
-
-    .sidebar .nav-link {
-        border-radius: 0;
-    }
-    /*
- * Dashboard
- */
-    /* Placeholders */
-
-    .placeholders {
-        padding-bottom: 3rem;
-    }
-
-    .placeholder img {
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-    }
-
-    object {
-        width: 100%;
-        height: 400px;
-    }
-    </style>
 </head>
 
 <body ng-app="jsReportingApp">
-    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse report-bg">
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse report-bg" ng-controller="myCtrl">
         <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -142,26 +21,17 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Settings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Help</a>
+                    <a class="nav-link" href="" ng-click="executar()"><i class="fa fa-play" aria-hidden="true"></i> Executar <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="container-fluid" ng-controller="myCtrl">
+    <div class="container-fluid">
         <div class="row">
             <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="" id="execute-code" ng-click="executar()">Executar</a>
+                        <a class="nav-link active" href="" id="execute-code">Executar</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Reports</a>
@@ -216,7 +86,10 @@
                 </span>
                 </div> -->
                 <textarea id="textarea">
-                    /** * This is Ace injected using a bookmarklet. */ function foo() { var bar = true; }
+/** * This is Ace injected using a bookmarklet. */ 
+function foo() {
+    var bar = true;
+}
                 </textarea>
                 <object data="{{content}}" type="application/pdf"></object>
             </main>
