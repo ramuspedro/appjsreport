@@ -14,7 +14,7 @@ body { font-family: 'PT Sans', sans-serif;}
 
 .declaracao {text-align:center;font-size:11px;} 
 .declaracao p {text-align:justify;} 
-.box-legenda-croquis { width:212px; float:left;padding:5px; height:230px; } 
+.box-legenda-croquis { width:670px; float:left;padding:5px; height:230px; } 
 .box-legenda { width:216px; float:left;padding:5px; height:180px; } 
 .box-legenda i { font-weight:bold;} 
 .box { text-transform:uppercase; font-size:11px;margin-bottom:30px; }
@@ -31,7 +31,11 @@ body { font-family: 'PT Sans', sans-serif;}
 .area-legenda-mapa {line-height:17px;font-size:8px; background-color:#ececec; width:100%;border:1px solid #dadad9;padding:10px;font-style:normal; }
 
 
-
+.table-proponente {
+   width:700px; background-color:#eee;font-weight:normal!important;
+   font-size:11px;
+   font-family: 'PT Sans', sans-serif;
+}
 
 
 .tabela-aprt { width:100%;font-weight:normal; color:black; font-family: 'PT Sans', sans-serif; font-size:12px;}
@@ -81,6 +85,12 @@ body { font-family: 'PT Sans', sans-serif;}
     width:700px;height:500px;
 }
 
+.inline-map {
+    display: inline-block;
+    width:343px; 
+    height: 300px;
+}
+
 
 
 </style>
@@ -120,6 +130,10 @@ body { font-family: 'PT Sans', sans-serif;}
         geojsonStyle = { 
                     style: function (feature) {
                         return feature.properties.estilo;
+                    },
+                    pointToLayer: function(feature, latlng) {
+                        //return new L.CircleMarker(latlng, {radius: 3, fillOpacity: 1, opacity: 1, weight: 3, fillColor: '#660099'});
+                         return new L.CircleMarker(latlng, feature.properties.estilo);
                     }
                 };
       
@@ -186,9 +200,119 @@ body { font-family: 'PT Sans', sans-serif;}
         }
         
         createMapImovel();
-               
+        
+        function createMapCroquiAtual(){
+            /*var mapCroquiAtual = createMap('mapCroquiAtual'),
+                cars = getCars(),// buscando cars
+                areas = getAreas(), // buscando areas
+                carsFilterAreaImovel = filterCarAreaImovel(cars),
+                geoJSONLayerCA = L.geoJson(carsFilterAreaImovel, geojsonStyle),
+                geoJSONLayerCP = L.geoJson(carsFilterAreaImovel, geojsonStyle);
+                
+            mapCroquiAtual.addLayer(googleSat());
+            mapCroquiAtual.addLayer(geoJSONLayerCA);*/
+            var cars = getCars();
+            var areas = getAreas();
+            var carsFilterAreaImovel = filterCarAreaImovel(cars);
+           
+            
+            // criar id para cada croqui atual
+            for(var k = 0; k < cars.length; k++) {
+                var map = createMap('mapCroquiAtual'+k);
+                
+                map.addLayer(googleSat());
+                
+                //var geoJSONLayerCar = L.geoJson(cars[k], geojsonStyle);
+                console.log("FILTER " + i, JSON.stringify(carsFilterAreaImovel[k]));
+                console.log("***********");
+                var geoJSONLayerImovel = L.geoJson(carsFilterAreaImovel[k], geojsonStyle);
+                //map.addLayer(geoJSONLayerCar);
+                map.addLayer(geoJSONLayerImovel);
+                
+                
+                //map.fitBounds(geoJSONLayerCar.getBounds());
+                map.fitBounds(geoJSONLayerImovel.getBounds());
+                
+                for(var i = 0;i<areas.length;i++){
+                    
+                    var g = L.geoJson(areas[i], geojsonStyle);
+                    
+                    for ( j = 0; j<areas[i].features.length;j++){
+                        if(areas[i].features[j].properties.tipo == "atual"){
+                            map.addLayer(g);
+                        }
+                    }
+                }
+                
+            }
+            
+            //mapCroquiAtual.fitBounds(geoJSONLayerCA.getBounds());
+      }
+      
+      /*function createMapCroquiProjetado(){
+        var mapCroquiProjetado = createMap('mapCroquiProjetado'),
+            cars = getCars(),// buscando cars
+            areas = getAreas(), // buscando areas0
+            carsFilterAreaImovel = filterCarAreaImovel(cars),
+            geoJSONLayerCA = L.geoJson(carsFilterAreaImovel, geojsonStyle),
+            geoJSONLayerCP = L.geoJson(carsFilterAreaImovel, geojsonStyle);
+            
+        
+        mapCroquiProjetado.addLayer(googleSat());
+        mapCroquiProjetado.addLayer(geoJSONLayerCP);
+        
+        for(var i = 0;i<areas.length;i++){
+            var g = L.geoJson(areas[i], geojsonStyle);
+            
+            for ( j = 0; j<areas[i].features.length;j++){
+                if(areas[i].features[j].properties.tipo == "projetado"){
+                    mapCroquiProjetado.addLayer(g);
+                }
+            }
+        }
+        mapCroquiProjetado.fitBounds(geoJSONLayerCP.getBounds());
+        
+      }*/
+      
+      function createMapCroquiProjetado() {
+            var cars = getCars();
+            var areas = getAreas();
+            var carsFilterAreaImovel = filterCarAreaImovel(cars);
+            
+            // criar id para cada croqui projetado
+            // criar id para cada croqui atual
+            for(var k = 0; k < cars.length; k++) {
+                var map = createMap('mapCroquiProjetado'+k);
+                
+                map.addLayer(googleSat());
+                
+                var geoJSONLayerImovel = L.geoJson(carsFilterAreaImovel[k], geojsonStyle);
+                map.addLayer(geoJSONLayerImovel);
+                
+                //var geoJSONLayerCar = L.geoJson(cars[k], geojsonStyle);
+                //map.addLayer(geoJSONLayerCar);
+                
+                
+                //map.fitBounds(geoJSONLayerCar.getBounds());
+                map.fitBounds(geoJSONLayerImovel.getBounds());
+                
+                for(var i = 0;i<areas.length;i++){
+                    
+                    var g = L.geoJson(areas[i], geojsonStyle);
+                    
+                    for ( j = 0; j<areas[i].features.length;j++){
+                        if(areas[i].features[j].properties.tipo == "projetado"){
+                            map.addLayer(g);
+                        }
+                    }
+                }
+                
+            }
+      }
+      
+      
         //Criando Maps Croqui
-      function createMapCroqui(){
+      /*function createMapCroqui(){
         var mapCroquiAtual = createMap('mapCroquiAtual'),
 		    mapCroquiProjetado = createMap('mapCroquiProjetado'),
             cars = getCars(),// buscando cars
@@ -208,7 +332,6 @@ body { font-family: 'PT Sans', sans-serif;}
             for ( j = 0; j<areas[i].features.length;j++){
                 if(areas[i].features[j].properties.tipo == "atual"){
                     mapCroquiAtual.addLayer(g);
-                     
                 }else{
                     mapCroquiProjetado.addLayer(g);
                 }
@@ -217,7 +340,7 @@ body { font-family: 'PT Sans', sans-serif;}
         
         mapCroquiAtual.fitBounds(geoJSONLayerCA.getBounds());
         mapCroquiProjetado.fitBounds(geoJSONLayerCP.getBounds());
-      }
+      }*/
       
       
       //Método para filtrar Area Imovel
@@ -238,8 +361,14 @@ body { font-family: 'PT Sans', sans-serif;}
         }
 		
         //Criando Mapa Croqui
-        createMapCroqui();
-        
+        // createMapCroqui();
+        //createMapCroquiAtual();
+        {{#if this.mapaCroquiAtual}}
+            createMapCroquiAtual();
+        {{/if}}
+        {{#if this.mapaCroquiProjetado}}
+            createMapCroquiProjetado();
+        {{/if}}
     });
 </script>
 <br />
@@ -273,59 +402,65 @@ body { font-family: 'PT Sans', sans-serif;}
 </div>
 
 <div class="box">
-    Nome do proponente: <br />
-    <span class="result-box">{{ this.TtcProposta.detalhes_json.Proponente.nome }}</span>
-</div>
-
-<div class="box box2">
-    Data de Nascimento: <br />
-    <span class="result-box">{{ this.TtcProposta.detalhes_json.Proponente.data_nascimento }}</span>
-</div>
-
-<div class="box box2 box2-last">
-    CPF: <br />
-    <span class="result-box">{{ this.TtcProposta.detalhes_json.Proponente.cpf_cnpj }}</span>
-</div>
-
-<div class="box box2">
-    Telefone: <br />
-    <span class="result-box">{{ this.TtcProposta.detalhes_json.Proponente.telefone }}</span>
-</div>
-
-<div class="box box2 box2-last">
-    Email: <br />
-    <span class="result-box">{{ this.TtcProposta.detalhes_json.Proponente.email }}</span>
+    Nome do(s) proponente(s): <br />
+    {{#if this.TtcProposta.detalhes_json.Proponente}}
+    <table class="table-proponente " >
+        {{#each this.TtcProposta.detalhes_json.Proponente}}
+        
+              <tr>
+                <td><b>Nome:</b><br><span class="result-box">{{ this.nome }}</span></td>
+                <td colspan="2"><b>Email:</b><br>{{ this.email }}</td>
+              </tr>
+              <tr>
+                <td><b>Nascimento:</b><br>{{#formatDate this.data_nascimento}}{{/formatDate}}</td>
+                <td><b>Telefone:</b><br>{{ this.telefone }}</td>
+                <td><b>CPF:</b><br>{{ this.cpf_cnpj }}</td>
+              </tr>
+        {{/each}}
+        </table>
+        <br />    
+    {{/if}}
+    <br />
 </div>
 
 <div class="box">
-    Responsável Técnico: <br />
-    <span class="result-box" style="">{{ this.TtcProposta.detalhes_json.ResponsavelTecnico.nome }}</span>
-</div>
-
-<div class="box box3">
-    CPF:
-    <br/>
-    <span class="result-box">{{ this.TtcProposta.detalhes_json.ResponsavelTecnico.cpf }}</span>
-</div>
-
-<div class="box box3">
-    CREA:
-    <br/>
-    <span class="result-box">{{ this.TtcProposta.detalhes_json.ResponsavelTecnico.crea }}</span>
-</div>
-
-<div class="box box3 box3-last ">
-    ART:
-    <br/>
-    <span class="result-box">{{ this.TtcProposta.detalhes_json.ResponsavelTecnico.art }}</span>
+    {{#if this.TtcProposta.detalhes_json.ResponsavelTecnico.length}}
+        Nome do(s) responsável(is) técnico(s): <br />
+        
+        <table class="table-proponente " >
+            {{#each this.TtcProposta.detalhes_json.ResponsavelTecnico}}
+              <tr>
+                <td><b>Nome:</b><br><span class="result-box">{{ this.nome }}</span></td>
+                <td><b>CPF:</b><br>{{ this.cpf }}</td>
+                <td><b>Email:</b><br>{{ this.email }}</td>
+              </tr>
+              <tr>
+                <td><b>Telefone:</b><br>{{ this.telefone }}</td>
+                <td><b>CREA:</b><br>{{ this.crea_estado.sigla }} {{ this.crea }}</td>
+                <td><b>ART:</b><br>{{ this.art }}
+              </tr>
+            {{/each}}
+            <br />
+        </table>
+    {{/if}}
 </div>
 
 {{#if this.TtcCar}}
     <div style='page-break-before: always;'></div>
+    
+    
+    <div style='page-break-before: always;'></div>
+    <div class="clear-page" style="clear:both;">hidden</div>
+    
+    
     {{#each this.TtcCar}}
+        <div style='page-break-before: always;'></div>
         <div style="width:700px;text-align:center;padding-top:15px;font-size:13px;border-bottom:1px solid #ccc;">
-            <span><b>CAR:</b> {{ this.features.[0].properties.numero }}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                <b>Área:</b><small style="font-size:14px;"></small></span>
+            <!--<span><b>CAR:</b> {{ this.features.[0].properties.numero }}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-->
+            <!--    <b>Área:</b><small style="font-size:14px;"></small></span>-->
+            
+            <span><b>CAR:</b> {{ this.features.[0].properties.numero }} </span>
+                
         </div>
         <div class="">
             <div class="table-analise-car">
@@ -339,8 +474,10 @@ body { font-family: 'PT Sans', sans-serif;}
                     {{#each this.CarMunicipioSobreposicao}}
                         <tr style="text-align:center">
                             <td class="">{{this.Municipio.nome_municipio}}</td>
-                            <td class="currencyFormatMe">{{this.area}}</td>
-                            <td class="">{{this.calc_modulo_fiscal}}</td>
+                            <!--<td class="currencyFormatMe">{{this.area}}</td>-->
+                            <td class="currencyFormatMe">{{#formatNumber this.area}} {{/formatNumber}} ha</td>
+                            <!--<td class="">{{this.calc_modulo_fiscal}}</td>-->
+                            <td class="currencyFormatMe">{{#formatNumber this.calc_modulo_fiscal}} {{/formatNumber}}</td>
                         </tr>
                     {{/each}}
                 </table>
@@ -369,14 +506,22 @@ body { font-family: 'PT Sans', sans-serif;}
             <div class="table-side">
                 <table>
                     <tr>
-                        <th colspan="3" style="text-align:left"><b>Análise de Requerimentos do BACEN</b></th>
+                        <th colspan="4" style="text-align:left"><b>Análise de Requerimentos do BACEN</b></th>
                     </tr>
                     <tr>
-                        <th style="width:33%">Embargo</th>
-                        <th style="width:33%">UCZA</th>
-                        <th style="width:33%">Terra Indígena</th>
+                        <th style="width:25%">Embargo</th>
+                        <th style="width:25%">UCZA</th>
+                        <th style="width:25%">T. I.</th>
+                        <th style="width:25%">Prodes</th>
                     </tr>
                     <tr>
+                        <td>
+                            {{#if this.analiseBacen.[2].embargo_ibama}}
+                                <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/com-pendencia.png" >
+                            {{else}}
+                                <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/sem-pendencia.png" >
+                            {{/if}}
+                        </td>
                         <td>
                             {{#if this.analiseBacen.[0].unidade_conservacao_zona_amortecimento}}
                                 <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/com-pendencia.png" >
@@ -385,14 +530,14 @@ body { font-family: 'PT Sans', sans-serif;}
                             {{/if}}
                         </td>
                         <td>
-                            {{#if this.analiseBacen.[0].terra_indigena}}
+                            {{#if this.analiseBacen.[1].terra_indigena}}
                                 <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/com-pendencia.png" >
                             {{else}}
                                 <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/sem-pendencia.png" >
                             {{/if}}
                         </td>
                         <td>
-                            {{#if this.analiseBacen.[0].embargo_ibama}}
+                            {{#if this.analiseBacen.[3].prodes}}
                                 <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/com-pendencia.png" >
                             {{else}}
                                 <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/sem-pendencia.png" >
@@ -402,6 +547,31 @@ body { font-family: 'PT Sans', sans-serif;}
                 </table>
             </div>
             <!--FIM análiseBacen | Taci-->
+            
+            <!--INICIO - proprietarios do car - nayanne -->
+            {{#if this.detalhes_json.Proprietarios}}
+                <div class="table-side">
+                    <table style="font-size:10px">
+                        <tr>
+                            <td colspan="3"><b>Proprietários do CAR</b></td>
+                        </tr>
+                        <tr style="text-align:center;">
+                            <td>CPF</td>
+                            <td>Nome | E-mail</td>
+                            <td>Telefone</td>
+                        </tr>
+                        {{#each this.detalhes_json.Proprietarios}}
+                            <tr>
+                                <td><span>{{this.cpfCnpj}}</span></td>
+                                <td><span>{{this.nome}} | {{this.email}}</span></td>
+                                <td><span>{{this.telefone}}</span></td>
+                            </tr>
+                        {{/each}}
+                    </table>
+                </div>
+            {{/if}}
+            <!--FIM - proprietarios do car - nayanne -->
+            
             
             <!--análise Sobreposicoes | Taci-->
             <div class="table-side">
@@ -737,19 +907,31 @@ body { font-family: 'PT Sans', sans-serif;}
                 {{/each}}
             </div>
         </div>    
+        
+        <div style="color:white; height:5px;width:600px;clear:both;"> hidden </div>
+        
     {{/each}} <!--fim EACH ttcCar -->
+    
+    
+    
+    <!--<div style='page-break-before: always;'></div>-->
+    <!--<div class="clear-page" style="clear:both;">hidden</div>-->
 {{/if}} <!--fim ttcCar -->
-<div class="clear-page" style="clear:both;">hidden</div>
-<br/>
+
+<!--<div style='page-break-before: always;'></div>-->
+
+<!--<br/>-->
     <!-- Imóveis -->
     <div class="tabela-aprt" >
         {{#if this.TtcImovel}}
             <div style='page-break-before: always;'></div>
+            <span><b>Imóveis</b></span>
+            <br />
             {{#each this.TtcImovel}}
                 <div class="table3">
                     <table>
                         <tr>
-                            <th rowspan="11" >
+                            <th rowspan="12" >
                                 <div id="mapImovel{{@index}}" style="width:250px; height: 245px;" ></div>
                                 <div class="area-legenda-mapa" style="width:228px;">
                                     <i style="color:{{this.features.[0].properties.estilo.color}}"   class="fa fa-square" aria-hidden="true"></i> {{this.features.[0].properties.estilo.nome}}                                
@@ -757,19 +939,36 @@ body { font-family: 'PT Sans', sans-serif;}
                             </th>
                             <th colspan="3"><b>{{this.features.[0].properties.nome}}</b></th>
                         </tr>
+                        <!--<tr>-->
+                        <!--    <td colspan="3">Endereço: <span>{{this.features.[0].properties.endereco}}</span></td>-->
+                        <!--</tr>-->
+                        
                         <tr>
-                            <td colspan="3">Endereço: <span>{{this.features.[0].properties.endereco}}</span></td>
+                            <td colspan="3"><b>Tipo:</b> <span>{{this.features.[0].properties.tipo}}</span></td>
                         </tr>
-                        <tr style="text-align:center;">
-                            <td><b>Área</b></td>
-                            <td><b>Módulo Fiscal</b></td>
-                            <td><b>Matrícula</b></td>
+                        <tr>
+                            <td colspan="3"><b>Área (ha):</b> <span>{{this.features.[0].properties.area}}</span></td>
                         </tr>
-                        <tr style="text-align:center;">
-                            <td> <span>{{this.features.[0].properties.area}}</span></td>
-                            <td> <span>{{this.features.[0].properties.modulos_fiscais}}</span></td>
-                            <td><span>{{this.features.[0].properties.matricula}}</span></td>
+                        <tr>
+                            <td colspan="3"><b>Módulos fiscais:</b> <span>{{this.features.[0].properties.modulos_fiscais}}</span></td>
                         </tr>
+                        <tr>
+                            <td colspan="3"><b>Matrícula:</b><span>{{this.features.[0].properties.matricula}}</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>CCIR: </b><span>{{this.features.[0].properties.ccir}}</span></td>
+                        </tr>
+                        
+                        <!--<tr style="text-align:center;">-->
+                        <!--    <td><b>Área</b></td>-->
+                        <!--    <td><b>Módulo Fiscal</b></td>-->
+                        <!--    <td><b>Matrícula</b></td>-->
+                        <!--</tr>-->
+                        <!--<tr style="text-align:center;">-->
+                        <!--    <td> <span>{{this.features.[0].properties.area}}</span></td>-->
+                        <!--    <td> <span>{{this.features.[0].properties.modulos_fiscais}}</span></td>-->
+                        <!--    <td><span>{{this.features.[0].properties.matricula}}</span></td>-->
+                        <!--</tr>-->
                         
                         {{#if this.proprietarios}}
                             <tr>
@@ -788,21 +987,34 @@ body { font-family: 'PT Sans', sans-serif;}
                                 </tr>
                             {{/each}}
                         {{else}}
+                            <tr><td><span>Proprietários não informados.</span></td></tr>
                             
                         {{/if}}
                         
                         {{#if this.sobreposicaoCar}}
                             <tr>
-                                <td colspan="3"><b>Sobreposição com o CAR</b></td>
+                                <td colspan="3">
+                                <b>
+                                <span style="text-align:center;">Sobreposição com CAR</span>
+                                        
+                                </b>
+                                    <table>
+                                         <tr style="text-align:center;">
+                                        <td>Número do CAR</td>
+                                        <td>Área</td>
+                                        <td>%</td>
+                                        
+                                    </tr>
+                                    {{#each this.sobreposicaoCar}}
+                                    <tr>
+                                        <td><span>{{this.numero_car}}</span></td>
+                                        <td><span>{{this.area}}</span></td>
+                                        <td>{{this.porcentagem}}</td>
+                                    </tr>
+                                    {{/each}}
+                                    </table>        
+                                </td>
                             </tr>
-                            <tr>
-                                <td style="text-align:center;">%</td>
-                                <td colspan="2">CAR:</td>
-                            </tr>
-                            <tr>
-                                <td style="text-align:center;">-</td>
-                                <td colspan="2">Não informado.</td>
-                            </tr>                        
                         {{/if}}
                     </table>
                     <br />
@@ -813,53 +1025,107 @@ body { font-family: 'PT Sans', sans-serif;}
     </div>
 <br />
 <!-- mapa de croqui atual e projetado | TACI-->
+
+        
 <div class="area-mapa">
-    {{#if this.TtcArea}}
         {{#if this.mapaCroquiAtual}}
             <div style='page-break-before: always;'></div>
             <h4 style="">Croqui Atual</h4>
-            <div id="mapCroquiAtual"></div>
+            <!--<div id="mapCroquiAtual"></div>-->
+            {{#each this.TtcCar}}
+                <div id="mapCroquiAtual{{@index}}" class="inline-map"></div>
+            {{/each}}
             <div class="area-legenda-mapa" style="height:290px">
                 <div class="box-legenda-croquis" style="" >
-                    {{#each this.TtcArea}}
-                        {{#if (equalsString this.features.[0].properties.tipo 'atual')}}
-                            <i style="color:{{this.features.[0].properties.estilo.color}}" class="fa fa-square" aria-hidden="true"></i> <span>{{this.features.[0].properties.nome}}</span><br /> 
-                        {{else}}
-                            
-                        {{/if}}
-                    {{/each}}
-                </div>
-            </div>    
-        {{/if}}
-        {{#if mapaCroquiProjetado}}
-            <div style='page-break-before: always;'></div>
-            <h4 style="">Croqui Projetado</h4>
-            <div id="mapCroquiProjetado"></div>
-            <div class="area-legenda-mapa" style="height:290px">
-                <div class="box-legenda-croquis" style="" >
-                    {{#each this.TtcArea}}
-                        {{#each this.features}}
-                            {{#if (equalsString this.properties.tipo 'projetado')}}
-                                <i style="color:{{this.properties.estilo.color}}" class="fa fa-square" aria-hidden="true"></i> <span>{{this.properties.nome}}</span><br /> 
-                            {{else}}
-                            
-                            {{/if}}
-
-                        {{/each}}
+                    {{#each this.TtcLegendas.atual}}
+                        <i style="color:{{this.estilo.color}}" class="fa fa-square" aria-hidden="true"></i> 
+                        <span>{{this.nome}}</span><br/>
+                        <!--- <span>{{this.area}} ha</span> |  <span>{{this.comprimento}} km</span><br /> -->
                     {{/each}}
                 </div>
             </div>
+            
+            {{#if this.TtcLegendasResumo.atual}}
+                <br/>
+                <div class="table3">
+                    <table style="font-size:10px">
+                        <tr>
+                            <th>Códgo Sicor</th>
+                            <th style = "max-width:400px;">Nome</th>
+                            <th>Total Área</th>
+                            <th>Total Comprimento</th>
+                            <th>Número de Áreas</th>
+                        </tr>
+                        
+                        {{#each this.TtcLegendasResumo.atual}}
+                            <tr>
+                               <td>{{this.codigo_sicor}}</td>
+                               <td style = "max-width:400px;">{{this.nome}}</td>
+                               <td>{{this.area}} ha</td>
+                               <td>{{this.comprimento}} km</td>
+                               <td>{{this.num_areas}}</td>
+                            </tr>
+                        {{/each}}
+                        
+                    </table>
+                </div>
+            {{/if}}
+            
         {{/if}}
-    {{/if}}    
+        {{#if this.mapaCroquiProjetado}}
+            <div style='page-break-before: always;'></div>
+                <h4 style="">Croqui Projetado</h4>
+                <!-- <div id="mapCroquiProjetado"></div> -->
+                {{#each this.TtcCar}}
+                    <div id="mapCroquiProjetado{{@index}}" class="inline-map"></div>
+                {{/each}}
+                <div class="area-legenda-mapa" style="height:290px">
+                    <div class="box-legenda-croquis" style="" >
+                        {{#each this.TtcLegendas.projetado}}
+                            <i style="color:{{this.estilo.color}}" class="fa fa-square" aria-hidden="true"></i> 
+                            <span>{{this.nome}}</span><br/>
+                            <!--- <span>{{this.area}} ha</span> |  <span>{{this.comprimento}} km</span><br /> -->
+                        {{/each}}
+                    </div>
+                </div>
+                
+                {{#if this.TtcLegendasResumo.projetado}}
+                    <br/>
+                    <div class="table3">
+                        <table  style="font-size:10px">
+                            <tr>
+                                <th>Códgo Sicor</th>
+                                <th style = "max-width:400px;">Nome</th>
+                                <th>Total Área</th>
+                                <th>Total Comprimento</th>
+                                <th>Número de Áreas</th>
+                            </tr>
+                            
+                            {{#each this.TtcLegendasResumo.projetado}}
+                                <tr>
+                                   <td>{{this.codigo_sicor}}</td>
+                                   <td style = "max-width:400px;">{{this.nome}}</td>
+                                   <td>{{this.area}} ha</td>
+                                   <td>{{this.comprimento}} km</td>
+                                   <td>{{this.num_areas}}</td>
+                                </tr>
+                            {{/each}}
+                            
+                        </table>
+                    </div>
+                {{/if}}
+            
+        {{/if}}
 </div>
 <!--FIM mapa de croqui atual e projetado | TACI-->
 
 <!--declaração e tabela de croqui | TACI-->
+{{#if this.TtcArea.length}}
     <div class="declaracao">
         {{#if this.DeclaracaoBacen}}
             <div style='page-break-before: always;'></div>
             <h4 style="width:100%;text-align:center;">DECLARAÇÃO</h4>
-            <p>Declaro para efeito de financiamento no Banco da Amazônia S/A, sob as penasda lei, e da exigência conforme disposta no MCR 2-1- 2 (Resolução CMN/BACEN nº 4.427, de25.06.2015, ajustada pelas Cartas Circulares nº 3.720, de 24/08/2015 e 3.734, de 29/10/2015ou outra norma que venha substituí-la),<b> que as coordenadas geodésicas relativas a(s)áreas(s) de cultivo objeto do financiamento informadas na tabela abaixo, são idôneas, fidedignas e, também, espelham a localização real da implantação doempreendimento dentro do(s) imóvel(eis) objeto do crédito, inclusive, com aidentificação em cada área cultivada (financiada), e da soma das áreas dos trechosinternos não cultivados, em hectares.</b></p>
+            <p>Declaro para efeito de financiamento no Banco da Amazônia S/A, sob as penasda lei, e da exigência conforme disposta no MCR 2-1- 2 (Resolução CMN/BACEN nº 4.427, de25.06.2015, ajustada pelas Cartas Circulares nº 3.720, de 24/08/2015 e 3.734, de 29/10/2015 ou outra norma que venha substituí-la),<b> que as coordenadas geodésicas relativas a(s)áreas(s) de cultivo objeto do financiamento informadas na tabela abaixo, são idôneas, fidedignas e, também, espelham a localização real da implantação doempreendimento dentro do(s) imóvel(eis) objeto do crédito, inclusive, com aidentificação em cada área cultivada (financiada), e da soma das áreas dos trechosinternos não cultivados, em hectares.</b></p>
             <p>Declaro ainda, que as Coordenadas Geodésicas (latitude, longitude e altitude)dos vértices e / ou pontos de inflexão de cada área cultivada que compõem o empreendimento,foram coletadas conforme o sistema de referência geodésico SIRGAS2000 (Sistema deReferência Geocêntrico para as Américas), adotado pelo Instituto Brasileiro de Geografia eEstatística (IBGE).</p>
             <p>Declaro, finalmente, estar ciente de que a falsidade da declaração ora prestadapoderá acarretar o vencimento antecipado do instrumento contratual no qual se formalizar acolaboração financeira do Banco, sem prejuízo da aplicação das sanções legais cabíveis, denatureza civil e penal.</p>
             <span style="width:100%; text-align:center">
@@ -901,6 +1167,7 @@ body { font-family: 'PT Sans', sans-serif;}
             {{/each}}
         {{/if}}
     </div>
+{{/if}}    
 <!--FIM declaração e tabela de croqui SE existir | TACI-->
     <br />
 
@@ -917,17 +1184,34 @@ body { font-family: 'PT Sans', sans-serif;}
                     
                     {{# if this.nome_questao}}
                         <span style="margin-left:2em;">{{ this.codigo_questao }} - {{ this.nome_questao }}</span>
+                        
+                        {{# this.TtcQuestionarioResposta.[0] }}
+                            {{# if this.resposta }}
+                                <span style="margin-left:1em;font-weight:bold;">Sim</span>
+                            {{ else }}
+                                <span style="margin-left:1em;font-weight:bold;">Não</span>
+                            {{/ if }}
+                        {{/ this.TtcQuestionarioResposta.[0] }}
+                        
+                        {{^ this.TtcQuestionarioResposta.[0] }}
+                            <span style="margin-left:1em;font-weight:bold;">-</span>
+                        {{/ this.TtcQuestionarioResposta.[0] }}
+                        
                     {{ else }}
                         <span style="margin-left:2em;">{{ this.codigo_questao }} - {{ this.nome_subquestao }}</span>
+                        
+                        {{# this.TtcQuestionarioResposta.[0] }}
+                            <span style="margin-left:1em;font-weight:bold;">{{ this.subresposta }}</span>
+                        {{/ this.TtcQuestionarioResposta.[0] }}
+                        
+                        {{^ this.TtcQuestionarioResposta.[0] }}
+                            <span style="margin-left:1em;font-weight:bold;">-</span>
+                        {{/ this.TtcQuestionarioResposta.[0] }}
                     {{/ if }}
-                   
-                    {{#this.TtcQuestionarioResposta.[0].resposta}}
-                        <span style="margin-left:1em;font-weight:bold;">Sim</span>
-                    {{/this.TtcQuestionarioResposta.[0].resposta}}
                     
-                    {{^this.TtcQuestionarioResposta.[0].resposta}}
-                        <span style="margin-left:1em;font-weight:bold;">Não</span>
-                    {{/this.TtcQuestionarioResposta.[0].resposta}}
+                    
+                   
+                    
                      <br />
             {{/each}}
            
@@ -989,5 +1273,5 @@ body { font-family: 'PT Sans', sans-serif;}
 
 
 
-<img src="http://dev-buscar-banco.branch.terras.agr.br/img/terrastool-credito.png" style="height: 66px;float:left;" alt="">
-<img src="http://dev-buscar-banco.branch.terras.agr.br/img/creditorural/logo-amazonia.png" style="height: 70px;float:right;" alt="">
+<img src="http://dev-buscar-banco.branch.terras.agr.br/img/terrastool-credito.png" style="height: 66px;float:left;display:none;" alt="">
+<img src="http://dev-buscar-banco.branch.terras.agr.br/img/creditorural/log-basa-pdf.png" style="height: 70px;float:right;display:none;" alt="">

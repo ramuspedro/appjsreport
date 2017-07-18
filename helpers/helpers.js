@@ -17,18 +17,31 @@ function equalsString(msg, msgType){
     }
 }
 
-//function beforeRender(req, res, done) {
-//    require('request')({ 
-//      url:"http://jsonplaceholder.typicode.com/posts", 
-//      json:true 
-//    }, function(err, response, body){
-//        console.log(JSON.stringify(body))
-//        req.data = { posts: body };
-//        done();
-//    });
-//}
 
-function beforeRender(done) {
-    request.template.helpers += "function test() { return \"returning from the helpers added by the script\"; }";
-    done();
+function formatNumber (number) {
+    var numero_float = parseFloat(number);
+    return numero_float.toFixed(2);
+}
+
+function formatDate(d) {
+    if(d.split('/').length > 2) {
+        return d;
+    } else {
+        var date = new Date(d);
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+        
+        return day + '/' + monthIndex + '/' + year;
+    }
+}
+
+function isJson (json) {
+    for(var prop in json) {
+        if(json.hasOwnProperty(prop)) {
+            return true;
+        }
+    }
+    
+    return false;
 }
