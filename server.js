@@ -26,6 +26,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/reporting', function (req, res) {
+    console.log("PAGE: ", page);
     jsreport.init().then(function () {
         jsreport.render({
             template: {
