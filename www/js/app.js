@@ -15,7 +15,7 @@
 
 var app = angular.module('jsReportingApp', []);
 
-app.controller('headerBarCtrl', function($scope, $http, $sce, $http, $q) {
+app.controller('headerBarCtrl', function($scope, $http, $sce, $http, $q, $rootScope) {
 
     $scope.executar = function() {
 
@@ -25,8 +25,8 @@ app.controller('headerBarCtrl', function($scope, $http, $sce, $http, $q) {
             var file = new Blob([data.data], { type: 'application/pdf' });
             console.log("file", file);
             var fileURL = URL.createObjectURL(file);
-            $scope.content = $sce.trustAsResourceUrl(fileURL);
-            window.open($scope.content);
+            $rootScope.content = $sce.trustAsResourceUrl(fileURL);
+            //window.open($scope.content);
         });
         //console.log("TESTE", editor.getValue());
     }

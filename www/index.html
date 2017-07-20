@@ -23,7 +23,6 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="" ng-click="executar()"><i class="fa fa-play" aria-hidden="true"></i> Executar <span class="sr-only">(current)</span></a>
                 </li>
-
                 <li class="nav-item active">
                     <a class="nav-link" href=""><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar <span class="sr-only">(current)</span></a>
                 </li>
@@ -80,13 +79,35 @@
                     +
                 </span>
                 </div> -->
-                <textarea id="javascript"></textarea>
-
-                <textarea id="json"></textarea>
-                
-                <textarea id="html"></textarea>
-
-                <object data="{{content}}" type="application/pdf"></object>
+                <div class="ace-content">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">page</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">helper</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">data</a>
+                        </li>
+                    </ul>
+                    <div class="ace-json">
+                        <textarea id="json"></textarea>
+                    </div>
+                    <div class="ace-javascript" style="display: none;">
+                        <textarea id="javascript"></textarea>
+                    </div>
+                    <div class="ace-html" style="display: none;">
+                        <textarea id="html"></textarea>
+                    </div>
+                </div>
+                <div class="show-pdf">
+                    <object data="{{content}}" type="application/pdf" ng-if="$root.content"></object>
+                    <div class="without-pdf" ng-if="!$root.content">
+                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                        <br>Sem resultado
+                    </div>
+                </div>
             </main>
         </div>
     </div>
@@ -158,7 +179,6 @@
         // "scrollPastEnd": 0.8,
         autoScrollEditorIntoView: true
     });
-
     </script>
     <!-- <script src="./js/show_own_source.js"></script> -->
     <script src="./js/app.js"></script>
