@@ -82,24 +82,29 @@
                 <div class="ace-content">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">page</a>
+                            <a class="nav-link" href ng-click="chooseTab = 0;" ng-class="{'active' : chooseTab == 0}">page</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">helper</a>
+                            <a class="nav-link" href ng-click="chooseTab = 1;" ng-class="{'active' : chooseTab == 1}">helper</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">data</a>
+                            <a class="nav-link" href ng-click="chooseTab = 2;" ng-class="{'active' : chooseTab == 2}">data</a>
                         </li>
                     </ul>
-                    <div class="ace-json">
-                        <textarea id="json"></textarea>
-                    </div>
-                    <div class="ace-javascript" style="display: none;">
-                        <textarea id="javascript"></textarea>
-                    </div>
-                    <div class="ace-html" style="display: none;">
+                    
+                    <div class="ace-html" ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
                         <textarea id="html"></textarea>
                     </div>
+
+                    <div class="ace-javascript" ng-class="{'display-none' : !(chooseTab == 1)}" ng-cloak>
+                        <textarea id="javascript"></textarea>
+                    </div>
+                    
+                    <div class="ace-json" ng-class="{'display-none' : !(chooseTab == 2)}" ng-cloak>
+                        <textarea id="json"></textarea>
+                    </div>
+
+
                 </div>
                 <div class="show-pdf">
                     <object data="{{content}}" type="application/pdf" ng-if="$root.content"></object>

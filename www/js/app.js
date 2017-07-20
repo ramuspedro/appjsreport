@@ -32,7 +32,9 @@ app.controller('headerBarCtrl', function($scope, $http, $sce, $http, $q, $rootSc
     }
 });
 
-app.controller('contentCtrl', function($scope, $http, $sce, $http, $q) {
+app.controller('contentCtrl', function($scope, $sce, $http, $q) {
+    $scope.chooseTab = 0;
+
     $http.get("../projects/helpers.js").then(function(data) {
         javascript.setValue(data.data);
         console.log(data);
