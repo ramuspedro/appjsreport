@@ -1,0 +1,23 @@
+{
+  "name": "appreport",
+  "homepage": "https://github.com/pedroramus/appjsreport",
+  "authors": [
+    "Pedro Ramos <pedro.ramos@terras.agr.br>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "1.0.0-beta.3",
+    "bower": "*",
+    "install": "^1.0.4",
+    "angular-filemanager": "^1.5.1"
+  }
+}
