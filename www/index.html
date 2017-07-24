@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="jsReportingApp">
 
 <head>
     <meta charset="utf-8">
@@ -10,10 +10,11 @@
     <title>Starter Template for Bootstrap</title>
     <!-- Bootstrap core CSS -->
     <link href="./css/styles.min.css" rel="stylesheet">
+    <base href="/"></base>
 </head>
 
-<body ng-app="jsReportingApp">
-    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse report-bg" ng-controller="headerBarCtrl">
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse report-bg">
         <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,7 +30,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container-fluid" ng-controller="contentCtrl">
+    <div class="container-fluid">
         <div class="row">
             <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
                 <ul class="nav nav-pills flex-column">
@@ -79,7 +80,7 @@
                     +
                 </span>
                 </div> -->
-                <div class="ace-content">
+                <!-- <div class="ace-content">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
                             <a class="nav-link" href ng-click="chooseTab = 0;" ng-class="{'active' : chooseTab == 0}">page</a>
@@ -95,7 +96,7 @@
                     <div class="ace-html" ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
                         <textarea id="html"></textarea>
                     </div>
-
+                
                     <div class="ace-javascript" ng-class="{'display-none' : !(chooseTab == 1)}" ng-cloak>
                         <textarea id="javascript"></textarea>
                     </div>
@@ -110,7 +111,8 @@
                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                         <br>Sem resultado
                     </div>
-                </div>
+                </div> -->
+                <ui-view></ui-view>
             </main>
         </div>
     </div>
@@ -145,7 +147,8 @@
     <script>
     window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="./bower_components/angular/angular.min.js"></script>
+    <script src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="./js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -156,7 +159,7 @@
     <script src="./js/src/ext-themelist.js"></script>
     <script>
     // create first editor
-    var javascript = ace.edit("javascript");
+    /*var javascript = ace.edit("javascript");
     javascript.setTheme("ace/theme/twilight");
     javascript.session.setMode("ace/mode/javascript");
     javascript.renderer.setScrollMargin(10, 10);
@@ -181,7 +184,7 @@
     html.setOptions({
         // "scrollPastEnd": 0.8,
         autoScrollEditorIntoView: true
-    });
+    });*/
     </script>
     <!-- <script src="./js/show_own_source.js"></script> -->
     <script src="./js/app.js"></script>

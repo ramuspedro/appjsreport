@@ -13,7 +13,24 @@
 //     });
 // });
 
-var app = angular.module('jsReportingApp', []);
+var app = angular.module('jsReportingApp', ['ui.router']);
+
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+    $locationProvider.html5Mode(true);
+    $stateProvider
+        .state('show_projects', {
+            url: "/",
+            templateUrl: "../app/show_projects/show_projects.view.html"
+        })
+        .state('app', {
+            url: "/app",
+            templateUrl: "../app/app/app.view.html"
+        });
+
+        $urlRouterProvider.otherwise('/');
+});
+
+
 
 app.controller('headerBarCtrl', function($scope, $http, $sce, $http, $q, $rootScope) {
 
