@@ -69,6 +69,10 @@ app.get('/reporting', function (req, res) {
     });
 });
 
+app.post('/create-project', function(req, res, next) {
+    console.log("REQ", req.body);
+});
+
 var server = app.listen(8000, function() {
     console.log('Express server listening on port ' + 8000);
 });
