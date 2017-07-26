@@ -4,6 +4,7 @@ var fs = require("fs"),
         app = express(),
         path = require('path'),
         router = express.Router();
+var bodyParser = require('body-parser');
 
 var page = fs.readFileSync(path.join(__dirname, 'template', 'page.html'), 'utf8');
 var header = fs.readFileSync(path.join(__dirname, 'template', 'header.html'), 'utf8');
@@ -12,11 +13,12 @@ var data =  fs.readFileSync(path.join(__dirname, 'data', 'data.json'), 'utf8');
 var helpers = fs.readFileSync(path.join(__dirname, 'helpers', 'helpers.js'), 'utf8');
 
 
-var express = require('express');
-var app = express();
-
 var reportingApp = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
 app.use(express.static(path.join(__dirname, './www')));
 
 app.use('/reporting', reportingApp);
@@ -71,6 +73,7 @@ app.get('/reporting', function (req, res) {
 
 app.post('/create-project', function(req, res, next) {
     console.log("REQ", req.body);
+    res.json({msg:"ok"});
 });
 
 var server = app.listen(8000, function() {
