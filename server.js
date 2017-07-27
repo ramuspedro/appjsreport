@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, './www')));
 
 app.use('/reporting', reportingApp);
 
-app.get('/', function(req, res) {
+app.get('/*', function(req, res) {
     res.sendFile(__dirname + '/www/index.html');
 });
 
@@ -77,17 +77,18 @@ app.post('/create-project', function(req, res, next) {
     var dir = "./www/projects/p1";
 
     // https://stackoverflow.com/questions/21194934/node-how-to-create-a-directory-if-doesnt-exist
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir);
-    }
+    // if (!fs.existsSync(dir)) {
+    //     fs.mkdirSync(dir);
+    // }
 
-    fs.writeFile(dir + "/teste.js", "Hey there!", function(err) {
-        if (err) {
-            return console.log(err);
-        }
+    // https://stackoverflow.com/questions/2496710/writing-files-in-node-js
+    // fs.writeFile(dir + "/teste.js", "Hey there!", function(err) {
+    //     if (err) {
+    //         return console.log(err);
+    //     }
 
-        console.log("The file was saved!");
-    });
+    //     console.log("The file was saved!");
+    // });
 });
 
 var server = app.listen(8000, function() {

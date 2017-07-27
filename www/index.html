@@ -12,62 +12,10 @@
     <link href="./css/styles.min.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="./bower_components/bootswatch/paper/bootstrap.min.css" /> -->
     <!-- <link rel="stylesheet" href="./bower_components/angular-filemanager/dist/angular-filemanager.min.css"> -->
-    <base href="/"></base>
 </head>
 
 <body>
-    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse report-bg">
-        <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="#">Dashboard</a>
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="" ng-click="executar()"><i class="fa fa-play" aria-hidden="true"></i> Executar <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href=""><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar <span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-                <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="" id="execute-code">Executar</a>
-                    </li>
-                </ul>
-                <!-- <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Nav item</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Nav item again</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">One more nav</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Another nav item</a>
-                    </li>
-                </ul>
-                <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Nav item again</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">One more nav</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Another nav item</a>
-                    </li>
-                </ul> -->
-            </nav>
-            <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-                <!-- <pre id="editor">function foo(items) {
+    <!-- <pre id="editor">function foo(items) {
                     var i;
                     for (i = 0; i &lt; items.length; i++) {
                         alert("Ace Rocks " + items[i]);
@@ -82,7 +30,7 @@
                     +
                 </span>
                 </div> -->
-                <!-- <div class="ace-content">
+    <!-- <div class="ace-content">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
                             <a class="nav-link" href ng-click="chooseTab = 0;" ng-class="{'active' : chooseTab == 0}">page</a>
@@ -114,10 +62,7 @@
                         <br>Sem resultado
                     </div>
                 </div> -->
-                <ui-view></ui-view>
-            </main>
-        </div>
-    </div>
+    <ui-view></ui-view>
     <!-- <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top con">
         <div class="container">
             <div class="header clearfix">
@@ -149,15 +94,12 @@
     <script>
     window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
     </script>
-
     <script src="./bower_components/angular/angular.min.js"></script>
     <script src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-
     <!-- <script src="./bower_components/angular-translate/angular-translate.min.js"></script>
     <script src="./bower_components/angular-filemanager/dist/angular-filemanager.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="./js/bootstrap.min.js"></script>
-
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./js/ie10-viewport-bug-workaround.js"></script>
     <!-- ACE -->
@@ -195,9 +137,9 @@
     </script>
     <!-- <script src="./js/show_own_source.js"></script> -->
     <script src="./js/app.js"></script>
-
     <!-- Controllers -->
     <script src="./app/show_projects/show_projects.controller.js"></script>
+    <script src="./app/app/app.controller.js"></script>
 </body>
 
 </html>

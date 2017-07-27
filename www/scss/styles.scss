@@ -169,3 +169,23 @@ object {
 .display-none {
     display: none !important;
 }
+
+.center {
+    text-align: center;
+}
+
+.show-projects {
+    .project {
+        padding-top: 1rem;
+        i{
+            font-size: 2rem;
+        }
+        
+        h3 {
+            padding-top: 1rem;
+        }
+    }
+    .view-projects {
+        margin: 0 auto;
+    }
+}

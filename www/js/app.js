@@ -19,7 +19,6 @@
     angular.module('jsReportingApp', ['ui.router']);
 
     angular.module('jsReportingApp').config(function($stateProvider, $urlRouterProvider, $locationProvider) {
-        $locationProvider.html5Mode(true);
         $stateProvider
             .state('show_projects', {
                 url: "/",
@@ -28,7 +27,8 @@
             })
             .state('app', {
                 url: "/app",
-                templateUrl: "../app/app/app.view.html"
+                templateUrl: "../app/app/app.view.html",
+                controller: "AppCtrl as vm"
             });
 
         $urlRouterProvider.otherwise('/');
