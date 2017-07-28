@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav margin-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="" ng-click="executar()"><i class="fa fa-plus-square" aria-hidden="true"></i> Criar novo projeto<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="" ng-click="vm.createNewProject()"><i class="fa fa-plus-square" aria-hidden="true"></i> Criar novo projeto<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
@@ -17,10 +17,35 @@
             <h1>Todos os projetos</h1>
         </div>
         <div class="row view-projects">
-        	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 project center" ng-repeat="project in vm.projects">
-        		<i class="fa fa-file-text" aria-hidden="true"></i>
-        		<h3><a href ng-click="vm.createNewProject()">{{project.name}}</a></h3>
-        	</div>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 project center" ng-repeat="project in vm.projects">
+                <i class="fa fa-file-text" aria-hidden="true"></i>
+                <h3><a href ng-click="vm.createNewProject()">{{project.name}}</a></h3>
+            </div>
         </div>
     </div>
 </div>
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <ul>
+            <li ng-repeat="item in $ctrl.items">
+                <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+            </li>
+        </ul>
+        Selected: <b>{{ $ctrl.selected.item }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+    </div>
+</script>
+<script type="text/ng-template" id="stackedModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title-{{name}}">The {{name}} modal!</h3>
+    </div>
+    <div class="modal-body" id="modal-body-{{name}}">
+        Having multiple modals open at once is probably bad UX but it's technically possible.
+    </div>
+</script>
