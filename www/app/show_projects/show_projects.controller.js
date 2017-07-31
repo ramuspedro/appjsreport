@@ -1,9 +1,9 @@
 (function() {
     'use strict';
 
-    angular.module('jsReportingApp').controller('ShowProjectsCtrl', ['$http', '$uibModal', '$log', '$document', ShowProjectsCtrl]);
+    angular.module('jsReportingApp').controller('ShowProjectsCtrl', ['$http', 'ModalService', ShowProjectsCtrl]);
 
-    function ShowProjectsCtrl($http, $uibModal, $log, $document) {
+    function ShowProjectsCtrl($http, ModalService) {
         //console.log("TESTEEEEEEE");
         var vm = this;
 
@@ -43,31 +43,24 @@
 
         function createNewProject(size, parentSelector) {
             console.log("TESTE");
-            vm.animationsEnabled = true;
-
-            var parentElem = parentSelector ?
-                angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
-            var modalInstance = $uibModal.open({
-                animation: vm.animationsEnabled,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'myModalContent.html',
-                controller: 'ShowProjectsCtrl',
-                controllerAs: 'vm',
-                size: size,
-                appendTo: parentElem,
-                resolve: {
-                    items: function() {
-                        return vm.items;
-                    }
-                }
+            ModalService.showModal({
+                templateUrl: 'modal.html',
+                controller: "ModalController"
+            }).then(function(modal) {
+                modal.element.modal();
+                modal.close.then(function(result) {
+                    //$scope.message = "You said " + result;
+                });
             });
+        };
+    };
 
-            modalInstance.result.then(function(selectedItem) {
-                vm.selected = selectedItem;
-            }, function() {
-                $log.info('Modal dismissed at: ' + new Date());
-            });
-        }
-    }
+    angular.module('jsReportingApp').controller('ModalController', function($scope, close) {
+
+        $scope.close = function(result) {
+            close(result, 500); // close, but give 500ms for bootstrap to animate
+        };
+
+    });
+
 })();

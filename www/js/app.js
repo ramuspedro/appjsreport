@@ -16,7 +16,7 @@
 (function() {
     'use strict';
 
-    angular.module('jsReportingApp', ['ui.router', 'ui.bootstrap']);
+    angular.module('jsReportingApp', ['ui.router', 'angularModalService']);
 
     angular.module('jsReportingApp').config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
