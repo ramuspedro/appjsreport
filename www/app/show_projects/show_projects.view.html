@@ -30,14 +30,18 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Yes or No?</h4>
+                    <h4 class="modal-title">Criar um novo projeto</h4>
                 </div>
                 <div class="modal-body">
-                    <p>It's your call...</p>
+                    <form>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Qual o nome do seu projeto?</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nome do projeto" ng-model="projectName">
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">No</button>
-                    <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                    <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal" ng-disabled="!projectName">Criar</button>
                 </div>
             </div>
         </div>
