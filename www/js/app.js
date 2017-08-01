@@ -26,7 +26,7 @@
                 controller: "ShowProjectsCtrl as vm"
             })
             .state('app', {
-                url: "/app",
+                url: "/app/:projectId",
                 templateUrl: "../app/app/app.view.html",
                 controller: "AppCtrl as vm"
             });

@@ -1,9 +1,9 @@
 (function() {
     'use strict';
 
-    angular.module('jsReportingApp').controller('ShowProjectsCtrl', ['$http', 'ModalService', ShowProjectsCtrl]);
+    angular.module('jsReportingApp').controller('ShowProjectsCtrl', ['$http', 'ModalService', '$state', '$scope', ShowProjectsCtrl]);
 
-    function ShowProjectsCtrl($http, ModalService) {
+    function ShowProjectsCtrl($http, ModalService, $state, $scope) {
         //console.log("TESTEEEEEEE");
         var vm = this;
 
@@ -50,18 +50,22 @@
                 modal.element.modal();
                 modal.close.then(function(result) {
                     //$scope.message = "You said " + result;
+                    console.log("TESTE: ", result);
+                    if (result != "Cancel") {
+                        $state.go("app", {projectId: result});
+                    }
                 });
             });
         };
     };
 
-    angular.module('jsReportingApp').controller('ModalController', function($scope, close) {
+    angular.module('jsReportingApp').controller('ModalController', ["$scope", "close", function($scope, close) {
 
         $scope.close = function(result) {
-        	console.log("PROJECT: ", $scope.projectName);
+            console.log("PROJECT: ", result);
             close(result, 500); // close, but give 500ms for bootstrap to animate
         };
 
-    });
+    }]);
 
 })();
