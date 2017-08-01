@@ -6,11 +6,11 @@ var fs = require("fs"),
     router = express.Router();
 var bodyParser = require('body-parser');
 
-var page = fs.readFileSync(path.join(__dirname, 'template', 'page.html'), 'utf8');
+/*var page = fs.readFileSync(path.join(__dirname, 'template', 'page.html'), 'utf8');
 var header = fs.readFileSync(path.join(__dirname, 'template', 'header.html'), 'utf8');
 var footer = fs.readFileSync(path.join(__dirname, 'template', 'footer.html'), 'utf8');
 var data = fs.readFileSync(path.join(__dirname, 'data', 'data.json'), 'utf8');
-var helpers = fs.readFileSync(path.join(__dirname, 'helpers', 'helpers.js'), 'utf8');
+var helpers = fs.readFileSync(path.join(__dirname, 'helpers', 'helpers.js'), 'utf8');*/
 
 
 var reportingApp = express();
@@ -27,8 +27,15 @@ app.get('/*', function(req, res) {
     res.sendFile(__dirname + '/www/index.html');
 });
 
-app.get('/reporting', function(req, res) {
-    console.log("PAGE: ", page);
+app.post('/reporting/:url', function(req, res) {
+    console.log("PAGE: ", path.join(__dirname, '/www/projects/' + req.params.url, 'page.html'));
+
+    var page = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'page.html'), 'utf8');
+    var data = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'data.json'), 'utf8');
+    var helpers = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'helpers.js'), 'utf8');
+    var header = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'header.html'), 'utf8');
+    var footer = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'footer.html'), 'utf8');
+
     jsreport.init().then(function() {
         jsreport.render({
             template: {
@@ -74,7 +81,7 @@ app.get('/reporting', function(req, res) {
 app.post('/create-project', function(req, res, next) {
     console.log("REQ", req.body);
     // res.json({msg:"ok"});
-    var dir = "./www/projects/p1";
+    var dir = "./www/projects/" + req.body.url;
 
     // https://stackoverflow.com/questions/21194934/node-how-to-create-a-directory-if-doesnt-exist
     // if (!fs.existsSync(dir)) {

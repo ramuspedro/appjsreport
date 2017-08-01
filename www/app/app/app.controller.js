@@ -1,10 +1,10 @@
 (function() {
     'use strict';
 
-    angular.module('jsReportingApp').controller('AppCtrl', ['$http', '$scope', AppCtrl]);
+    angular.module('jsReportingApp').controller('AppCtrl', ['$http', '$scope', '$state', '$sce', AppCtrl]);
 
-    function AppCtrl($http, $scope) {
-        console.log("TESTEEEEEEE");
+    function AppCtrl($http, $scope, $state, $sce) {
+        console.log("TESTEEEEEEE: ", $state.params.projectId);
         var vm = this;
 
         $scope.chooseTab = 0;
@@ -35,10 +35,11 @@
         html.renderer.setScrollMargin(10, 10);
         html.setOptions({
             // "scrollPastEnd": 0.8,
-            autoScrollEditorIntoView: true
+            autoScrollEditorIntoView: true,
+            maxLines: 50
         });
 
-        var url = "../projects/p1/";
+        var url = "../projects/" + $state.params.projectId + "/";
 
         /*$http.get(url + "helpers.js").then(function(data) {
             javascript.setValue(data.data);
@@ -66,7 +67,8 @@
                     html.renderer.setScrollMargin(10, 10);
                     html.setOptions({
                         // "scrollPastEnd": 0.8,
-                        autoScrollEditorIntoView: true
+                        autoScrollEditorIntoView: true,
+                        maxLines: 50
                     });
 
                     $http.get(url + "page.html").then(function(data3) {
@@ -82,7 +84,8 @@
                     javascript.renderer.setScrollMargin(10, 10);
                     javascript.setOptions({
                         // "scrollPastEnd": 0.8,
-                        autoScrollEditorIntoView: true
+                        autoScrollEditorIntoView: true,
+                        maxLines: 50
                     });
 
                     $http.get(url + "helpers.js").then(function(data) {
@@ -98,7 +101,8 @@
                     json.renderer.setScrollMargin(10, 10);
                     json.setOptions({
                         // "scrollPastEnd": 0.8,
-                        autoScrollEditorIntoView: true
+                        autoScrollEditorIntoView: true,
+                        maxLines: 50
                     });
 
                     $http.get(url + "data.json").then(function(data2) {
@@ -107,6 +111,19 @@
                     });
                 }
             }
-        }
+        };
+
+        vm.executar = function() {
+            console.log("EXECUTAR: ", $state.params.projectId);
+            $http.post("http://localhost:8000/reporting/" + $state.params.projectId, { responseType: 'arraybuffer' }).then(function(data, status) {
+                console.log("Data: ", data);
+                console.log("\nStatus: ", status);
+                var file = new Blob([data.data], { type: 'application/pdf' });
+                console.log("file", file);
+                var fileURL = URL.createObjectURL(file);
+                $scope.pdf = $sce.trustAsResourceUrl(fileURL);
+                //window.open($scope.pdf);
+            });
+        };
     }
 })();

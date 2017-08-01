@@ -11,27 +11,27 @@
 
         vm.projects = [{
                 name: "projeto 1",
-                url: "/projects/p1"
+                url: "p1"
             },
             {
                 name: "projeto 2",
-                url: "/projects/p2"
+                url: "p2"
             },
             {
                 name: "projeto 3",
-                url: "/projects/p3"
+                url: "p3"
             },
             {
                 name: "projeto 4",
-                url: "/projects/p4"
+                url: "p4"
             },
             {
                 name: "projeto 5",
-                url: "/projects/p5"
+                url: "p5"
             },
             {
                 name: "projeto 6",
-                url: "/projects/p6"
+                url: "p6"
             }
         ];
 
