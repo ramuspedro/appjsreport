@@ -45,7 +45,7 @@
             console.log("TESTE");
             ModalService.showModal({
                 templateUrl: 'modal.html',
-                controller: "ModalController"
+                controller: function() {}
             }).then(function(modal) {
                 modal.element.modal();
                 modal.close.then(function(result) {
