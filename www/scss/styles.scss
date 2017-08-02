@@ -2,7 +2,7 @@
 @import 'font-awesome/font-awesome';
 
 body {
-    padding-top: 5rem;
+    /*padding-top: 5rem;*/
 }
 
 .starter-template {
@@ -20,7 +20,7 @@ body {
 /* Move down content because we have a fixed navbar that is 50px tall */
 
 body {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
 }
 
 
@@ -161,6 +161,7 @@ object {
 .show-pdf {
     height: 100%;
     vertical-align: top;
+    padding-top: 3.6rem;
     .without-pdf {
         padding-top: 3rem;
         text-align: center;
