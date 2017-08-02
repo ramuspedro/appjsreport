@@ -23,18 +23,19 @@ app.use(express.static(path.join(__dirname, './www')));
 
 app.use('/reporting', reportingApp);
 
-app.get('/*', function(req, res) {
+app.get('/', function(req, res) {
     res.sendFile(__dirname + '/www/index.html');
 });
 
-app.post('/reporting/:url', function(req, res) {
+app.get('/reporting/:url', function(req, res) {
     console.log("PAGE: ", path.join(__dirname, '/www/projects/' + req.params.url, 'page.html'));
+    console.log("HEREEEEEEEEEEEEEEEEEEEEEEEEEE");
 
     var page = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'page.html'), 'utf8');
     var data = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'data.json'), 'utf8');
     var helpers = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'helpers.js'), 'utf8');
-    var header = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'header.html'), 'utf8');
-    var footer = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'footer.html'), 'utf8');
+    // var header = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'header.html'), 'utf8');
+    // var footer = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'footer.html'), 'utf8');
 
     jsreport.init().then(function() {
         jsreport.render({
@@ -50,9 +51,9 @@ app.post('/reporting/:url', function(req, res) {
                     numberOfWorkers: 1,
                     timeout: 180000,
                     allowLocalFilesAccess: false,
-                    header: header,
+                    // header: header,
                     headerHeight: "3cm",
-                    footer: footer,
+                    // footer: footer,
                     footerHeight: "21px"
                 }
             },

@@ -115,7 +115,7 @@
 
         vm.executar = function() {
             console.log("EXECUTAR: ", $state.params.projectId);
-            $http.post("http://localhost:8000/reporting/" + $state.params.projectId, { responseType: 'arraybuffer' }).then(function(data, status) {
+            $http.get("http://localhost:8000/reporting/" + $state.params.projectId, { responseType: 'arraybuffer' }).then(function(data, status) {
                 console.log("Data: ", data);
                 console.log("\nStatus: ", status);
                 var file = new Blob([data.data], { type: 'application/pdf' });
