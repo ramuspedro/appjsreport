@@ -6,6 +6,49 @@ var fs = require("fs"),
     router = express.Router();
 var bodyParser = require('body-parser');
 
+var mongoose = require('mongoose');
+// ES6 promises
+mongoose.Promise = Promise;
+
+// mongodb connection
+mongoose.connect("mongodb://localhost:27017/appreport", {
+    useMongoClient: true,
+    promiseLibrary: global.Promise
+});
+
+var db = mongoose.connection;
+
+// mongodb error
+db.on('error', console.error.bind(console, 'connection error:'));
+
+// mongodb connection open
+db.once('open', () => {
+    console.log(`Connected to Mongo at: ${new Date()}`)
+});
+
+var reportSchema = mongoose.Schema({
+    projectId: {
+        type: String,
+        unique: true
+    }
+});
+
+// kittySchema.methods.speak = function () {
+//   var greeting = this.name
+//     ? "Meow name is " + this.name
+//     : "I don't have a name";
+//   console.log(greeting);
+// }
+
+var AppReport = mongoose.model('Projects', reportSchema);
+
+//var fluffy = new Kitten({ name: 'fluffy' });
+
+/*fluffy.save(function (err, fluffy) {
+  if (err) return console.error(err);
+  fluffy.speak();
+});*/
+
 /*var page = fs.readFileSync(path.join(__dirname, 'template', 'page.html'), 'utf8');
 var header = fs.readFileSync(path.join(__dirname, 'template', 'header.html'), 'utf8');
 var footer = fs.readFileSync(path.join(__dirname, 'template', 'footer.html'), 'utf8');
@@ -19,6 +62,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }))
+
 app.use(express.static(path.join(__dirname, './www')));
 
 app.use('/reporting', reportingApp);
@@ -81,8 +125,19 @@ app.get('/reporting/:url', function(req, res) {
 
 app.post('/create-project', function(req, res, next) {
     console.log("REQ", req.body);
+
+    var newProject = new AppReport({ projectId: req.body.name });
+
+    newProject.save(function(err, project) {
+        if (err) return console.error(err);
+        res.json({
+            data: project,
+            err: err
+        });
+    });
+
     // res.json({msg:"ok"});
-    var dir = "./www/projects/" + req.body.url;
+    //var dir = "./www/projects/" + req.body.url;
 
     // https://stackoverflow.com/questions/21194934/node-how-to-create-a-directory-if-doesnt-exist
     // if (!fs.existsSync(dir)) {

@@ -3,9 +3,9 @@
 
     angular
         .module('jsReportingApp')
-        .directive('createNewProject', ['ModalService', createNewProject]);
+        .directive('createNewProject', ['ModalService', '$http', createNewProject]);
 
-    function createNewProject(ModalService) {
+    function createNewProject(ModalService, $http) {
 
         /*
          * Parametros da diretiva
@@ -28,9 +28,14 @@
                     modal.close.then(function(result) {
                         //$scope.message = "You said " + result;
                         console.log("TESTE 2: ", result);
-                        if (result != "Cancel") {
-                            $state.go("app", { projectId: result });
-                        }
+                        // if (result != "Cancel") {
+                        //     $state.go("app", { projectId: result });
+                        // }
+                        $http.post("http://localhost:8000/create-project", {
+                            name: result
+                        }).then(function(result) {
+                            console.log("RESULTADO: ", result);
+                        });
                     });
                 });
             });
