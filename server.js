@@ -154,6 +154,23 @@ app.post('/create-project', function(req, res, next) {
     // });
 });
 
+app.get('/all-projects', function(req, res, next) {
+    console.log("Get projets");
+    AppReport.find().exec(function(err, data) {
+        console.log("DATA: ", data);
+        if (err) {
+            return res.json({
+                data: null,
+                err: err
+            });
+        }
+        return res.json({
+            data: data,
+            err: err
+        });
+    });
+});
+
 var server = app.listen(8000, function() {
     console.log('Express server listening on port ' + 8000);
 });

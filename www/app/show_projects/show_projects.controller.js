@@ -35,6 +35,12 @@
             }
         ];
 
+        $http.get("http://localhost:8000/all-projects").then(function(data, status) {
+            console.log("Data: ", data);
+            console.log("Status: ", status);
+            //window.open($scope.pdf);
+        });
+
         // $http.post("http://localhost:8000/create-project", {
         //     info: "TESTEEEEEEE"
         // }).then(function(result) {
@@ -52,7 +58,7 @@
                     //$scope.message = "You said " + result;
                     console.log("TESTE: ", result);
                     if (result != "Cancel") {
-                        $state.go("app", {projectId: result});
+                        $state.go("app", { projectId: result });
                     }
                 });
             });
