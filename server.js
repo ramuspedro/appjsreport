@@ -27,7 +27,11 @@ db.once('open', () => {
 });
 
 var reportSchema = mongoose.Schema({
-    projectId: {
+    projectName: {
+        type: String,
+        unique: true
+    },
+    url: {
         type: String,
         unique: true
     }
@@ -123,35 +127,62 @@ app.get('/reporting/:url', function(req, res) {
     });
 });
 
+function createProject(url, name, callback) {
+    console.log("CRIANDO", url)
+    var dir = "./www/projects/" + url;
+    // https://stackoverflow.com/questions/21194934/node-how-to-create-a-directory-if-doesnt-exist
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+    }
+
+    //https://stackoverflow.com/questions/2496710/writing-files-in-node-js
+    fs.writeFile(dir + "/helpers.js", "// Project: " + name, function(err) {
+        if (err) {
+            console.log("JS error: ", err);
+            return console.log(err);
+        }
+        console.log("js created!");
+        fs.writeFile(dir + "/data.json", "", function(err) {
+            if (err) {
+                console.log("json error: ", err);
+                return console.log(err);
+            }
+            console.log("json created!");
+            fs.writeFile(dir + "/page.html", "<--! Project: " + name + " -->", function(err) {
+                if (err) {
+                    console.log("json error: ", err);
+                    return console.log(err);
+                }
+                console.log("html created!");
+                callback();
+            });
+        });
+    });
+};
+
 app.post('/create-project', function(req, res, next) {
     console.log("REQ", req.body);
 
-    var newProject = new AppReport({ projectId: req.body.name });
+    var newProject = new AppReport({ projectName: req.body.name, url: req.body.url });
 
     newProject.save(function(err, project) {
-        if (err) return console.error(err);
-        res.json({
-            data: project,
-            err: err
-        });
+        if (err) {
+            res.json({
+                data: null,
+                err: err
+            });
+        } else {
+            createProject(req.body.url, req.body.name, function() {
+                res.json({
+                    data: project,
+                    err: err
+                });
+            });
+        }
     });
 
     // res.json({msg:"ok"});
     //var dir = "./www/projects/" + req.body.url;
-
-    // https://stackoverflow.com/questions/21194934/node-how-to-create-a-directory-if-doesnt-exist
-    // if (!fs.existsSync(dir)) {
-    //     fs.mkdirSync(dir);
-    // }
-
-    // https://stackoverflow.com/questions/2496710/writing-files-in-node-js
-    // fs.writeFile(dir + "/teste.js", "Hey there!", function(err) {
-    //     if (err) {
-    //         return console.log(err);
-    //     }
-
-    //     console.log("The file was saved!");
-    // });
 });
 
 app.get('/all-projects', function(req, res, next) {

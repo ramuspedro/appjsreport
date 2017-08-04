@@ -8,36 +8,37 @@
         var vm = this;
 
         vm.createNewProject = createNewProject;
+        vm.projects;
 
-        vm.projects = [{
-                name: "projeto 1",
-                url: "p1"
-            },
-            {
-                name: "projeto 2",
-                url: "p2"
-            },
-            {
-                name: "projeto 3",
-                url: "p3"
-            },
-            {
-                name: "projeto 4",
-                url: "p4"
-            },
-            {
-                name: "projeto 5",
-                url: "p5"
-            },
-            {
-                name: "projeto 6",
-                url: "p6"
-            }
-        ];
+        // vm.projects = [{
+        //         name: "projeto 1",
+        //         url: "p1"
+        //     },
+        //     {
+        //         name: "projeto 2",
+        //         url: "p2"
+        //     },
+        //     {
+        //         name: "projeto 3",
+        //         url: "p3"
+        //     },
+        //     {
+        //         name: "projeto 4",
+        //         url: "p4"
+        //     },
+        //     {
+        //         name: "projeto 5",
+        //         url: "p5"
+        //     },
+        //     {
+        //         name: "projeto 6",
+        //         url: "p6"
+        //     }
+        // ];
 
-        $http.get("http://localhost:8000/all-projects").then(function(data, status) {
-            console.log("Data: ", data);
-            console.log("Status: ", status);
+        $http.get("http://localhost:8000/all-projects").then(function(result) {
+            console.log("Data: ", result);
+            vm.projects = result.data.data;
             //window.open($scope.pdf);
         });
 

@@ -31,8 +31,12 @@
                         // if (result != "Cancel") {
                         //     $state.go("app", { projectId: result });
                         // }
+                        var project = result;
+                        var url = result.replace(/\s/g,'');
+                        //console.log("URL: ", url);
                         $http.post("http://localhost:8000/create-project", {
-                            name: result
+                            name: project,
+                            url: url
                         }).then(function(result) {
                             console.log("RESULTADO: ", result);
                         });
