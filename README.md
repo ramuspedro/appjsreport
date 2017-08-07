@@ -1,6 +1,6 @@
 # appjsreport
 
--> Sistema de geração de pdf utilizando (handlebars)['http://handlebarsjs.com/'] e phantom pdf
+-> Sistema de geração de pdf utilizando [handlebars](http://handlebarsjs.com/) e phantom pdf
 
 ## Tecnologias:
 * Front-end: HTML, JS, CSS, angularjs
