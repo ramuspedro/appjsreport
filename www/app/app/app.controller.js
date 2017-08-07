@@ -11,6 +11,11 @@
 
         var javascript, html, json;
 
+        /*
+         * Função salvamento dos arquivos
+         */
+        vm.saveFiles = saveFiles;
+
         /*var javascript = ace.edit("javascript");
         javascript.setTheme("ace/theme/twilight");
         javascript.session.setMode("ace/mode/javascript");
@@ -29,7 +34,7 @@
             autoScrollEditorIntoView: true
         });*/
 
-        var html = ace.edit("html");
+        html = ace.edit("html");
         html.setTheme("ace/theme/twilight");
         html.session.setMode("ace/mode/html");
         html.renderer.setScrollMargin(10, 10);
@@ -107,7 +112,7 @@
 
                     $http.get(url + "data.json").then(function(data2) {
                         console.log("json", data2);
-                        json.setValue(JSON.stringify(data2.data, null, '\t'));
+                        json.setValue(data2.data);
                     });
                 }
             }
@@ -123,6 +128,31 @@
                 var fileURL = URL.createObjectURL(file);
                 $scope.pdf = $sce.trustAsResourceUrl(fileURL);
                 //window.open($scope.pdf);
+            });
+        };
+
+        function saveFiles() {
+            console.log("TESTEEEEEEE");
+
+            var sendFiles = {
+                url: $state.params.projectId
+            };
+
+            if (html) {
+                console.log("html: ", html.getValue());
+                sendFiles.html = html.getValue();
+            }
+            if (javascript) {
+                console.log("js: ", javascript.getValue());
+                sendFiles.javascript = javascript.getValue();
+            }
+            if (json) {
+                console.log("json: ", json.getValue());
+                sendFiles.json = json.getValue();
+            }
+
+            $http.post("http://localhost:8000/save-files", sendFiles).then(function(result) {
+                console.log("RESULTADO", result);
             });
         };
     }

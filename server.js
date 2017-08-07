@@ -202,6 +202,77 @@ app.get('/all-projects', function(req, res, next) {
     });
 });
 
+function saveProject(info, callback) {
+    console.log("CRIANDO", info);
+
+    var dir = "./www/projects/" + info.url;
+    saveHtml(dir, info.html, function() {
+        saveJs(dir, info.javascript, function() {
+            saveJson(dir, info.json, function() {
+                callback();
+            });
+        });
+    });
+};
+
+function saveHtml(dir, html, callback) {
+    if (html) {
+        fs.writeFile(dir + "/page.html", html, function(err) {
+            if (err) {
+                console.log("json error: ", err);
+                callback();
+            }
+            console.log("html created!");
+            callback();
+        });
+    } else {
+        callback();
+    }
+}
+
+function saveJs(dir, js, callback) {
+    //https://stackoverflow.com/questions/2496710/writing-files-in-node-js
+    if (js) {
+        fs.writeFile(dir + "/helpers.js", js, function(err) {
+            if (err) {
+                console.log("JS error: ", err);
+                callback();
+            }
+            console.log("js created!");
+            callback();
+        });
+    } else {
+        callback();
+    }
+}
+
+function saveJson(dir, json, callback) {
+    console.log("TRYIng create json", json);
+    if (json) {
+        fs.writeFile(dir + "/data.json", JSON.stringify(json), function(err) {
+            if (err) {
+                console.log("json error: ", err);
+                callback();
+            }
+            console.log("json created!");
+            callback();
+        });
+    } else {
+        callback();
+    }
+}
+
+
+app.post('/save-files', function(req, res, next) {
+    console.log("Save all files", req.body);
+    saveProject(req.body, function() {
+        res.json({
+            msg: "ok"
+        });
+    });
+
+});
+
 var server = app.listen(8000, function() {
     console.log('Express server listening on port ' + 8000);
 });
