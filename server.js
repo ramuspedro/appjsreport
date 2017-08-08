@@ -5,6 +5,7 @@ var fs = require("fs"),
     path = require('path'),
     router = express.Router();
 var bodyParser = require('body-parser');
+var jsonfile = require('jsonfile');
 
 var mongoose = require('mongoose');
 // ES6 promises
@@ -62,10 +63,12 @@ var helpers = fs.readFileSync(path.join(__dirname, 'helpers', 'helpers.js'), 'ut
 
 var reportingApp = express();
 
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: false
-}))
+    extended: true,
+    limit: '5mb'
+}));
+app.use(bodyParser.json({limit: '5mb'}));
+
 
 app.use(express.static(path.join(__dirname, './www')));
 
@@ -249,7 +252,15 @@ function saveJs(dir, js, callback) {
 function saveJson(dir, json, callback) {
     console.log("TRYIng create json", json);
     if (json) {
-        fs.writeFile(dir + "/data.json", JSON.stringify(json), function(err) {
+        /*fs.writeFile(dir + "/data.json", JSON.stringify(json), "utf8", function(err) {
+            if (err) {
+                console.log("json error: ", err);
+                callback();
+            }
+            console.log("json created!");
+            callback();
+        });*/
+        jsonfile.writeFile(dir + "/data.json", json, { spaces: 2 }, function(err) {
             if (err) {
                 console.log("json error: ", err);
                 callback();

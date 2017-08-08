@@ -112,7 +112,7 @@
 
                     $http.get(url + "data.json").then(function(data2) {
                         console.log("json", data2);
-                        json.setValue(data2.data);
+                        json.setValue(JSON.parse(data2.data));
                     });
                 }
             }

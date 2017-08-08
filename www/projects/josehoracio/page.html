@@ -1,1 +1,1812 @@
-<!-- Project: jose horacio -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<link rel="stylesheet" href="http://terras.agr.br/vendor/font-awesome/css/font-awesome.css" />
+<style>
+
+body { font-family: 'PT Sans', sans-serif;}
+
+.table-analise-car {width:700px; background-color:#eee;font-weight:normal!important;}
+.table-analise-car table {width:700px;font-size:10px; font-weight:normal!important;}
+.clear-page { background-color:white;width:700px;float:left;font-size:6px;color:white;}
+
+.declaracao {text-align:center;font-size:11px;} 
+.declaracao p {text-align:justify;} 
+.box-legenda-croquis { width:670px; float:left;padding:5px; height:230px; } 
+.box-legenda { width:216px; float:left;padding:5px; height:180px; } 
+.box-legenda i { font-weight:bold;} 
+.box { text-transform:uppercase; font-size:11px;margin-bottom:30px; }
+.box3 { width:218px; float:left; margin-right:18px;margin-left:0px; padding:0px;}
+.box3-last { margin-right:0px !important;}
+.box2 { width:336px; float:left; margin-right:18px;margin-left:0px; padding:0px;}
+.box2-last { margin-right:0px !important;}
+.result-box { background-color:#EAEAEA;max-width:100%;padding:3px;display:block;}
+.link-anexo {font-size:11px;} 
+
+
+.area-mapa { width:100%;margin-top:30px; }
+.area-imagem-mapa { background-color:gray;width:100%;}
+.area-legenda-mapa {line-height:17px;font-size:8px; background-color:#ececec; width:100%;border:1px solid #dadad9;padding:10px;font-style:normal; }
+
+
+.table-proponente {
+   width:700px; background-color:#eee;font-weight:normal!important;
+   font-size:11px;
+   font-family: 'PT Sans', sans-serif;
+}
+
+
+.tabela-aprt { width:100%;font-weight:normal; color:black; font-family: 'PT Sans', sans-serif; font-size:12px;}
+.tabela-aprt table { width:700px; background-color:#ececec;border-collapse:collapse;border-spacing:0;}
+.tabela-aprt table { border:1px solid white; }
+.tabela-aprt table th { padding:8px; border:1px solid white; font-weight:normal; font-size:11px; }
+
+
+.table-side {width:100%;border-collapse:collapse;border-spacing:0; color: #575756;}
+.table-side table { width:100%; background-color:white;border-collapse:collapse;border-spacing:0; color: black;}
+.table-side table { border:1px solid #ececec;margin-top:1px;margin-bottom:6px; }
+.table-side table th { padding:4px; border:1px solid #ececec; font-weight:normal; font-size:10px;   }
+.table-side table td { padding:4px; text-align:center;}
+
+.table-side table tr td { border:1px solid #ececec;} 
+
+
+
+.table2 { width:200px;font-weight:normal;  font-family: 'PT Sans', sans-serif;}
+.table2 table { width:100%; background-color:#ececec;border-collapse:collapse;border-spacing:0; color: #575756;}
+.table2 table { border:1px solid #dadad9; }
+.table2 table th { padding:8px; border:1px solid #dadad9; font-weight:normal; font-size:10px;   }
+.table2 table td { padding:8px; text-align:center;}
+
+.legenda { font-family: 'PT Sans', sans-serif; font-style: italic;color:#575756;}
+
+.table3 { width:100%;font-weight:normal;  font-family: 'PT Sans', sans-serif;}
+.table3 table { border:1px solid red;width:100%; background-color:white;border-collapse:collapse;border-spacing:0; color: black;}
+.table3 table th { padding:5px; border:1px solid #ececec; font-weight:normal; font-size:10px;  }
+.table3 table td { padding:5px; border: 1px solid #ececec;font-size:10px;}
+
+
+.reuslt-table3 {text-align:center;font-style:italic; display:block;margin-top:25px;width:880px;font-weight:normal; color:#575756; font-family: 'PT Sans', sans-serif;}
+
+
+.page-break    { display: block; page-break-before: always; }
+
+.map {
+    width:350px;height:350px;
+}
+
+#mapCroquiAtual {
+    width:700px;height:500px;
+}
+
+#mapCroquiProjetado {
+    width:700px;height:500px;
+}
+
+.inline-map {
+    display: inline-block;
+    width:343px; 
+    height: 300px;
+}
+
+
+
+</style>
+
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://use.fontawesome.com/cbde04c35d.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.1/jquery.flot.categories.min.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/pt-br.js"></script>
+
+
+<script type="text/javascript">
+    $(function () {
+        //Configurações mapa
+        var configMap = {
+                center: [-15.12, -53.18],
+                zoom: 4,
+                zoomControl: false,
+                attributionControl: false
+        },
+        
+        //Configurações de estilo mapa
+        configStyleMap = {
+                fillColor: null,
+                fillOpacity: 0,
+                color:"rgb(0,255,255)", //255,255,21
+                opacity: 1,
+                weight: 3,
+                className: "feature feature-aprt"
+            },
+            
+        //Setando estilo no json            
+        geojsonStyle = { 
+                    style: function (feature) {
+                        return feature.properties.estilo;
+                    },
+                    pointToLayer: function(feature, latlng) {
+                        // return new L.CircleMarker(latlng, {radius: 3, fillOpacity: 1, opacity: 1, weight: 3, fillColor: '#660099'});
+                         return new L.CircleMarker(latlng, feature.properties.estilo);
+                    }
+                };
+      
+         //Buscando todos Cars        
+        function getCars(){
+            //Carregando os cars 
+            var cars = {{#toJSON this.TtcCar}}{{/toJSON}};
+            return cars;
+        }
+        
+         //Buscando todas as areas
+        function getAreas(){
+            //Carregando as areas
+            var areas = {{#toJSON this.TtcArea}}{{/toJSON}};
+            return areas;
+        }
+       //Buscando todos Imoveis
+        function getImoveis(){
+            //Carregando os imoveis
+            var imoveis = {{#toJSON this.TtcImovel}}{{/toJSON}};
+            return imoveis;
+        }
+        //Imagem satélite
+        function googleSat(){ 
+            return  L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+                            maxZoom: 20,
+                            subdomains:['mt0','mt1','mt2','mt3']
+                        });
+        }
+        
+        //Criando o mapa
+        function createMap(id){
+            return L.map(id,configMap); 
+        }
+        
+        //Criando Mapas Cars
+        function createMapCar(){
+            var cars = getCars();
+            
+             //Criando mapas
+            for(var i = 0;i<cars.length;i++){
+                var map = createMap('map'+i);//Setando id dinaminamicamente
+                map.addLayer(googleSat());
+                var geoJSONLayerCar = L.geoJson(cars[i], geojsonStyle);   
+                map.addLayer(geoJSONLayerCar);
+                map.fitBounds(geoJSONLayerCar.getBounds());
+            }
+        }
+    
+       //Criando Mapa CAR
+       createMapCar();
+       
+         //Criando Mapas Cars
+        function createMapImovel(){
+            var imoveis = getImoveis();
+             //Criando mapas de imoveis
+            for(var i = 0;i<imoveis.length;i++){
+                var map = createMap('mapImovel'+i);//Setando id dinaminamicamente
+                map.addLayer(googleSat());
+                var geoJSONLayerImovel = L.geoJson(imoveis[i], geojsonStyle);   
+                map.addLayer(geoJSONLayerImovel);
+                map.fitBounds(geoJSONLayerImovel.getBounds());
+            }
+        }
+        
+        createMapImovel();
+        
+        function createMapCroquiAtual(){
+            /*var mapCroquiAtual = createMap('mapCroquiAtual'),
+                cars = getCars(),// buscando cars
+                areas = getAreas(), // buscando areas
+                carsFilterAreaImovel = filterCarAreaImovel(cars),
+                geoJSONLayerCA = L.geoJson(carsFilterAreaImovel, geojsonStyle),
+                geoJSONLayerCP = L.geoJson(carsFilterAreaImovel, geojsonStyle);
+                
+            mapCroquiAtual.addLayer(googleSat());
+            mapCroquiAtual.addLayer(geoJSONLayerCA);*/
+            var cars = getCars();
+            var areas = getAreas();
+            var carsFilterAreaImovel = filterCarAreaImovel(cars);
+           
+            if(cars.length > 0){
+                // criar id para cada croqui atual
+                for(var k = 0; k < cars.length; k++) {
+                    var map = createMap('mapCroquiAtual'+k);
+                    
+                    map.addLayer(googleSat());
+                    
+                    var geoJSONLayerImovel = L.geoJson(carsFilterAreaImovel[k], geojsonStyle);
+                    
+                    map.addLayer(geoJSONLayerImovel);
+                    
+                    map.fitBounds(geoJSONLayerImovel.getBounds());
+                    
+                    for(var i = 0;i<areas.length;i++){
+                        
+                        var g = L.geoJson(areas[i], geojsonStyle);
+                        
+                        for ( j = 0; j<areas[i].features.length;j++){
+                            if(areas[i].features[j].properties.tipo == "atual"){
+                                map.addLayer(g);
+                            }
+                        }
+                    }
+                }
+            }else{
+                var map = createMap('mapCroquiAtual');
+                
+                map.addLayer(googleSat());
+                
+                var groupCroqui = L.featureGroup();
+                for(var i = 0;i<areas.length;i++){
+                    var g = L.geoJson(areas[i], geojsonStyle);
+                    
+                    for ( j = 0; j<areas[i].features.length;j++){
+                        if(areas[i].features[j].properties.tipo == "atual"){
+                            groupCroqui.addLayer(g);
+                        }
+                    }
+                }
+                map.addLayer(groupCroqui);
+                map.fitBounds(groupCroqui.getBounds());
+            }
+      }
+      
+      /*function createMapCroquiProjetado(){
+        var mapCroquiProjetado = createMap('mapCroquiProjetado'),
+            cars = getCars(),// buscando cars
+            areas = getAreas(), // buscando areas0
+            carsFilterAreaImovel = filterCarAreaImovel(cars),
+            geoJSONLayerCA = L.geoJson(carsFilterAreaImovel, geojsonStyle),
+            geoJSONLayerCP = L.geoJson(carsFilterAreaImovel, geojsonStyle);
+            
+        
+        mapCroquiProjetado.addLayer(googleSat());
+        mapCroquiProjetado.addLayer(geoJSONLayerCP);
+        
+        for(var i = 0;i<areas.length;i++){
+            var g = L.geoJson(areas[i], geojsonStyle);
+            
+            for ( j = 0; j<areas[i].features.length;j++){
+                if(areas[i].features[j].properties.tipo == "projetado"){
+                    mapCroquiProjetado.addLayer(g);
+                }
+            }
+        }
+        mapCroquiProjetado.fitBounds(geoJSONLayerCP.getBounds());
+        
+      }*/
+      
+      function createMapCroquiProjetado() {
+            var cars = getCars();
+            var areas = getAreas();
+            var carsFilterAreaImovel = filterCarAreaImovel(cars);
+            if(cars.length > 0){
+                // criar id para cada croqui projetado
+                // criar id para cada croqui atual
+                for(var k = 0; k < cars.length; k++) {
+                    var map = createMap('mapCroquiProjetado'+k);
+                    
+                    map.addLayer(googleSat());
+                    
+                    var geoJSONLayerImovel = L.geoJson(carsFilterAreaImovel[k], geojsonStyle);
+                    map.addLayer(geoJSONLayerImovel);
+                    
+                    //var geoJSONLayerCar = L.geoJson(cars[k], geojsonStyle);
+                    //map.addLayer(geoJSONLayerCar);
+                    
+                    
+                    //map.fitBounds(geoJSONLayerCar.getBounds());
+                    map.fitBounds(geoJSONLayerImovel.getBounds());
+                    
+                    for(var i = 0;i<areas.length;i++){
+                        
+                        var g = L.geoJson(areas[i], geojsonStyle);
+                        
+                        for ( j = 0; j<areas[i].features.length;j++){
+                            if(areas[i].features[j].properties.tipo == "projetado"){
+                                map.addLayer(g);
+                            }
+                        }
+                    }
+                    
+                }
+            }else{
+                var map = createMap('mapCroquiProjetado');
+                
+                map.addLayer(googleSat());
+                
+                var groupCroqui = L.featureGroup();
+                
+                for(var i = 0;i<areas.length;i++){
+                    var g = L.geoJson(areas[i], geojsonStyle);
+                    
+                    for ( j = 0; j<areas[i].features.length;j++){
+                        if(areas[i].features[j].properties.tipo == "projetado"){
+                            groupCroqui.addLayer(g);
+                        }
+                    }
+                }
+                map.addLayer(groupCroqui);
+                map.fitBounds(groupCroqui.getBounds());
+            }
+      }
+      
+      
+        //Criando Maps Croqui
+      /*function createMapCroqui(){
+        var mapCroquiAtual = createMap('mapCroquiAtual'),
+		    mapCroquiProjetado = createMap('mapCroquiProjetado'),
+            cars = getCars(),// buscando cars
+            areas = getAreas(), // buscando areas
+            carsFilterAreaImovel = filterCarAreaImovel(cars),
+            geoJSONLayerCA = L.geoJson(carsFilterAreaImovel, geojsonStyle),
+            geoJSONLayerCP = L.geoJson(carsFilterAreaImovel, geojsonStyle);
+            
+        mapCroquiAtual.addLayer(googleSat());
+        mapCroquiProjetado.addLayer(googleSat());
+        mapCroquiAtual.addLayer(geoJSONLayerCA);
+        mapCroquiProjetado.addLayer(geoJSONLayerCP);
+        
+        for(var i = 0;i<areas.length;i++){
+            var g = L.geoJson(areas[i], geojsonStyle);
+            
+            for ( j = 0; j<areas[i].features.length;j++){
+                if(areas[i].features[j].properties.tipo == "atual"){
+                    mapCroquiAtual.addLayer(g);
+                }else{
+                    mapCroquiProjetado.addLayer(g);
+                }
+            }
+        }
+        
+        mapCroquiAtual.fitBounds(geoJSONLayerCA.getBounds());
+        mapCroquiProjetado.fitBounds(geoJSONLayerCP.getBounds());
+      }*/
+      
+      
+      //Método para filtrar Area Imovel
+        function filterCarAreaImovel(cars){
+            var newCars = [];
+            _.each(cars, function(value, index){
+                var feature =  _.filter(value.features, function(data){
+	                       return data.properties.tipo === "AREA_IMOVEL";
+                });
+                  
+                if(feature){
+      		        var item = {"type": "FeatureCollection","features": feature}
+      		        newCars.push(item);
+                }            
+            });
+        
+            return newCars;
+        }
+		
+        //Criando Mapa Croqui
+        // createMapCroqui();
+        //createMapCroquiAtual();
+        {{#if this.mapaCroquiAtual}}
+            createMapCroquiAtual();
+        {{/if}}
+        {{#if this.mapaCroquiProjetado}}
+            createMapCroquiProjetado();
+        {{/if}}
+    });
+</script>
+<br />
+
+    
+<div class="box box2">
+    Valor da Proposta: <br />
+    <span class="result-box currencyFormatMe" >R$ {{ this.TtcProposta.valor_proposta }}</span>
+</div>
+
+<div class="box box2 box2-last">
+    Finalidade / Atividade: <br />
+    <span class="result-box"> {{ this.TtcProposta.finalidade }}</span>
+</div>
+
+
+
+<div class="box" style="clear:both;">
+    AGÊNCIA ENVIADA: <br />
+    <span class="result-box">{{ this.TtcProposta.detalhes_json.Agencia.cod }}/{{ this.TtcProposta.detalhes_json.Agencia.title }}
+    <br />
+    {{ this.TtcProposta.detalhes_json.Agencia.endereco }}
+    <br />
+    {{ this.TtcProposta.detalhes_json.Agencia.telefones }}
+    </span>
+</div>
+
+<div class="box">
+    Justificativa:<br />
+    <span class="result-box" style="padding:10px;line-height:20px;text-transform:none;">{{ this.TtcProposta.detalhes_json.Justificativa }}</span>
+</div>
+
+<div class="box">
+    Nome do(s) proponente(s): <br />
+    {{#if this.TtcProposta.detalhes_json.Proponente}}
+    <table class="table-proponente " >
+        {{#each this.TtcProposta.detalhes_json.Proponente}}
+        
+              <tr>
+                <td><b>Nome:</b><br><span class="result-box">{{ this.nome }}</span></td>
+                <td colspan="2"><b>Email:</b><br>{{ this.email }}</td>
+              </tr>
+              <tr>
+                <td><b>Nascimento:</b><br>{{#formatDate this.data_nascimento}}{{/formatDate}}</td>
+                <td><b>Telefone:</b><br>{{ this.telefone }}</td>
+                <td><b>CPF:</b><br>{{ this.cpf_cnpj }}</td>
+              </tr>
+        {{/each}}
+        </table>
+        <br />    
+    {{/if}}
+    <br />
+</div>
+
+<div class="box">
+    {{#if this.TtcProposta.detalhes_json.ResponsavelTecnico.length}}
+        Nome do(s) responsável(is) técnico(s): <br />
+        
+        <table class="table-proponente " >
+            {{#each this.TtcProposta.detalhes_json.ResponsavelTecnico}}
+              <tr>
+                <td><b>Nome:</b><br><span class="result-box">{{ this.nome }}</span></td>
+                <td><b>CPF:</b><br>{{ this.cpf }}</td>
+                <td><b>Email:</b><br>{{ this.email }}</td>
+              </tr>
+              <tr>
+                <td><b>Telefone:</b><br>{{ this.telefone }}</td>
+                <td><b>CREA:</b><br>{{ this.crea_estado.sigla }} {{ this.crea }}</td>
+                <td><b>ART:</b><br>{{ this.art }}
+              </tr>
+            {{/each}}
+            <br />
+        </table>
+    {{/if}}
+</div>
+
+{{#if this.TtcCar}}
+    <div style='page-break-before: always;'></div>
+    
+    
+    <div style='page-break-before: always;'></div>
+    <div class="clear-page" style="clear:both;">hidden</div>
+    
+    
+    {{#each this.TtcCar}}
+        <div style='page-break-before: always;'></div>
+        <div style="width:700px;text-align:center;padding-top:15px;font-size:13px;border-bottom:1px solid #ccc;">
+            <!--<span><b>CAR:</b> {{ this.features.[0].properties.numero }}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;-->
+            <!--    <b>Área:</b><small style="font-size:14px;"></small></span>-->
+            
+            <span><b>CAR:</b> {{ this.features.[0].properties.numero }} </span>
+                
+        </div>
+        <div class="">
+            <div class="table-analise-car">
+            {{#each this.analise}}
+                <table style="">
+                    <tr style="">
+                        <th style="width:25%;">Município</th>
+                        <th style="width:25%;">Área do CAR</th>
+                        <th style="width:25%;">Módulos Fiscais</th>
+                    </tr>
+                    {{#each this.CarMunicipioSobreposicao}}
+                        <tr style="text-align:center">
+                            <td class="">{{this.Municipio.nome_municipio}}</td>
+                            <!--<td class="currencyFormatMe">{{this.area}}</td>-->
+                            <td class="currencyFormatMe">{{#formatNumber this.area}} {{/formatNumber}} ha</td>
+                            <!--<td class="">{{this.calc_modulo_fiscal}}</td>-->
+                            <td class="currencyFormatMe">{{#formatNumber this.calc_modulo_fiscal}} {{/formatNumber}}</td>
+                        </tr>
+                    {{/each}}
+                </table>
+            {{/each}}
+            </div>
+        </div>
+        <br />
+        <!--Mapa Car e Legenda -->
+        <div style="float:right;;width:340px;">
+            <img src="http://terras.agr.br/img/landing/logo-carmap.png" style="height:40px;margin:10px;position:absolute;z-index:9999" alt="">
+            <div id="map{{@index}}" style="" class="map"></div>
+            <div class="area-legenda-mapa" style="width:326px;">
+                {{#each this.legenda}}
+                    <i style="color:{{this.estilo.fillColor}}"   class="fa fa-square" aria-hidden="true"></i> {{this.estilo.nome}}<br />
+                {{/each}}
+                <span style="float:left;">
+                    <b>Coordinate System:</b> GCS SIRGAS 2000 | 
+                    <b>Datum:</b> SIRGAS 2000 | 
+                    <b>Units:</b> Degree
+                </span>
+                <div style="width:300px;clear:both"></div>
+            </div>
+        </div>
+        <div style="float:left;width:340px;">
+            <!--análiseBacen | Taci-->
+            <div class="table-side">
+                <table>
+                    <tr>
+                        <th colspan="4" style="text-align:left"><b>Análise de Requerimentos do BACEN</b></th>
+                    </tr>
+                    <tr>
+                        <th style="width:25%">Embargo</th>
+                        <th style="width:25%">UCZA</th>
+                        <th style="width:25%">T. I.</th>
+                        <th style="width:25%">Prodes</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{#if this.analiseBacen.[2].embargo_ibama}}
+                                <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/com-pendencia.png" >
+                            {{else}}
+                                <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/sem-pendencia.png" >
+                            {{/if}}
+                        </td>
+                        <td>
+                            {{#if this.analiseBacen.[0].unidade_conservacao_zona_amortecimento}}
+                                <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/com-pendencia.png" >
+                            {{else}}
+                                <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/sem-pendencia.png" >
+                            {{/if}}
+                        </td>
+                        <td>
+                            {{#if this.analiseBacen.[1].terra_indigena}}
+                                <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/com-pendencia.png" >
+                            {{else}}
+                                <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/sem-pendencia.png" >
+                            {{/if}}
+                        </td>
+                        <td>
+                            {{#if this.analiseBacen.[3].prodes}}
+                                <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/com-pendencia.png" >
+                            {{else}}
+                                <img style="height:10px" class="transparent" src="http://dev-carmap.branch.terras.agr.br/img/carmap/sem-pendencia.png" >
+                            {{/if}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--FIM análiseBacen | Taci-->
+            
+            <!--INICIO - proprietarios do car - nayanne -->
+            {{#if this.detalhes_json.Proprietarios}}
+                <div class="table-side">
+                    <table style="font-size:10px">
+                        <tr>
+                            <td colspan="3"><b>Proprietários do CAR</b></td>
+                        </tr>
+                        <tr style="text-align:center;">
+                            <td>CPF</td>
+                            <td>Nome | E-mail</td>
+                            <td>Telefone</td>
+                        </tr>
+                        {{#each this.detalhes_json.Proprietarios}}
+                            <tr>
+                                <td><span>{{this.cpfCnpj}}</span></td>
+                                <td><span>{{this.nome}} | {{this.email}}</span></td>
+                                <td><span>{{this.telefone}}</span></td>
+                            </tr>
+                        {{/each}}
+                    </table>
+                </div>
+            {{/if}}
+            <!--FIM - proprietarios do car - nayanne -->
+            
+            
+            <!--análise Sobreposicoes | Taci-->
+            <div class="table-side">
+                {{#each this.analise}}
+                    <table style="font-size:10px">
+                        <tr>
+                            <th colspan="3" style="text-align:left;font-weight:bold;">Análise de Sobreprosições   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <span style="font-weight:normal;font-style:italic;font-size:9px">analisado pelo CARMap</span></th>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="font-weight:bold;">Assentamento</td>
+                        </tr>
+                        <tr style="font-style:italic;">
+                            <td style="width:33%;text-align:right;">Nome:</td>
+                            <td style="width:33%">Área:</td>
+                            <td style="width:33%">% do CAR</td>
+                        </tr>
+                        {{#each this.CarAssentamento}}
+                            {{#if this.Assentamento}}
+                                <tr>
+                                    <td style="width:33%;text-align:right;">{{this.Assentamento.nome_assentamento}}</td>
+                                    <td style="width:33%">{{this.area}}</td>
+                                    <td style="width:33%">{{this.porcentagem}}</td>
+                                </tr>
+                            {{else}}
+                                <tr>
+                                    <td style="width:33%;text-align:right;">Não há sobreposição</td>
+                                    <td style="width:33%">-</td>
+                                    <td style="width:33%">-</td>
+                                </tr>
+                            {{/if}}
+                        {{/each}}
+                        <tr>
+                            <td colspan="3"  style="font-weight:bold;">Quilombo</td>
+                        </tr>
+                        {{#if this.CarFundiarioQuilombo}}
+                            {{#each this.CarFundiarioQuilombo}}
+                                <tr>
+                                    <td style="width:33%;text-align:right;">{{this.Quilombo.nome_comunidade}}</td>
+                                    <td style="width:33%">{{this.area}}</td>
+                                    <td style="width:33%">{{this.porcentagem}}</td>
+                                </tr>
+                            {{/each}}
+                        {{else}}
+                                <tr>
+                                    <td style="width:33%;text-align:right;">Não há sobreposição</td>
+                                    <td style="width:33%">-</td>
+                                    <td style="width:33%">-</td>
+                                </tr>
+                        {{/if}}
+                        <tr>
+                            <td colspan="3" style="font-weight:bold;">Terra Indígena</td>
+                        </tr>
+                        <tr style="font-style:italic;">
+                            <td style="width:33%;text-align:right;">Nome:</td>
+                            <td style="width:33%">Área:</td>
+                            <td style="width:33%">% do CAR</td>
+                        </tr>
+                        {{#if this.CarFundiarioTi}}
+                            {{#each this.CarFundiarioTi}}
+                                <tr>
+                                    <td style="width:33%;text-align:right;">{{this.TerraIndigena.nome_terra_indigena}}</td>
+                                    <td style="width:33%">{{this.area}}</td>
+                                    <td style="width:33%">{{this.porcentagem}}</td>
+                                </tr>
+                            {{/each}}
+                        {{else}}
+                                <tr>
+                                    <td style="width:33%;text-align:right;">Não há sobreposição</td>
+                                    <td style="width:33%">-</td>
+                                    <td style="width:33%">-</td>
+                                </tr>
+                        {{/if}}
+                        <tr>
+                            <td colspan="3"  style="font-weight:bold;">Unidade de Conservação</td>
+                        </tr>
+                        <tr style="font-style:italic;">
+                            <td style="width:33%;text-align:right;">Nome:</td>
+                            <td style="width:33%">Área:</td>
+                            <td style="width:33%">% do CAR</td>
+                        </tr>
+                        {{#if this.CarFundiarioUc}}
+                            {{#each this.CarFundiarioUc}}
+                                <tr>
+                                    <td style="width:33%;text-align:right;">{{this.UnidadeConservacao.nome_unidade_conservacao}}</td>
+                                    <td style="width:33%">{{this.area}}</td>
+                                    <td style="width:33%">{{this.porcentagem}}</td>
+                                </tr>
+                            {{/each}}
+                        {{else}}
+                                <tr>
+                                    <td style="width:33%;text-align:right;">Não há sobreposição</td>
+                                    <td style="width:33%">-</td>
+                                    <td style="width:33%">-</td>
+                                </tr>
+                        {{/if}}
+                </table>
+                {{/each}}
+            </div>
+           <!-- Camadas Sicar| Taci-->
+            <div class="table-side">
+                {{#each this.analise}}
+                    <table style="font-size:10px">
+                        <tr>
+                            <th colspan="3" style="text-align:center;font-weight:bold;">Informações do SICAR</th>
+                        </tr>
+                        <tr>
+                            <td style="width:33%;text-align:left;font-weight:bold;">Área Total</td>
+                            <td style="width:33%;text-align:center;">{{this.AREA_IMOVEL.area_ha}} ha</td>
+                            <td style="width:33%;text-align:center;">100%</td>
+                        </tr>
+                        {{#if this.AREA_IMOVEL_LIQUIDA}}
+                            <tr>
+                                <td style="width:33%;text-align:left;font-weight:bold;">Área Líquida</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_IMOVEL_LIQUIDA.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_IMOVEL_LIQUIDA.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.AREA_CONSOLIDADA}}
+                            <tr>
+                                <td style="width:33%;text-align:left;font-weight:bold;">Área Consolidada</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_CONSOLIDADA.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_CONSOLIDADA.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.AREA_POUSIO}}
+                            <tr>
+                                <td style="width:33%;text-align:right;font-weight:bold;">Área de Pousio</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_POUSIO.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_POUSIO.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.VEGETACAO_NATIVA}}
+                            <tr>
+                                <td style="width:33%;text-align:left;font-weight:bold;">Área de Vegetação Nativa</td>
+                                <td style="width:33%;text-align:center;">{{this.VEGETACAO_NATIVA.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.VEGETACAO_NATIVA.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.ARL_PROPOSTA}}
+                            <tr>
+                                <td colspan="3"  style="font-weight:bold;">Área de Reserva Legal (ARL)</td>
+                            </tr>
+                            <tr>
+                                <td style="width:33%;text-align:left;">Área proposta</td>
+                                <td style="width:33%;text-align:center;">{{this.ARL_PROPOSTA.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.ARL_PROPOSTA.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.ARL_A_RECUPERAR}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Área a recuperar</td>
+                                {{#if this.area_ha}}
+                                    <td style="width:33%;text-align:center;">{{this.ARL_A_RECUPERAR.area_ha}} ha</td>
+                                {{else}}
+                                        <td style="width:33%;text-align:center;">-</td>
+                                {{/if}}
+                                <td style="width:33%;text-align:center;">{{this.ARL_A_RECUPERAR.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.APP_TOTAL}}
+                            <tr>
+                                <td colspan="3"  style="font-weight:bold;">Área de Preservação Permanente (APP)</td>
+                            </tr>
+                            <tr>
+                                <td style="width:33%;text-align:left;">APP total</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_TOTAL.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_TOTAL.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                         {{#if this.RIO_ATE_10}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Rio até 10 metros</td>
+                                <td style="width:33%;text-align:center;">{{this.RIO_ATE_10.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.RIO_ATE_10.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.RIO_10_A_50}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Rio acima de 10 a 50 metros</td>
+                                <td style="width:33%;text-align:center;">{{this.RIO_10_A_50.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.RIO_10_A_50.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.RIO_50_A_200}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Rio acima de 50 a 200 metros</td>
+                                <td style="width:33%;text-align:center;">{{this.RIO_50_A_200.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.RIO_50_A_200.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.RIO_200_A_600}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Rio acima de 200 a 600 metros</td>
+                                <td style="width:33%;text-align:center;">{{this.RIO_200_A_600.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.RIO_200_A_600.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.RIO_ACIMA_600}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Rio acima de 600 metros</td>
+                                <td style="width:33%;text-align:center;">{{this.RIO_ACIMA_600.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.RIO_ACIMA_600.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.LAGO_NATURAL}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Lago Natural</td>
+                                <td style="width:33%;text-align:center;">{{this.LAGO_NATURAL.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.LAGO_NATURAL.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.RESERVATORIO_ARTIFICIAL_DECORRENTE_BARRAMENTO}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Reservatório artificial decorrente de barramento</td>
+                                <td style="width:33%;text-align:center;">{{this.RESERVATORIO_ARTIFICIAL_DECORRENTE_BARRAMENTO.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.RESERVATORIO_ARTIFICIAL_DECORRENTE_BARRAMENTO.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.VEREDA}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Vereda</td>
+                                <td style="width:33%;text-align:center;">{{this.VEREDA.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.VEREDA.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.AREA_ALTITUDE_SUPERIOR_1800}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Área com altitude superior 1800 metros</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_ALTITUDE_SUPERIOR_1800.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_ALTITUDE_SUPERIOR_1800.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.RESTINGA}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Restinga</td>
+                                <td style="width:33%;text-align:center;">{{this.RESTINGA.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.RESTINGA.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.AREA_DECLIVIDADE_MAIOR_45}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Área com declividade maior 45º</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_DECLIVIDADE_MAIOR_45.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_DECLIVIDADE_MAIOR_45.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.MANGUEZAL}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Manguezal</td>
+                                <td style="width:33%;text-align:center;">{{this.MANGUEZAL.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.MANGUEZAL.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.BORDA_CHAPADA}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Bordas e chapadas</td>
+                                <td style="width:33%;text-align:center;">{{this.BORDA_CHAPADA.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.BORDA_CHAPADA.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.AREA_TOPO_MORRO}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Áreas de topo de morros</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_TOPO_MORRO.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_TOPO_MORRO.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        
+                        {{#if this.APP_AREA_VN}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">APP em Vegetação Nativa</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_AREA_VN.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_AREA_VN.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.APP_NASCENTE_OLHO_DAGUA}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">APP de Nascentes</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_NASCENTE_OLHO_DAGUA.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_NASCENTE_OLHO_DAGUA.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.APP_ESCADINHA}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">APP total para Recomposição</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_ESCADINHA.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_ESCADINHA.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                       
+                        {{#if this.APP_RIO_ATE_10}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">APP de rio até 10 metros</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_RIO_ATE_10.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_RIO_ATE_10.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.APP_ESCADINHA_RIO_ATE_10}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Área total para Recomposição de rio até 10 metros</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_ESCADINHA_RIO_ATE_10.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_ESCADINHA_RIO_ATE_10.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.APP_ESCADINHA_NASCENTE_OLHO_DAGUA}}
+                            <tr>
+                                <td style="width:33%;text-align:left;">Área total para Recomposição de nascentes</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_ESCADINHA_NASCENTE_OLHO_DAGUA.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.APP_ESCADINHA_NASCENTE_OLHO_DAGUA.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.AREA_USO_RESTRITO_PANTANEIRA}}
+                            <tr>
+                                <td colspan="3"  style="font-weight:bold;">Área de uso restrito</td>
+                            </tr>
+                            <tr>
+                                <td style="width:33%;text-align:left;">Pantaneiras</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_USO_RESTRITO_PANTANEIRA.area_ha}} ha</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_USO_RESTRITO_PANTANEIRA.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                        {{#if this.AREA_USO_RESTRITO_DECLIVIDADE_25_A_45}}
+                            <tr>
+                                <td colspan="3"  style="font-weight:bold;">Área de uso restrito</td>
+                            </tr>
+                            <tr>
+                                <td style="width:33%;text-align:left;">Declividade de 25º a 45º</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_USO_RESTRITO_DECLIVIDADE_25_A_45.area_ha}}</td>
+                                <td style="width:33%;text-align:center;">{{this.AREA_USO_RESTRITO_DECLIVIDADE_25_A_45.porcentagem}}</td>
+                            </tr>
+                        {{/if}}
+                    </table>    
+                {{/each}}
+            </div>
+        </div>    
+        
+        <div style="color:white; height:5px;width:600px;clear:both;"> hidden </div>
+        
+    {{/each}} <!--fim EACH ttcCar -->
+    
+    
+    
+    <!--<div style='page-break-before: always;'></div>-->
+    <!--<div class="clear-page" style="clear:both;">hidden</div>-->
+{{/if}} <!--fim ttcCar -->
+
+<!--<div style='page-break-before: always;'></div>-->
+
+<!--<br/>-->
+    <!-- Imóveis -->
+    <div class="tabela-aprt" >
+        {{#if this.TtcImovel}}
+            <div style='page-break-before: always;'></div>
+            <span><b>Imóveis</b></span>
+            <br />
+            {{#each this.TtcImovel}}
+                <div class="table3">
+                    <table>
+                        <tr>
+                            <th rowspan="12" >
+                                <div id="mapImovel{{@index}}" style="width:250px; height: 245px;" ></div>
+                                <div class="area-legenda-mapa" style="width:228px;">
+                                    <i style="color:{{this.features.[0].properties.estilo.color}}"   class="fa fa-square" aria-hidden="true"></i> {{this.features.[0].properties.estilo.nome}}                                
+                                </div>
+                            </th>
+                            <th colspan="3"><b>{{this.features.[0].properties.nome}}</b></th>
+                        </tr>
+                        <!--<tr>-->
+                        <!--    <td colspan="3">Endereço: <span>{{this.features.[0].properties.endereco}}</span></td>-->
+                        <!--</tr>-->
+                        
+                        <tr>
+                            <td colspan="3"><b>Tipo:</b> <span>{{this.features.[0].properties.tipo}}</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>Área (ha):</b> <span>{{this.features.[0].properties.area}}</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>Módulos fiscais:</b> <span>{{this.features.[0].properties.modulos_fiscais}}</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>Matrícula:</b><span>{{this.features.[0].properties.matricula}}</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>CCIR: </b><span>{{this.features.[0].properties.ccir}}</span></td>
+                        </tr>
+                        
+                        <!--<tr style="text-align:center;">-->
+                        <!--    <td><b>Área</b></td>-->
+                        <!--    <td><b>Módulo Fiscal</b></td>-->
+                        <!--    <td><b>Matrícula</b></td>-->
+                        <!--</tr>-->
+                        <!--<tr style="text-align:center;">-->
+                        <!--    <td> <span>{{this.features.[0].properties.area}}</span></td>-->
+                        <!--    <td> <span>{{this.features.[0].properties.modulos_fiscais}}</span></td>-->
+                        <!--    <td><span>{{this.features.[0].properties.matricula}}</span></td>-->
+                        <!--</tr>-->
+                        
+                        {{#if this.proprietarios}}
+                            <tr>
+                                <td colspan="3"><b>Proprietários do Imóvel</b></td>
+                            </tr>
+                            <tr style="text-align:center;">
+                                <td>CPF</td>
+                                <td>Nome | E-mail</td>
+                                <td>Telefone</td>
+                            </tr>
+                            {{#each this.proprietarios}}
+                                <tr>
+                                    <td><span>{{this.cpf}}</span></td>
+                                    <td><span>{{this.nome}} | {{this.email}}</span></td>
+                                    <td><span>{{this.telefone}}</span></td>
+                                </tr>
+                            {{/each}}
+                        {{else}}
+                            <tr><td><span>Proprietários não informados.</span></td></tr>
+                            
+                        {{/if}}
+                        
+                        {{#if this.sobreposicaoCar}}
+                            <tr>
+                                <td colspan="3">
+                                <b>
+                                <span style="text-align:center;">Sobreposição com CAR</span>
+                                        
+                                </b>
+                                    <table>
+                                         <tr style="text-align:center;">
+                                        <td>Número do CAR</td>
+                                        <td>Área</td>
+                                        <td>%</td>
+                                        
+                                    </tr>
+                                    {{#each this.sobreposicaoCar}}
+                                    <tr>
+                                        <td><span>{{this.numero_car}}</span></td>
+                                        <td><span>{{this.area}}</span></td>
+                                        <td>{{this.porcentagem}}</td>
+                                    </tr>
+                                    {{/each}}
+                                    </table>        
+                                </td>
+                            </tr>
+                        {{/if}}
+                    </table>
+                    <br />
+                </div>
+            {{/each}}
+        {{/if}}
+        
+    </div>
+<br />
+<!-- mapa de croqui atual e projetado | TACI-->
+
+        
+<div class="area-mapa">
+        {{#if this.mapaCroquiAtual}}
+            <div style='page-break-before: always;'></div>
+            <h4 style="">Croqui Atual</h4>
+            {{#if this.TtcCar.length}}
+                {{#each this.TtcCar}}
+                    <div id="mapCroquiAtual{{@index}}" class="inline-map"></div>
+                {{/each}}
+            {{else}}
+                <div id="mapCroquiAtual"></div>
+            {{/if}}
+            <div class="area-legenda-mapa" style="height:290px">
+                <div class="box-legenda-croquis" style="" >
+                    {{#each this.TtcLegendas.atual}}
+                        <i style="color:{{this.estilo.color}}" class="fa fa-square" aria-hidden="true"></i> 
+                        <span>{{this.nome}}</span><br/>
+                        <!--- <span>{{this.area}} ha</span> |  <span>{{this.comprimento}} km</span><br /> -->
+                    {{/each}}
+                </div>
+            </div>
+            
+            {{#if this.TtcLegendasResumo.atual}}
+                <br/>
+                <div class="table3">
+                    <table style="font-size:10px">
+                        <tr>
+                            <th>Códgo Sicor</th>
+                            <th style = "max-width:400px;">Nome</th>
+                            <th>Total Área</th>
+                            <th>Total Comprimento</th>
+                            <th>Número de Áreas</th>
+                        </tr>
+                        
+                        {{#each this.TtcLegendasResumo.atual}}
+                            <tr>
+                               <td>{{this.codigo_sicor}}</td>
+                               <td style = "max-width:400px;">{{this.nome}}</td>
+                               <td>{{this.area}} ha</td>
+                               <td>{{this.comprimento}} km</td>
+                               <td>{{this.num_areas}}</td>
+                            </tr>
+                        {{/each}}
+                        
+                    </table>
+                </div>
+            {{/if}}
+            
+        {{/if}}
+        {{#if this.mapaCroquiProjetado}}
+            <div style='page-break-before: always;'></div>
+            <h4 style="">Croqui Projetado</h4>
+            {{#if this.TtcCar.length}}
+                {{#each this.TtcCar}}
+                    <div id="mapCroquiProjetado{{@index}}" class="inline-map"></div>
+                {{/each}}
+            {{else}}
+                <div id="mapCroquiProjetado"></div>
+            {{/if}}
+                <div class="area-legenda-mapa" style="height:290px">
+                    <div class="box-legenda-croquis" style="" >
+                        {{#each this.TtcLegendas.projetado}}
+                            <i style="color:{{this.estilo.color}}" class="fa fa-square" aria-hidden="true"></i> 
+                            <span>{{this.nome}}</span><br/>
+                            <!--- <span>{{this.area}} ha</span> |  <span>{{this.comprimento}} km</span><br /> -->
+                        {{/each}}
+                    </div>
+                </div>
+                
+                {{#if this.TtcLegendasResumo.projetado}}
+                    <br/>
+                    <div class="table3">
+                        <table  style="font-size:10px">
+                            <tr>
+                                <th>Códgo Sicor</th>
+                                <th style = "max-width:400px;">Nome</th>
+                                <th>Total Área</th>
+                                <th>Total Comprimento</th>
+                                <th>Número de Áreas</th>
+                            </tr>
+                            
+                            {{#each this.TtcLegendasResumo.projetado}}
+                                <tr>
+                                   <td>{{this.codigo_sicor}}</td>
+                                   <td style = "max-width:400px;">{{this.nome}}</td>
+                                   <td>{{this.area}} ha</td>
+                                   <td>{{this.comprimento}} km</td>
+                                   <td>{{this.num_areas}}</td>
+                                </tr>
+                            {{/each}}
+                            
+                        </table>
+                    </div>
+                {{/if}}
+            
+        {{/if}}
+</div>
+<!--FIM mapa de croqui atual e projetado | TACI-->
+
+<!--declaração e tabela de croqui | TACI-->
+{{#if this.TtcArea.length}}
+    <div class="declaracao">
+        {{#if this.DeclaracaoBacen}}
+            <div style='page-break-before: always;'></div>
+            <h4 style="width:100%;text-align:center;">DECLARAÇÃO</h4>
+            <p>Declaro para efeito de financiamento no Banco da Amazônia S/A, sob as penasda lei, e da exigência conforme disposta no MCR 2-1- 2 (Resolução CMN/BACEN nº 4.427, de25.06.2015, ajustada pelas Cartas Circulares nº 3.720, de 24/08/2015 e 3.734, de 29/10/2015 ou outra norma que venha substituí-la),<b> que as coordenadas geodésicas relativas a(s)áreas(s) de cultivo objeto do financiamento informadas na tabela abaixo, são idôneas, fidedignas e, também, espelham a localização real da implantação doempreendimento dentro do(s) imóvel(eis) objeto do crédito, inclusive, com aidentificação em cada área cultivada (financiada), e da soma das áreas dos trechosinternos não cultivados, em hectares.</b></p>
+            <p>Declaro ainda, que as Coordenadas Geodésicas (latitude, longitude e altitude)dos vértices e / ou pontos de inflexão de cada área cultivada que compõem o empreendimento,foram coletadas conforme o sistema de referência geodésico SIRGAS2000 (Sistema deReferência Geocêntrico para as Américas), adotado pelo Instituto Brasileiro de Geografia eEstatística (IBGE).</p>
+            <p>Declaro, finalmente, estar ciente de que a falsidade da declaração ora prestadapoderá acarretar o vencimento antecipado do instrumento contratual no qual se formalizar acolaboração financeira do Banco, sem prejuízo da aplicação das sanções legais cabíveis, denatureza civil e penal.</p>
+            <span style="width:100%; text-align:center">
+                Local e data
+                <br /><br />
+                ________________________________________<br />    
+                (Nome e CPF/CNPJ)
+            </span>
+            {{#each this.TtcArea}}
+                {{#each this.features}}
+                    {{#if this.properties.tabelaCoordenadas}}
+                        <div class="table3" style="text-align:center;">
+                            <br />
+                            <table style="text-align:center;">
+                                <tr>
+                                    <th colspan="9"><b>{{this.properties.nome}}</b></th>
+                                </tr>
+                                <tr style="font-weight:bold">
+                                    <td>Vertices</td>
+                                    <td>Distância</td>
+                                    <td>Latitude</td>
+                                    <td>Longitude</td>
+                                    <td>Altitude</td>
+                                  </tr>
+                                    {{#each this.properties.tabelaCoordenadas}}
+                                        <tr>
+                                            <td>{{this.vertice}}</td>
+                                            <td>{{this.distancia}}</td>
+                                            <td>{{this.latitude}}</td>
+                                            <td>{{this.longitude}}</td>
+                                            <td>{{this.altitude}}</td>
+                                        </tr>
+                                    {{/each}}
+                            </table>        
+                        </div>
+                    {{else}}
+                    {{/if}}    
+                {{/each}}
+            {{/each}}
+        {{/if}}
+    </div>
+{{/if}}    
+<!--FIM declaração e tabela de croqui SE existir | TACI-->
+    <br />
+<div style='page-break-before: always;'></div>
+
+
+
+<!-- INICIO RESULTADO BUSCAR -->
+{{#if this.TtcProposta.detalhes_json.analise_buscar}}
+<h4>Resultado da análise do Buscar</h4>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.inexistencia_dap.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.inexistencia_dap.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.inexistencia_dap.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.inexistencia_dap.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.restritivas.inexistencia_dap}}
+            <tr>
+                <td width="70%">
+                    {{this.cpf_cnpj}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.dap_fora_validade.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.dap_fora_validade.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.dap_fora_validade.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.dap_fora_validade.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.restritivas.dap_fora_validade}}
+            <tr>
+                <td width="70%">
+                    {{this.cpf_cnpj}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_ibama_area.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_ibama_area.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_ibama_area.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_ibama_area.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.restritivas.embargo_ibama_area}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_ibama_pessoa.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_ibama_pessoa.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_ibama_pessoa.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_ibama_pessoa.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.restritivas.embargo_ibama_pessoa}}
+            <tr>
+                <td width="70%">
+                    {{this.cpf_cnpj}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_estado.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_estado.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_estado.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.embargo_estado.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.restritivas.embargo_estado}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.trabalho_escravo.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.trabalho_escravo.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.trabalho_escravo.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.trabalho_escravo.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.restritivas.trabalho_escravo}}
+            <tr>
+                <td width="70%">
+                    {{this.cpf_cnpj}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.unidade_conservacao.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.unidade_conservacao.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.unidade_conservacao.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.unidade_conservacao.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.restritivas.unidade_conservacao}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.terra_indigena_za.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.terra_indigena_za.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.terra_indigena_za.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.terra_indigena_za.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.condicionais_exclusivas.terra_indigena_za}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.terra_indigena.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.terra_indigena.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.terra_indigena.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.terra_indigena.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.condicionais_exclusivas.terra_indigena}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.quilombo.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.quilombo.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.quilombo.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.quilombo.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.condicionais_exclusivas.quilombo}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.assentamento.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.assentamento.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.assentamento.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.assentamento.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.condicionais_exclusivas.assentamento}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2014.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2014.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2014.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2014.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.informativas.prodes_2014}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2015.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2015.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2015.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2015.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.informativas.prodes_2015}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2016.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2016.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2016.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.prodes_2016.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.informativas.prodes_2016}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:red;">reprovado</span>
+                {{else}}
+                    <span style="color:green;">aprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.bioma.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.bioma.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.bioma.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.bioma.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.informativas.bioma}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                    <span style="color:blue;">{{this.resultado}}</span>
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.vegetacao.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.vegetacao.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.vegetacao.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.vegetacao.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.informativas.vegetacao}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                    <span style="color:blue;">{{this.resultado}}</span>
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.status_imovel.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.status_imovel.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.status_imovel.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.status_imovel.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.informativas.status_imovel}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:green;">aprovado</span>
+                {{else}}
+                    <span style="color:red;">reprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.inscrito_car.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.inscrito_car.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.inscrito_car.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.inscrito_car.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.informativas.inscrito_car}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                {{#if this.resultado}}
+                    <span style="color:green;">aprovado</span>
+                {{else}}
+                    <span style="color:red;">reprovado</span>
+                {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.estado.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.estado.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.estado.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.estado.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.informativas.estado}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                    <span style="color:blue;">{{this.resultado}}</span>
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+<div class="box result-box" style="margin-bottom:0 !important">
+    <span style="font-weight:600;">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.tipologia_municipio.nome}}</span>
+    <br> <small style="text-transform:none;">Fonte: <a href="{{this.TtcProposta.detalhes_json.analise_buscar.criterios.tipologia_municipio.url}}">{{this.TtcProposta.detalhes_json.analise_buscar.criterios.tipologia_municipio.fonte}}</a>, 
+    Atualização dos dados: {{this.TtcProposta.detalhes_json.analise_buscar.criterios.tipologia_municipio.data}}</small>
+</div>
+<div>
+    <div class="table3">
+        <table>
+        {{#each this.TtcProposta.detalhes_json.analise_buscar.buscar.informativas.tipologia_municipio}}
+            <tr>
+                <td width="70%">
+                    {{this.nome}} {{this.numero}}
+                </td>
+                <td style="text-align:center;">
+                    <span style="color:blue;">{{this.resultado}}</span>
+                </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+</div>
+{{/if}}
+<!-- FIM RESULTADO BUSCAR -->
+
+
+{{#if (exibeFisaQsa this.TtcPropostaTipo.nome )}}
+<div style='page-break-before: always;'></div>
+<br />
+
+
+
+    <h4>Formulário FISA/QSA</h4>
+    
+    
+        {{#each this.TtcFisa}}
+            <div class="perguntas" style="font-size:10px;font-weight:normal; line-height:25px;"><br />
+                <h4 style="font-size:11px;font-weight:bold;">{{ this.TtcModuloQuestionario.codigo }}.  {{ this.TtcModuloQuestionario.descricao }}</h4>
+                <p>{{ this.descr }}</p>
+                {{#each this.TtcQuestionario}}
+                        
+                        {{# if this.nome_questao}}
+                            <span style="margin-left:2em;">{{ this.codigo_questao }} - {{ this.nome_questao }}</span>
+                            
+                            {{# this.TtcQuestionarioResposta.[0] }}
+                                {{# if this.resposta }}
+                                    <span style="margin-left:1em;font-weight:bold;">Sim</span>
+                                {{ else }}
+                                    <span style="margin-left:1em;font-weight:bold;">Não</span>
+                                {{/ if }}
+                            {{/ this.TtcQuestionarioResposta.[0] }}
+                            
+                            {{^ this.TtcQuestionarioResposta.[0] }}
+                                <span style="margin-left:1em;font-weight:bold;">-</span>
+                            {{/ this.TtcQuestionarioResposta.[0] }}
+                            
+                        {{ else }}
+                            <span style="margin-left:2em;">{{ this.codigo_questao }} - {{ this.nome_subquestao }}</span>
+                            
+                            {{# this.TtcQuestionarioResposta.[0] }}
+                                <span style="margin-left:1em;font-weight:bold;">{{ this.subresposta }}</span>
+                            {{/ this.TtcQuestionarioResposta.[0] }}
+                            
+                            {{^ this.TtcQuestionarioResposta.[0] }}
+                                <span style="margin-left:1em;font-weight:bold;">-</span>
+                            {{/ this.TtcQuestionarioResposta.[0] }}
+                        {{/ if }}
+                        
+                        
+                       
+                        
+                         <br />
+                {{/each}}
+               
+            </div>
+    
+        {{/each}}
+    
+    {{# if QSA }}
+    
+        {{#each QSA}}
+            <br />
+            <div class="perguntas" style="font-size:11px">
+                <h4 style="font-size:11px;">{{ this.titulo }}</h4><br />
+                <p>{{ this.descr }}</p>
+                {{#each this.perguntas}}
+                        <h4 style="margin-left:2em">{{ this.pergunta }}</h4>
+                        <p style="margin-left:4em">{{ this.resposta }}</p>
+                {{/each}}
+            </div>
+        {{/each}}
+        
+    {{ else }}
+    
+        {{#each FISA}}
+        <br />
+            <div class="perguntas" style="">
+                <h4 style="font-size:11px;">{{ this.titulo }}</h4><br />
+                <p>{{ this.descr }}</p>
+                {{#each this.perguntas}}
+                        <h4 style="margin-left:2em">{{ this.pergunta }}</h4>
+                        <p style="margin-left:4em">{{ this.resposta }}</p>
+                {{/each}}
+            </div>
+            <br />
+           
+        {{/each}}
+        
+    {{/ if }}
+
+{{/ if }} <!-- fim verificacao se form deve ser exibido -->
+
+
+<br /><br /><br />
+
+<div style="width:340px;float:left;font-size:11px;text-align:center;">
+    <br />_______________________________________<br />
+    
+    {{#if this.TtcProposta.detalhes_json.Proponente}}
+        <span>{{this.TtcProposta.detalhes_json.Proponente.nome}}</span><br />
+    {{/if}}
+    Requerente
+</div>
+<div style="width:340px;float:right;font-size:11px;text-align:center;">
+    <br />_______________________________________<br />
+    
+    {{#if this.TtcProposta.detalhes_json.ResponsavelTecnico}}
+        <span>{{this.TtcProposta.detalhes_json.ResponsavelTecnico.nome}}</span><br />
+    {{/if}}
+    Responsável Técnico
+</div>
+
+
+
+<img src="http://dev-buscar-banco.branch.terras.agr.br/img/terrastool-credito.png" style="height: 66px;float:left;display:none;" alt="">
+<img src="http://dev-buscar-banco.branch.terras.agr.br/img/creditorural/log-basa-pdf.png" style="height: 70px;float:right;display:none;" alt="">
