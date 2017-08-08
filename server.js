@@ -67,7 +67,7 @@ app.use(bodyParser.urlencoded({
     extended: true,
     limit: '5mb'
 }));
-app.use(bodyParser.json({limit: '5mb'}));
+app.use(bodyParser.json({ limit: '5mb' }));
 
 
 app.use(express.static(path.join(__dirname, './www')));
@@ -83,7 +83,7 @@ app.get('/reporting/:url', function(req, res) {
     console.log("HEREEEEEEEEEEEEEEEEEEEEEEEEEE");
 
     var page = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'page.html'), 'utf8');
-    var data = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'data.json'), 'utf8');
+    var data = jsonfile.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'data.json'));
     var helpers = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'helpers.js'), 'utf8');
     // var header = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'header.html'), 'utf8');
     // var footer = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'footer.html'), 'utf8');
