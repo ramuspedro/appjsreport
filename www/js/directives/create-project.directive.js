@@ -3,9 +3,9 @@
 
     angular
         .module('jsReportingApp')
-        .directive('createNewProject', ['ModalService', '$http', createNewProject]);
+        .directive('createNewProject', ['ModalService', '$http', '$state', createNewProject]);
 
-    function createNewProject(ModalService, $http) {
+    function createNewProject(ModalService, $http, $state) {
 
         /*
          * Parametros da diretiva
@@ -39,6 +39,7 @@
                             url: url
                         }).then(function(result) {
                             console.log("RESULTADO: ", result);
+                            $state.go("app", {projectId: url})
                         });
                     });
                 });

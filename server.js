@@ -151,7 +151,7 @@ function createProject(url, name, callback) {
                 return console.log(err);
             }
             console.log("json created!");
-            fs.writeFile(dir + "/page.html", "<--! Project: " + name + " -->", function(err) {
+            fs.writeFile(dir + "/page.html", "<!-- Project: " + name + " -->", function(err) {
                 if (err) {
                     console.log("json error: ", err);
                     return console.log(err);

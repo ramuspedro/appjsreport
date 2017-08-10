@@ -11,6 +11,33 @@
 
         var javascript, html, json;
 
+        /* COnfigure toastr */
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        /*
+         * loading icons
+         */
+
+        vm.loading = {
+            generate_pdf: false
+        };
+
         /*
          * Função salvamento dos arquivos
          */
@@ -119,6 +146,7 @@
         };
 
         vm.executar = function() {
+            vm.loading.generate_pdf = true;
             console.log("EXECUTAR: ", $state.params.projectId);
             $http.get("http://localhost:8000/reporting/" + $state.params.projectId, { responseType: 'arraybuffer' }).then(function(data, status) {
                 console.log("Data: ", data);
@@ -127,6 +155,7 @@
                 console.log("file", file);
                 var fileURL = URL.createObjectURL(file);
                 $scope.pdf = $sce.trustAsResourceUrl(fileURL);
+                vm.loading.generate_pdf = false;
                 //window.open($scope.pdf);
             });
         };
@@ -153,6 +182,7 @@
 
             $http.post("http://localhost:8000/save-files", sendFiles).then(function(result) {
                 console.log("RESULTADO", result);
+                toastr.success('salvamento realizado com sucesso.')
             });
         };
     }
