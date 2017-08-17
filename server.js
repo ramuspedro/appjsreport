@@ -79,8 +79,6 @@ app.get('/', function(req, res) {
 });
 
 app.get('/reporting/:url', function(req, res) {
-    console.log("PAGE: ", path.join(__dirname, '/www/projects/' + req.params.url, 'page.html'));
-    console.log("HEREEEEEEEEEEEEEEEEEEEEEEEEEE");
 
     var page = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'page.html'), 'utf8');
     var data = jsonfile.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'data.json'));
@@ -131,7 +129,6 @@ app.get('/reporting/:url', function(req, res) {
 });
 
 function createProject(url, name, callback) {
-    console.log("CRIANDO", url)
     var dir = "./www/projects/" + url;
     // https://stackoverflow.com/questions/21194934/node-how-to-create-a-directory-if-doesnt-exist
     if (!fs.existsSync(dir)) {
@@ -141,7 +138,6 @@ function createProject(url, name, callback) {
     //https://stackoverflow.com/questions/2496710/writing-files-in-node-js
     fs.writeFile(dir + "/helpers.js", "// Project: " + name, function(err) {
         if (err) {
-            console.log("JS error: ", err);
             return console.log(err);
         }
         console.log("js created!");
@@ -150,13 +146,11 @@ function createProject(url, name, callback) {
                 console.log("json error: ", err);
                 return console.log(err);
             }
-            console.log("json created!");
             fs.writeFile(dir + "/page.html", "<!-- Project: " + name + " -->", function(err) {
                 if (err) {
                     console.log("json error: ", err);
                     return console.log(err);
                 }
-                console.log("html created!");
                 callback();
             });
         });
@@ -189,9 +183,7 @@ app.post('/create-project', function(req, res, next) {
 });
 
 app.get('/all-projects', function(req, res, next) {
-    console.log("Get projets");
     AppReport.find().exec(function(err, data) {
-        console.log("DATA: ", data);
         if (err) {
             return res.json({
                 data: null,
@@ -225,7 +217,6 @@ function saveHtml(dir, html, callback) {
                 console.log("json error: ", err);
                 callback();
             }
-            console.log("html created!");
             callback();
         });
     } else {
@@ -241,7 +232,6 @@ function saveJs(dir, js, callback) {
                 console.log("JS error: ", err);
                 callback();
             }
-            console.log("js created!");
             callback();
         });
     } else {
@@ -250,7 +240,6 @@ function saveJs(dir, js, callback) {
 }
 
 function saveJson(dir, json, callback) {
-    console.log("TRYIng create json", json);
     if (json) {
         /*fs.writeFile(dir + "/data.json", JSON.stringify(json), "utf8", function(err) {
             if (err) {
@@ -262,10 +251,8 @@ function saveJson(dir, json, callback) {
         });*/
         jsonfile.writeFile(dir + "/data.json", json, { spaces: 2 }, function(err) {
             if (err) {
-                console.log("json error: ", err);
                 callback();
             }
-            console.log("json created!");
             callback();
         });
     } else {
@@ -275,7 +262,6 @@ function saveJson(dir, json, callback) {
 
 
 app.post('/save-files', function(req, res, next) {
-    console.log("Save all files", req.body);
     saveProject(req.body, function() {
         res.json({
             msg: "ok"

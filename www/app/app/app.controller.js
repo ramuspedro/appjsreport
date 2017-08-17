@@ -22,7 +22,7 @@
             "onclick": null,
             "showDuration": "300",
             "hideDuration": "1000",
-            "timeOut": "5000",
+            "timeOut": "3000",
             "extendedTimeOut": "1000",
             "showEasing": "swing",
             "hideEasing": "linear",
@@ -104,7 +104,6 @@
                     });
 
                     $http.get(url + "page.html").then(function(data3) {
-                        console.log("html", data3);
                         html.setValue(data3.data);
                     });
                 }
@@ -121,7 +120,6 @@
                     });
 
                     $http.get(url + "helpers.js").then(function(data) {
-                        javascript.setValue(data.data);
                         console.log("js", data);
                     });
                 }
@@ -138,8 +136,7 @@
                     });
 
                     $http.get(url + "data.json").then(function(data2) {
-                        console.log("json", data2);
-                        json.setValue(JSON.parse(data2.data));
+                        json.setValue(data2.data);
                     });
                 }
             }
@@ -152,7 +149,6 @@
                 console.log("Data: ", data);
                 console.log("\nStatus: ", status);
                 var file = new Blob([data.data], { type: 'application/pdf' });
-                console.log("file", file);
                 var fileURL = URL.createObjectURL(file);
                 $scope.pdf = $sce.trustAsResourceUrl(fileURL);
                 vm.loading.generate_pdf = false;
@@ -161,27 +157,22 @@
         };
 
         function saveFiles() {
-            console.log("TESTEEEEEEE");
 
             var sendFiles = {
                 url: $state.params.projectId
             };
 
             if (html) {
-                console.log("html: ", html.getValue());
                 sendFiles.html = html.getValue();
             }
             if (javascript) {
-                console.log("js: ", javascript.getValue());
                 sendFiles.javascript = javascript.getValue();
             }
             if (json) {
-                console.log("json: ", json.getValue());
                 sendFiles.json = json.getValue();
             }
 
             $http.post("http://localhost:8000/save-files", sendFiles).then(function(result) {
-                console.log("RESULTADO", result);
                 toastr.success('salvamento realizado com sucesso.')
             });
         };
