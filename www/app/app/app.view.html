@@ -37,7 +37,7 @@
     <div class="row">
         <main class="col-lg-7 pt-3">
             <div class="ace-content">
-                <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs nav-justified">
                     <li class="nav-item">
                         <a class="nav-link" href ng-click="vm.clickTab(0)" ng-class="{'active' : chooseTab == 0}">page</a>
                     </li>
@@ -47,6 +47,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href ng-click="vm.clickTab(2)" ng-class="{'active' : chooseTab == 2}">data</a>
                     </li>
+                    <!-- <li class="nav-item dropdown show">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                    </li> -->
+                    <div class="dropdown">
+                        <li class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </li>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Header</a>
+                            <a class="dropdown-item" href="#">Footer</a>
+                        </div>
+                    </div>
                 </ul>
                 <div class="ace-html" ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
                     <textarea id="html"></textarea>

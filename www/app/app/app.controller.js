@@ -10,6 +10,8 @@
         $scope.chooseTab = 0;
 
         var javascript, html, json;
+        
+        $('.dropdown-toggle').dropdown();
 
         /* COnfigure toastr */
         toastr.options = {
