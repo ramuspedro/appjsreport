@@ -9,7 +9,7 @@
 
         $scope.chooseTab = 0;
 
-        var javascript, html, json;
+        var javascript, html, json, header;
         
         $('.dropdown-toggle').dropdown();
 
@@ -45,24 +45,6 @@
          */
         vm.saveFiles = saveFiles;
 
-        /*var javascript = ace.edit("javascript");
-        javascript.setTheme("ace/theme/twilight");
-        javascript.session.setMode("ace/mode/javascript");
-        javascript.renderer.setScrollMargin(10, 10);
-        javascript.setOptions({
-            // "scrollPastEnd": 0.8,
-            autoScrollEditorIntoView: true
-        });
-
-        var json = ace.edit("json");
-        json.setTheme("ace/theme/twilight");
-        json.session.setMode("ace/mode/javascript");
-        json.renderer.setScrollMargin(10, 10);
-        json.setOptions({
-            // "scrollPastEnd": 0.8,
-            autoScrollEditorIntoView: true
-        });*/
-
         html = ace.edit("html");
         html.setTheme("ace/theme/twilight");
         html.session.setMode("ace/mode/html");
@@ -75,15 +57,6 @@
 
         var url = "../projects/" + $state.params.projectId + "/";
 
-        /*$http.get(url + "helpers.js").then(function(data) {
-            javascript.setValue(data.data);
-            console.log("js", data);
-        });
-
-        $http.get(url + "data.json").then(function(data2) {
-            console.log("json", data2);
-            json.setValue(JSON.stringify(data2.data, null, '\t'));
-        });*/
 
         $http.get(url + "page.html").then(function(data3) {
             console.log("html", data3);
@@ -142,6 +115,23 @@
                     });
                 }
             }
+            else if (index == 3) {
+                if (!header) {
+                    header = ace.edit("header");
+                    header.setTheme("ace/theme/twilight");
+                    header.session.setMode("ace/mode/javascript");
+                    header.renderer.setScrollMargin(10, 10);
+                    header.setOptions({
+                        // "scrollPastEnd": 0.8,
+                        autoScrollEditorIntoView: true,
+                        maxLines: 50
+                    });
+
+                    $http.get(url + "data.json").then(function(data2) {
+                        header.setValue(data2.data);
+                    });
+                }
+            }
         };
 
         vm.executar = function() {
@@ -172,6 +162,9 @@
             }
             if (json) {
                 sendFiles.json = json.getValue();
+            }
+            if (header) {
+                sendFiles.header = header.getValue();
             }
 
             $http.post("http://localhost:8000/save-files", sendFiles).then(function(result) {
