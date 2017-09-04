@@ -7,6 +7,8 @@
         console.log("TESTEEEEEEE: ", $state.params.projectId);
         var vm = this;
 
+        /* Funcion as vm */
+
         $scope.chooseTab = 0;
 
         var javascript, html, json, header;
@@ -127,7 +129,7 @@
                         maxLines: 50
                     });
 
-                    $http.get(url + "data.json").then(function(data2) {
+                    $http.get(url + "header.html").then(function(data2) {
                         header.setValue(data2.data);
                     });
                 }
