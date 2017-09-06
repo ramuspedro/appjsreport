@@ -84,7 +84,7 @@ app.get('/reporting/:url', function(req, res) {
     var data = jsonfile.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'data.json'));
     var helpers = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'helpers.js'), 'utf8');
     var header = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'header.html'), 'utf8');
-    // var footer = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'footer.html'), 'utf8');
+    var footer = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'footer.html'), 'utf8');
 
     jsreport.init().then(function() {
         jsreport.render({
@@ -102,7 +102,7 @@ app.get('/reporting/:url', function(req, res) {
                     allowLocalFilesAccess: false,
                     header: header,
                     headerHeight: "3cm",
-                    // footer: footer,
+                    footer: footer,
                     footerHeight: "21px"
                 }
             },
@@ -156,7 +156,13 @@ function createProject(url, name, callback) {
                         console.log("json error: ", err);
                         return console.log(err);
                     }
-                    callback();
+                    fs.writeFile(dir + "/footer.html", "<!-- Footer for: " + name + " -->", function(err) {
+                        if (err) {
+                            console.log("json error: ", err);
+                            return console.log(err);
+                        }
+                        callback();
+                    });
                 });
             });
         });
@@ -164,7 +170,7 @@ function createProject(url, name, callback) {
 };
 
 app.post('/create-project', function(req, res, next) {
-    console.log("REQ", req.body);
+    //console.log("REQ", req.body);
 
     var newProject = new AppReport({ projectName: req.body.name, url: req.body.url });
 
@@ -204,14 +210,16 @@ app.get('/all-projects', function(req, res, next) {
 });
 
 function saveProject(info, callback) {
-    console.log("SALVANDO", info);
+    console.log("SALVANDO", info.javascript);
 
     var dir = "./www/projects/" + info.url;
     saveHtml(dir, info.html, function() {
         saveJs(dir, info.javascript, function() {
             saveJson(dir, info.json, function() {
                 saveHeader(dir, info.header, function() {
-                    callback();
+                    saveFooter(dir, info.footer, function() {
+                        callback();
+                    });
                 });
             });
         });
@@ -235,6 +243,20 @@ function saveHtml(dir, html, callback) {
 function saveHeader(dir, header, callback) {
     if (header) {
         fs.writeFile(dir + "/header.html", header, function(err) {
+            if (err) {
+                console.log("json error: ", err);
+                callback();
+            }
+            callback();
+        });
+    } else {
+        callback();
+    }
+}
+
+function saveFooter(dir, footer, callback) {
+    if (footer) {
+        fs.writeFile(dir + "/footer.html", footer, function(err) {
             if (err) {
                 console.log("json error: ", err);
                 callback();

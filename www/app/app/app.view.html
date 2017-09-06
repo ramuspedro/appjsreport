@@ -56,7 +56,7 @@
                         </li>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" href ng-click="vm.clickTab(3)">Header</a>
-                            <a class="dropdown-item" href="#">Footer</a>
+                            <a class="dropdown-item" href ng-click="vm.clickTab(4)">Footer</a>
                         </div>
                     </div>
                 </ul>
@@ -71,6 +71,9 @@
                 </div>
                 <div class="ace-header" ng-class="{'display-none' : !(chooseTab == 3)}" ng-cloak>
                     <textarea id="header"></textarea>
+                </div>
+                <div class="ace-footer" ng-class="{'display-none' : !(chooseTab == 4)}" ng-cloak>
+                    <textarea id="footer"></textarea>
                 </div>
             </div>
         </main>

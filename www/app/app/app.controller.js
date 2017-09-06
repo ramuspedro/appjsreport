@@ -11,7 +11,7 @@
 
         $scope.chooseTab = 0;
 
-        var javascript, html, json, header;
+        var javascript, html, json, header, footer;
         
         $('.dropdown-toggle').dropdown();
 
@@ -98,6 +98,7 @@
 
                     $http.get(url + "helpers.js").then(function(data) {
                         console.log("js", data);
+                        javascript.setValue(data.data);
                     });
                 }
             } else if (index == 2) {
@@ -116,8 +117,7 @@
                         json.setValue(data2.data);
                     });
                 }
-            }
-            else if (index == 3) {
+            } else if (index == 3) {
                 if (!header) {
                     header = ace.edit("header");
                     header.setTheme("ace/theme/twilight");
@@ -131,6 +131,22 @@
 
                     $http.get(url + "header.html").then(function(data2) {
                         header.setValue(data2.data);
+                    });
+                }
+            } else if (index == 4) {
+                if (!footer) {
+                    footer = ace.edit("footer");
+                    footer.setTheme("ace/theme/twilight");
+                    footer.session.setMode("ace/mode/javascript");
+                    footer.renderer.setScrollMargin(10, 10);
+                    footer.setOptions({
+                        // "scrollPastEnd": 0.8,
+                        autoScrollEditorIntoView: true,
+                        maxLines: 50
+                    });
+
+                    $http.get(url + "footer.html").then(function(data2) {
+                        footer.setValue(data2.data);
                     });
                 }
             }
@@ -167,6 +183,9 @@
             }
             if (header) {
                 sendFiles.header = header.getValue();
+            }
+            if (footer) {
+                sendFiles.footer = footer.getValue();
             }
 
             $http.post("http://localhost:8000/save-files", sendFiles).then(function(result) {
