@@ -122,6 +122,7 @@
                     });
                 }
             } else if (index == 3) {
+                vm.dropdownName = "Header";
                 if (!header) {
                     header = ace.edit("header");
                     header.setTheme("ace/theme/twilight");
@@ -133,13 +134,12 @@
                         maxLines: 50
                     });
 
-                    vm.dropdownName = "Header";
-
                     $http.get(url + "header.html").then(function(data2) {
                         header.setValue(data2.data);
                     });
                 }
             } else if (index == 4) {
+                vm.dropdownName = "Footer";
                 if (!footer) {
                     footer = ace.edit("footer");
                     footer.setTheme("ace/theme/twilight");
@@ -151,7 +151,6 @@
                         maxLines: 50
                     });
 
-                    vm.dropdownName = "Footer";
 
                     $http.get(url + "footer.html").then(function(data2) {
                         footer.setValue(data2.data);
