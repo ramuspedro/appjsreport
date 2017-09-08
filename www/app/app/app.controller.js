@@ -9,6 +9,8 @@
 
         /* Funcion as vm */
 
+        vm.dropdownName = "";
+
         $scope.chooseTab = 0;
 
         var javascript, html, json, header, footer;
@@ -67,6 +69,8 @@
 
         vm.clickTab = function(index) {
             $scope.chooseTab = index;
+
+            vm.dropdownName = "";
 
             if (index == 0) {
                 if (!html) {
@@ -129,6 +133,8 @@
                         maxLines: 50
                     });
 
+                    vm.dropdownName = "Header";
+
                     $http.get(url + "header.html").then(function(data2) {
                         header.setValue(data2.data);
                     });
@@ -144,6 +150,8 @@
                         autoScrollEditorIntoView: true,
                         maxLines: 50
                     });
+
+                    vm.dropdownName = "Footer";
 
                     $http.get(url + "footer.html").then(function(data2) {
                         footer.setValue(data2.data);
