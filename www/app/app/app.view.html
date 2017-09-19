@@ -52,22 +52,28 @@
                     </li> -->
                     <div class="dropdown">
                         <li class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            {{vm.dropdownName}} <i class="fa fa-plus" aria-hidden="true"></i>
                         </li>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Header</a>
-                            <a class="dropdown-item" href="#">Footer</a>
+                            <a class="dropdown-item" href ng-click="vm.clickTab(3)">Header</a>
+                            <a class="dropdown-item" href ng-click="vm.clickTab(4)">Footer</a>
                         </div>
                     </div>
                 </ul>
-                <div class="ace-html" ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
+                <div class="ace-editor" ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
                     <textarea id="html"></textarea>
                 </div>
-                <div class="ace-javascript" ng-class="{'display-none' : !(chooseTab == 1)}" ng-cloak>
+                <div class="ace-editor" ng-class="{'display-none' : !(chooseTab == 1)}" ng-cloak>
                     <textarea id="javascript"></textarea>
                 </div>
-                <div class="ace-json" ng-class="{'display-none' : !(chooseTab == 2)}" ng-cloak>
+                <div class="ace-editor" ng-class="{'display-none' : !(chooseTab == 2)}" ng-cloak>
                     <textarea id="json"></textarea>
+                </div>
+                <div class="ace-editor" ng-class="{'display-none' : !(chooseTab == 3)}" ng-cloak>
+                    <textarea id="header"></textarea>
+                </div>
+                <div class="ace-editor" ng-class="{'display-none' : !(chooseTab == 4)}" ng-cloak>
+                    <textarea id="footer"></textarea>
                 </div>
             </div>
         </main>

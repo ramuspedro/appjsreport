@@ -83,8 +83,8 @@ app.get('/reporting/:url', function(req, res) {
     var page = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'page.html'), 'utf8');
     var data = jsonfile.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'data.json'));
     var helpers = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'helpers.js'), 'utf8');
-    // var header = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'header.html'), 'utf8');
-    // var footer = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'footer.html'), 'utf8');
+    var header = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'header.html'), 'utf8');
+    var footer = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'footer.html'), 'utf8');
 
     jsreport.init().then(function() {
         jsreport.render({
@@ -100,9 +100,9 @@ app.get('/reporting/:url', function(req, res) {
                     numberOfWorkers: 1,
                     timeout: 180000,
                     allowLocalFilesAccess: false,
-                    // header: header,
+                    header: header,
                     headerHeight: "3cm",
-                    // footer: footer,
+                    footer: footer,
                     footerHeight: "21px"
                 }
             },
@@ -151,14 +151,26 @@ function createProject(url, name, callback) {
                     console.log("json error: ", err);
                     return console.log(err);
                 }
-                callback();
+                fs.writeFile(dir + "/header.html", "<!-- Header for: " + name + " -->", function(err) {
+                    if (err) {
+                        console.log("json error: ", err);
+                        return console.log(err);
+                    }
+                    fs.writeFile(dir + "/footer.html", "<!-- Footer for: " + name + " -->", function(err) {
+                        if (err) {
+                            console.log("json error: ", err);
+                            return console.log(err);
+                        }
+                        callback();
+                    });
+                });
             });
         });
     });
 };
 
 app.post('/create-project', function(req, res, next) {
-    console.log("REQ", req.body);
+    //console.log("REQ", req.body);
 
     var newProject = new AppReport({ projectName: req.body.name, url: req.body.url });
 
@@ -198,13 +210,17 @@ app.get('/all-projects', function(req, res, next) {
 });
 
 function saveProject(info, callback) {
-    console.log("CRIANDO", info);
+    console.log("SALVANDO", info.javascript);
 
     var dir = "./www/projects/" + info.url;
     saveHtml(dir, info.html, function() {
         saveJs(dir, info.javascript, function() {
             saveJson(dir, info.json, function() {
-                callback();
+                saveHeader(dir, info.header, function() {
+                    saveFooter(dir, info.footer, function() {
+                        callback();
+                    });
+                });
             });
         });
     });
@@ -213,6 +229,34 @@ function saveProject(info, callback) {
 function saveHtml(dir, html, callback) {
     if (html) {
         fs.writeFile(dir + "/page.html", html, function(err) {
+            if (err) {
+                console.log("json error: ", err);
+                callback();
+            }
+            callback();
+        });
+    } else {
+        callback();
+    }
+}
+
+function saveHeader(dir, header, callback) {
+    if (header) {
+        fs.writeFile(dir + "/header.html", header, function(err) {
+            if (err) {
+                console.log("json error: ", err);
+                callback();
+            }
+            callback();
+        });
+    } else {
+        callback();
+    }
+}
+
+function saveFooter(dir, footer, callback) {
+    if (footer) {
+        fs.writeFile(dir + "/footer.html", footer, function(err) {
             if (err) {
                 console.log("json error: ", err);
                 callback();

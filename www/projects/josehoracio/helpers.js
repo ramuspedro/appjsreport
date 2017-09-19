@@ -54,3 +54,12 @@ function exibeFisaQsa ( tipo ) {
     return true;
   }
 }
+
+// retorna true se tipo for croqui projetado
+function exibeTabelaCoordenadas ( tipo ) {
+  if (tipo === 'projetado') {
+    return true;
+  } else {
+    return false;
+  }
+}
