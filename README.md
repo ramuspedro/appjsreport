@@ -7,7 +7,7 @@
 * Back-end: Nodejs, Express, Phantom-pdf
 * DB: MongoDB
 
-## Run this project
+## Run this project (Linux Ubuntu)
 
 > npm install
 
@@ -37,6 +37,6 @@
 }
 ```
 
-## Desenvolvedores:
+## Developers:
 * Cleyton Gama
 * Pedro Ramos
