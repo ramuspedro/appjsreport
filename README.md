@@ -28,7 +28,7 @@
 -> Example:
 ```javascript
 {
-    projectName: myproject,
+    projectName: "myproject",
     data: {
 		name: "Jonh Doe",
 		age: 24,
