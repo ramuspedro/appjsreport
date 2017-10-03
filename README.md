@@ -25,7 +25,8 @@
     data: data
 }
 ```
--> Ex:
+-> Example:
+```javascript
 {
     projectName: myproject,
     data: {
@@ -34,6 +35,7 @@
 		city: "Belem"
 	}
 }
+```
 
 ## Desenvolvedores:
 * Cleyton Gama
