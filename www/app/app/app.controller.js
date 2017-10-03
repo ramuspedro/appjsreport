@@ -14,7 +14,7 @@
         $scope.chooseTab = 0;
 
         var javascript, html, json, header, footer;
-        
+
         $('.dropdown-toggle').dropdown();
 
         /* COnfigure toastr */
@@ -199,5 +199,24 @@
                 toastr.success('salvamento realizado com sucesso.')
             });
         };
+
+        /*vm.restApi = function() {
+            $http.get(url + "data.json").then(function(data2) {
+                console.log("DATA: ", data2);
+                //json.setValue(data2.data);
+                $http.post("http://localhost:8000/generate-pdf", {
+                    projectName: "josehoracio",
+                    data: data2.data
+                }, { responseType: 'arraybuffer' }).then(function(data, status) {
+                    console.log("Data: ", data);
+                    console.log("\nStatus: ", status);
+                    var file = new Blob([data.data], { type: 'application/pdf' });
+                    var fileURL = URL.createObjectURL(file);
+                    $scope.pdf = $sce.trustAsResourceUrl(fileURL);
+                    vm.loading.generate_pdf = false;
+                    //window.open($scope.pdf);
+                });
+            });
+        };*/
     }
 })();

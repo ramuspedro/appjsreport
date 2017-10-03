@@ -1,12 +1,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+
 
 <!-- Leaflet -->
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 <link rel="stylesheet" href="http://terras.agr.br/vendor/font-awesome/css/font-awesome.css" />
 <style>
 
-body { font-family: 'PT Sans', sans-serif;}
+body { font-family: 'Arial' !important;}
 
 .table-analise-car {width:700px; background-color:#eee;font-weight:normal!important;}
 .table-analise-car table {width:700px;font-size:10px; font-weight:normal!important;}
@@ -34,11 +34,11 @@ body { font-family: 'PT Sans', sans-serif;}
 .table-proponente {
    width:700px; background-color:#eee;font-weight:normal!important;
    font-size:11px;
-   font-family: 'PT Sans', sans-serif;
+   /*font-family: 'PT Sans', sans-serif;*/
 }
 
 
-.tabela-aprt { width:100%;font-weight:normal; color:black; font-family: 'PT Sans', sans-serif; font-size:12px;}
+.tabela-aprt { width:100%;font-weight:normal; color:black; /*font-family: 'PT Sans', sans-serif;*/ font-size:12px;}
 .tabela-aprt table { width:700px; background-color:#ececec;border-collapse:collapse;border-spacing:0;}
 .tabela-aprt table { border:1px solid white; }
 .tabela-aprt table th { padding:8px; border:1px solid white; font-weight:normal; font-size:11px; }
@@ -54,7 +54,7 @@ body { font-family: 'PT Sans', sans-serif;}
 
 
 
-.table2 { width:200px;font-weight:normal;  font-family: 'PT Sans', sans-serif;}
+.table2 { width:200px;font-weight:normal;  /*font-family: 'PT Sans', sans-serif;*/}
 .table2 table { width:100%; background-color:#ececec;border-collapse:collapse;border-spacing:0; color: #575756;}
 .table2 table { border:1px solid #dadad9; }
 .table2 table th { padding:8px; border:1px solid #dadad9; font-weight:normal; font-size:10px;   }
@@ -62,13 +62,13 @@ body { font-family: 'PT Sans', sans-serif;}
 
 .legenda { font-family: 'PT Sans', sans-serif; font-style: italic;color:#575756;}
 
-.table3 { width:100%;font-weight:normal;  font-family: 'PT Sans', sans-serif;}
+.table3 { width:100%;font-weight:normal; /* font-family: 'PT Sans', sans-serif; */}
 .table3 table { border:1px solid red;width:100%; background-color:white;border-collapse:collapse;border-spacing:0; color: black;}
 .table3 table th { padding:5px; border:1px solid #ececec; font-weight:normal; font-size:10px;  }
 .table3 table td { padding:5px; border: 1px solid #ececec;font-size:10px;}
 
 
-.reuslt-table3 {text-align:center;font-style:italic; display:block;margin-top:25px;width:880px;font-weight:normal; color:#575756; font-family: 'PT Sans', sans-serif;}
+.reuslt-table3 {text-align:center;font-style:italic; display:block;margin-top:25px;width:880px;font-weight:normal; color:#575756; /*font-family: 'PT Sans', sans-serif;*/}
 
 
 .page-break    { display: block; page-break-before: always; }
@@ -1171,33 +1171,35 @@ body { font-family: 'PT Sans', sans-serif;}
             </span>
             {{#each this.TtcArea}}
                 {{#each this.features}}
-                    {{#if this.properties.tabelaCoordenadas}}
-                        <div class="table3" style="text-align:center;">
-                            <br />
-                            <table style="text-align:center;">
-                                <tr>
-                                    <th colspan="9"><b>{{this.properties.nome}}</b></th>
-                                </tr>
-                                <tr style="font-weight:bold">
-                                    <td>Vertices</td>
-                                    <td>Distância</td>
-                                    <td>Latitude</td>
-                                    <td>Longitude</td>
-                                    <td>Altitude</td>
-                                  </tr>
-                                    {{#each this.properties.tabelaCoordenadas}}
-                                        <tr>
-                                            <td>{{this.vertice}}</td>
-                                            <td>{{this.distancia}}</td>
-                                            <td>{{this.latitude}}</td>
-                                            <td>{{this.longitude}}</td>
-                                            <td>{{this.altitude}}</td>
-                                        </tr>
-                                    {{/each}}
-                            </table>        
-                        </div>
-                    {{else}}
-                    {{/if}}    
+                    {{#if (exibeTabelaCoordenadas this.properties.tipo )}}
+                        {{#if this.properties.tabelaCoordenadas}}
+                            <div class="table3" style="text-align:center;">
+                                <br />
+                                <table style="text-align:center;">
+                                    <tr>
+                                        <th colspan="9"><b>{{this.properties.nome}}</b></th>
+                                    </tr>
+                                    <tr style="font-weight:bold">
+                                        <td>Vertices</td>
+                                        <td>Distância</td>
+                                        <td>Latitude</td>
+                                        <td>Longitude</td>
+                                        <td>Altitude</td>
+                                      </tr>
+                                        {{#each this.properties.tabelaCoordenadas}}
+                                            <tr>
+                                                <td>{{this.vertice}}</td>
+                                                <td>{{this.distancia}}</td>
+                                                <td>{{this.latitude}}</td>
+                                                <td>{{this.longitude}}</td>
+                                                <td>{{this.altitude}}</td>
+                                            </tr>
+                                        {{/each}}
+                                </table>        
+                            </div>
+                        {{else}}
+                        {{/if}}
+                    {{/if}}
                 {{/each}}
             {{/each}}
         {{/if}}
@@ -1808,5 +1810,64 @@ body { font-family: 'PT Sans', sans-serif;}
 
 
 
+<div style="margin-top:100px;">
+    <h4 style="text-align:center;">Anexo</h4>
+
+    <div>
+        <h5>1 – PROPONENTE</h5>
+        <p>- ART</p>
+        <p>- Orçamento </p>
+    </div>
+        <BR />
+    <div>
+        <h5>2 – CAR</h5>
+        <p>- Recibo CAR</p>
+        <p>- Cumprimento do Embargo </p>
+        <p>- Atestado Administrativo da FUNAI (Terra Inídígena) </p>
+        <p>- LAR</p>
+        <p>- TAC</p>
+        <p>- PRA</p>
+        <p>- PRADA</p>
+    </div>
+        <BR />
+    <div>
+        <h5>3 – IMÓVEIS</h5>
+        <span>- Memorial descritivo</span>
+        <span>- CCIR </span>
+    </div>
+    
+</div>
+
 <img src="http://dev-buscar-banco.branch.terras.agr.br/img/terrastool-credito.png" style="height: 66px;float:left;display:none;" alt="">
 <img src="http://dev-buscar-banco.branch.terras.agr.br/img/creditorural/log-basa-pdf.png" style="height: 70px;float:right;display:none;" alt="">
+
+<div style="margin-top:300px;">
+    <div style='page-break-before: always;'></div>
+    <h1 style="text-align:center;">Todos Anexos</h1>
+    <div style='page-break-before: always;'></div>
+</div>
+<div>
+    {{#if this.AnexosImg}}
+        {{#each this.AnexosImg}}
+               <img src="{{this}}" style="width:1100px; height: 1300px;">
+                <div style='page-break-before: always;'></div>
+        {{/each}}
+    {{/if}}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

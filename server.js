@@ -78,6 +78,65 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/www/index.html');
 });
 
+
+/* Rest to get pdf
+{
+    data: json,
+    projectName: (of project)
+}
+*/
+app.post('/generate-pdf', function(req, res, next) {
+    // console.log("REQ BODY::::", req.body);
+    // console.log("CHEGUEI AQUIIIIIIIII", req.body.data);
+    // return;
+    var page = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.body.projectName, 'page.html'), 'utf8');
+    var data = req.body.data;
+    var helpers = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.body.projectName, 'helpers.js'), 'utf8');
+    var header = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.body.projectName, 'header.html'), 'utf8');
+    var footer = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.body.projectName, 'footer.html'), 'utf8');
+
+    jsreport.init().then(function() {
+        jsreport.render({
+            template: {
+                content: page,
+                helpers: helpers,
+                engine: 'handlebars',
+                recipe: 'phantom-pdf',
+                phantom: {
+                    format: "A4",
+                    width: "700px",
+                    margin: "1cm",
+                    numberOfWorkers: 1,
+                    timeout: 180000,
+                    allowLocalFilesAccess: false,
+                    header: header,
+                    headerHeight: "3cm",
+                    footer: footer,
+                    footerHeight: "21px"
+                }
+            },
+            data: data
+
+        }).then(function(resp) {
+            const pdfData = resp.content;
+
+            res.writeHead(200, {
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'attachment; filename=Laudos.pdf',
+                'Content-Length': pdfData.length
+            });
+
+            //Retornando PDF
+            res.end(pdfData);
+            //res.end(new Buffer(pdfData, 'binary'));
+
+        });
+
+    }).catch(function(e) {
+        console.log(e);
+    });
+});
+
 app.get('/reporting/:url', function(req, res) {
 
     var page = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'page.html'), 'utf8');
