@@ -1,13 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">DocGen Report</a>
+    <a class="navbar-brand" href="#">DocGen Report</a>
 </nav>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href ng-click="vm.executar()"><i class="fa fa-play" aria-hidden="true"></i> Executar <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href ng-click="vm.saveFiles()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar <span class="sr-only">(current)</span></a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href ng-click="vm.executar()"><i class="fa fa-play" aria-hidden="true"></i> Executar <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href ng-click="vm.saveFiles()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar <span class="sr-only">(current)</span></a>
+        </div>
     </div>
-  </div>
+    <form class="form-inline">
+        <a href create-new-project><i class="fa fa-plus-square" aria-hidden="true"></i> Novo projeto</a>
+    </form>
 </nav>
 <!-- <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,13 +56,23 @@
                     <!-- <li class="nav-item dropdown show">
                         <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i></a>
                     </li> -->
-                    <div class="dropdown">
-                        <li class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <!-- <div class="dropdown">
+                        <li class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{vm.dropdownName}} <i class="fa fa-plus" aria-hidden="true"></i>
                         </li>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href ng-click="vm.clickTab(3)">Header</a>
                             <a class="dropdown-item" href ng-click="vm.clickTab(4)">Footer</a>
+                        </div>
+                    </div> -->
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown button
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </div>
                 </ul>
