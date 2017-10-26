@@ -126,7 +126,7 @@
                 if (!header) {
                     header = ace.edit("header");
                     header.setTheme("ace/theme/twilight");
-                    header.session.setMode("ace/mode/javascript");
+                    header.session.setMode("ace/mode/html");
                     header.renderer.setScrollMargin(10, 10);
                     header.setOptions({
                         // "scrollPastEnd": 0.8,
@@ -143,7 +143,7 @@
                 if (!footer) {
                     footer = ace.edit("footer");
                     footer.setTheme("ace/theme/twilight");
-                    footer.session.setMode("ace/mode/javascript");
+                    footer.session.setMode("ace/mode/html");
                     footer.renderer.setScrollMargin(10, 10);
                     footer.setOptions({
                         // "scrollPastEnd": 0.8,

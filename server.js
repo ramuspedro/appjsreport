@@ -6,6 +6,7 @@ var fs = require("fs"),
     router = express.Router();
 var bodyParser = require('body-parser');
 var jsonfile = require('jsonfile');
+var async = require('async');
 
 var mongoose = require('mongoose');
 // ES6 promises
@@ -195,7 +196,7 @@ function createProject(url, name, callback) {
     }
 
     //https://stackoverflow.com/questions/2496710/writing-files-in-node-js
-    fs.writeFile(dir + "/helpers.js", "// Project: " + name, function(err) {
+    /*fs.writeFile(dir + "/helpers.js", "// Project: " + name, function(err) {
         if (err) {
             return console.log(err);
         }
@@ -225,8 +226,47 @@ function createProject(url, name, callback) {
                 });
             });
         });
-    });
-};
+    });*/
+    async.waterfall([
+        function(callback) {
+            fs.writeFile(dir + "/helpers.js", "// Project: " + name, function(err) {
+                if (err) {
+                    return console.log(err);
+                }
+            });
+        },
+        function(callback) {
+            fs.writeFile(dir + "/data.json", "", function(err) {
+                if (err) {
+                    return console.log(err);
+                }
+            });
+        },
+        function(callback) {
+            fs.writeFile(dir + "/page.html", "<!-- Project: " + name + " -->", function(err) {
+                if (err) {
+                    return console.log(err);
+                }
+            });
+        },
+        function(callback) {
+            fs.writeFile(dir + "/header.html", "<!-- Header for: " + name + " -->", function(err) {
+                if (err) {
+                    return console.log(err);
+                }
+            });
+        },
+        function(callback) {
+            fs.writeFile(dir + "/footer.html", "<!-- Footer for: " + name + " -->", function(err) {
+                if (err) {
+                    return console.log(err);
+                }
+            });
+        },
+    ]);
+
+}
+
 
 app.post('/create-project', function(req, res, next) {
     //console.log("REQ", req.body);
@@ -240,12 +280,80 @@ app.post('/create-project', function(req, res, next) {
                 err: err
             });
         } else {
-            createProject(req.body.url, req.body.name, function() {
+            /*createProject(req.body.url, req.body.name, function() {
                 res.json({
                     data: project,
                     err: err
                 });
-            });
+            });*/
+            var dir = "./www/projects/" + req.body.url;
+            var name = req.body.name;
+            // https://stackoverflow.com/questions/21194934/node-how-to-create-a-directory-if-doesnt-exist
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir);
+            }
+            async.waterfall([
+                function(callback) {
+                    fs.writeFile(dir + "/helpers.js", "// Project: " + name, function(err) {
+                        if (err) {
+                            return res.json({
+                                data: null,
+                                err: err
+                            });
+                        }
+                        callback();
+                    });
+                },
+                function(callback) {
+                    fs.writeFile(dir + "/data.json", "", function(err) {
+                        if (err) {
+                            return res.json({
+                                data: null,
+                                err: err
+                            });
+                        }
+                        callback();
+                    });
+                },
+                function(callback) {
+                    fs.writeFile(dir + "/page.html", "<!-- Project: " + name + " -->", function(err) {
+                        if (err) {
+                            return res.json({
+                                data: null,
+                                err: err
+                            });
+                        }
+                        callback();
+                    });
+                },
+                function(callback) {
+                    fs.writeFile(dir + "/header.html", "<!-- Header for: " + name + " -->", function(err) {
+                        if (err) {
+                            return res.json({
+                                data: null,
+                                err: err
+                            });
+                        }
+                        callback();
+                    });
+                },
+                function(callback) {
+                    fs.writeFile(dir + "/footer.html", "<!-- Footer for: " + name + " -->", function(err) {
+                        if (err) {
+                            return res.json({
+                                data: null,
+                                err: err
+                            });
+                            
+                        }
+
+                        return res.json({
+                            data: project,
+                            err: err
+                        });
+                    });
+                },
+            ]);
         }
     });
 
