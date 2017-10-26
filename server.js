@@ -66,9 +66,9 @@ var reportingApp = express();
 
 app.use(bodyParser.urlencoded({
     extended: true,
-    limit: '5mb'
+    limit: '50mb'
 }));
-app.use(bodyParser.json({ limit: '5mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
 
 
 app.use(express.static(path.join(__dirname, './www')));
