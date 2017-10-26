@@ -10,11 +10,6 @@ body {
     text-align: center;
 }
 
-
-
-
-
-
 /*
  * Base structure
  */
@@ -110,7 +105,10 @@ h1 {
 }
 
 
-
+/* BUTTONS */
+.button-create-project {
+    color: white !important;
+}
 
 
 
@@ -131,7 +129,7 @@ h1 {
 }
 
 .report-bg {
-    background: #555555 !important;
+    background: #565656 !important;
 }
 
 .ace_editor {
