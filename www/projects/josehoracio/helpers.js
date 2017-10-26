@@ -17,6 +17,14 @@ function equalsString(msg, msgType){
     }
 }
 
+// https://stackoverflow.com/questions/15088215/handlebars-js-if-block-helper
+function if_eq(a, b, opts) {
+    if(a == b)
+        return opts.fn(this);
+    else
+        return opts.inverse(this);
+}
+
 
 function formatNumber (number) {
     var numero_float = parseFloat(number);
@@ -63,3 +71,40 @@ function exibeTabelaCoordenadas ( tipo ) {
     return false;
   }
 }
+
+function arraySeparadoVirgula ( arr ) {
+    if (arr) {
+        return arr.join(", ");     
+    } else {
+        return '';
+    }
+   
+}
+
+function cpf(input){
+    var str = input + '';
+    if(str.length == 11){
+        str = str.replace(/\D/g, '');
+        str = str.replace(/(\d{3})(\d)/, '$1.$2');
+        str = str.replace(/(\d{3})(\d)/, '$1.$2');
+        str = str.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    }else{
+        str=str.replace(/\D/g,'');
+    	str=str.replace(/^(\d{2})(\d)/,'$1.$2');
+    	str=str.replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3');
+    	str=str.replace(/\.(\d{3})(\d)/,'.$1/$2');
+    	str=str.replace(/(\d{4})(\d)/,'$1-$2');
+    }
+    return str;
+}
+
+function telefone (input) {
+  	var str = input+ '';
+        str = str.replace(/\D/g,'');
+        if(str.length === 11 ){
+        str=str.replace(/^(\d{2})(\d{5})(\d{4})/,'($1) $2-$3');
+    	}else{
+    	str=str.replace(/^(\d{2})(\d{4})(\d{4})/,'($1) $2-$3');
+    	}
+    return str;
+  };

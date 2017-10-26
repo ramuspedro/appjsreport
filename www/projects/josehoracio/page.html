@@ -113,7 +113,8 @@ body { font-family: 'Arial' !important;}
                 center: [-15.12, -53.18],
                 zoom: 4,
                 zoomControl: false,
-                attributionControl: false
+                attributionControl: false,
+                maxZoom: 17
         },
         
         //Configurações de estilo mapa
@@ -402,17 +403,25 @@ body { font-family: 'Arial' !important;}
 </script>
 <br />
 
+{{#if_eq this.TtcPropostaTipo.nome "AGRONEGOCIO"}}
+    <div class="box box2">
+        Valor da Proposta: <br />
+        <span class="result-box currencyFormatMe" >R$ {{ this.TtcProposta.valor_proposta }}</span>
+    </div>
     
-<div class="box box2">
-    Valor da Proposta: <br />
-    <span class="result-box currencyFormatMe" >R$ {{ this.TtcProposta.valor_proposta }}</span>
-</div>
+    <div class="box box2 box2-last">
+        Finalidade / Atividade: <br />
+        <span class="result-box"> {{ this.TtcProposta.finalidade }}</span>
+    </div>
+    
+{{else}}
 
-<div class="box box2 box2-last">
-    Finalidade / Atividade: <br />
-    <span class="result-box"> {{ this.TtcProposta.finalidade }}</span>
-</div>
+    <div class="box">
+        Tipo de Proposta:<br />
+        <span class="result-box" style="padding:10px;line-height:20px;text-transform:none;">PRONAF</span>
+    </div>
 
+{{/if_eq}}
 
 
 <div class="box" style="clear:both;">
@@ -426,7 +435,7 @@ body { font-family: 'Arial' !important;}
 </div>
 
 <div class="box">
-    Justificativa:<br />
+    Descrição Sumária do Projeto/Proposta:<br />
     <span class="result-box" style="padding:10px;line-height:20px;text-transform:none;">{{ this.TtcProposta.detalhes_json.Justificativa }}</span>
 </div>
 
@@ -442,8 +451,8 @@ body { font-family: 'Arial' !important;}
               </tr>
               <tr>
                 <td><b>Nascimento:</b><br>{{#formatDate this.data_nascimento}}{{/formatDate}}</td>
-                <td><b>Telefone:</b><br>{{ this.telefone }}</td>
-                <td><b>CPF:</b><br>{{ this.cpf_cnpj }}</td>
+                <td><b>Telefone:</b><br>{{telefone this.telefone }}</td>
+                <td><b>CPF:</b><br>{{ cpf this.cpf_cnpj }}</td>
               </tr>
         {{/each}}
         </table>
@@ -460,11 +469,11 @@ body { font-family: 'Arial' !important;}
             {{#each this.TtcProposta.detalhes_json.ResponsavelTecnico}}
               <tr>
                 <td><b>Nome:</b><br><span class="result-box">{{ this.nome }}</span></td>
-                <td><b>CPF:</b><br>{{ this.cpf }}</td>
+                <td><b>CPF:</b><br>{{cpf this.cpf }}</td>
                 <td><b>Email:</b><br>{{ this.email }}</td>
               </tr>
               <tr>
-                <td><b>Telefone:</b><br>{{ this.telefone }}</td>
+                <td><b>Telefone:</b><br>{{telefone this.telefone }}</td>
                 <td><b>CREA:</b><br>{{ this.crea_estado.sigla }} {{ this.crea }}</td>
                 <td><b>ART:</b><br>{{ this.art }}
               </tr>
@@ -982,10 +991,13 @@ body { font-family: 'Arial' !important;}
                             <td colspan="3"><b>Módulos fiscais:</b> <span>{{this.features.[0].properties.modulos_fiscais}}</span></td>
                         </tr>
                         <tr>
-                            <td colspan="3"><b>Matrícula:</b><span>{{this.features.[0].properties.matricula}}</span></td>
+                            <!--<td colspan="3"><b>Matrícula:</b><span>{{this.features.[0].properties.matricula}}</span></td>-->
+                            <td colspan="3"><b>Matrícula:</b><span>{{#arraySeparadoVirgula this.features.[0].properties.matricula}} {{/arraySeparadoVirgula}}</span></td>
                         </tr>
                         <tr>
-                            <td colspan="3"><b>CCIR: </b><span>{{this.features.[0].properties.ccir}}</span></td>
+                            <!--<td colspan="3"><b>CCIR: </b><span>{{this.features.[0].properties.ccir}}</span></td>-->
+                            <td colspan="3"><b>CCIR: </b><span>{{#arraySeparadoVirgula this.features.[0].properties.ccir}} {{/arraySeparadoVirgula}}</span></td>
+                            
                         </tr>
                         
                         <!--<tr style="text-align:center;">-->
@@ -1163,12 +1175,19 @@ body { font-family: 'Arial' !important;}
             <p>Declaro para efeito de financiamento no Banco da Amazônia S/A, sob as penasda lei, e da exigência conforme disposta no MCR 2-1- 2 (Resolução CMN/BACEN nº 4.427, de25.06.2015, ajustada pelas Cartas Circulares nº 3.720, de 24/08/2015 e 3.734, de 29/10/2015 ou outra norma que venha substituí-la),<b> que as coordenadas geodésicas relativas a(s)áreas(s) de cultivo objeto do financiamento informadas na tabela abaixo, são idôneas, fidedignas e, também, espelham a localização real da implantação doempreendimento dentro do(s) imóvel(eis) objeto do crédito, inclusive, com aidentificação em cada área cultivada (financiada), e da soma das áreas dos trechosinternos não cultivados, em hectares.</b></p>
             <p>Declaro ainda, que as Coordenadas Geodésicas (latitude, longitude e altitude)dos vértices e / ou pontos de inflexão de cada área cultivada que compõem o empreendimento,foram coletadas conforme o sistema de referência geodésico SIRGAS2000 (Sistema deReferência Geocêntrico para as Américas), adotado pelo Instituto Brasileiro de Geografia eEstatística (IBGE).</p>
             <p>Declaro, finalmente, estar ciente de que a falsidade da declaração ora prestadapoderá acarretar o vencimento antecipado do instrumento contratual no qual se formalizar acolaboração financeira do Banco, sem prejuízo da aplicação das sanções legais cabíveis, denatureza civil e penal.</p>
-            <span style="width:100%; text-align:center">
-                Local e data
-                <br /><br />
-                ________________________________________<br />    
-                (Nome e CPF/CNPJ)
-            </span>
+            {{#if this.TtcProposta.detalhes_json.Proponente.length}}
+                <table class="" style="width:100%;font-size:11px;text-align:center;">
+                      <tr>
+                        <td>
+                        <br />_______________________________________<br />
+                        {{ this.TtcProposta.detalhes_json.Proponente.[0].nome }} - {{ this.TtcProposta.detalhes_json.Proponente.[0].cpf_cnpj }}</span><br /><br />
+                        Proponente
+                        </td>
+                      </tr>
+                    <br />
+                </table>
+            {{/if}}
+            <br />
             {{#each this.TtcArea}}
                 {{#each this.features}}
                     {{#if (exibeTabelaCoordenadas this.properties.tipo )}}
@@ -1229,9 +1248,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:red;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:green;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1254,9 +1273,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:red;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:green;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1279,9 +1298,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:red;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:green;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1304,9 +1323,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:red;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:green;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1329,9 +1348,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:red;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:green;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1354,9 +1373,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:red;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:green;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1379,9 +1398,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:red;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:green;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1404,9 +1423,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:red;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:green;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1429,9 +1448,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:red;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:green;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1454,9 +1473,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:red;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:green;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1479,9 +1498,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:red;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:green;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1504,9 +1523,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:blue;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:blue;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1529,9 +1548,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:blue;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:blue;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1554,9 +1573,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:blue;">Não conforme</span>
                 {{else}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:blue;">Conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1621,9 +1640,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:blue;">Conforme</span>
                 {{else}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:blue;">Não conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1646,9 +1665,9 @@ body { font-family: 'Arial' !important;}
                 </td>
                 <td style="text-align:center;">
                 {{#if this.resultado}}
-                    <span style="color:green;">aprovado</span>
+                    <span style="color:blue;">Conforme</span>
                 {{else}}
-                    <span style="color:red;">reprovado</span>
+                    <span style="color:blue;">Não conforme</span>
                 {{/if}}
                 </td>
             </tr>
@@ -1701,13 +1720,54 @@ body { font-family: 'Arial' !important;}
 {{/if}}
 <!-- FIM RESULTADO BUSCAR -->
 
-
-{{#if (exibeFisaQsa this.TtcPropostaTipo.nome )}}
+<!-- FOTOS -->
+{{#if this.TtcFoto}}
 <div style='page-break-before: always;'></div>
 <br />
-
-
-
+    <h4>Fotos</h4>
+    
+    {{#each this.TtcFoto}}
+        <!--<h5 style="margin-bottom:2px; text-transform: capitalize;">{{this.tipo}}</h5>-->
+        <!--<img src="http://terras.agr.br{{this.arquivo}}" style="width:400px; height: 300px;">-->
+        <!--<br>-->
+        <div class="table3">
+                    <table>
+                        <tr>
+                            <th rowspan="12" >
+                                {{#if_eq this.tipo "imovel"}}
+                                    <h5 style="margin-bottom:2px; text-transform: capitalize;">Imóvel</h5>
+                                {{else}}
+                                    <h5 style="margin-bottom:2px; text-transform: capitalize;">{{this.tipo}}</h5>
+                                {{/if_eq}}
+                                <img src="http://terras.agr.br{{this.arquivo}}" style="width:400px; height: 300px;">
+                            </th>
+                            <th colspan="3"><b>Ponto de coleta</b></th>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>Latitude:</b> <span>{{this.geojson.coordinates.[1]}}</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>Longitude:</b> <span>{{this.geojson.coordinates.[0]}}</span></td>
+                        </tr>
+                        <!--<tr>-->
+                        <!--    <td colspan="3"><b>Módulos fiscais:</b> <span>{{this.features.[0].properties.modulos_fiscais}}</span></td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--    <td colspan="3"><b>Matrícula:</b><span>{{#arraySeparadoVirgula this.features.[0].properties.matricula}} {{/arraySeparadoVirgula}}</span></td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                        <!--    <td colspan="3"><b>CCIR: </b><span>{{#arraySeparadoVirgula this.features.[0].properties.ccir}} {{/arraySeparadoVirgula}}</span></td>-->
+                        <!--</tr>-->
+                        
+                    </table>
+                    <br />
+                </div>
+    {{/each}}
+</div>
+{{/if}}
+{{#if_eq this.TtcPropostaTipo.nome "AGRONEGOCIO"}}
+<div style='page-break-before: always;'></div>
+<br />
     <h4>Formulário FISA/QSA</h4>
     
     
@@ -1786,88 +1846,94 @@ body { font-family: 'Arial' !important;}
         
     {{/ if }}
 
-{{/ if }} <!-- fim verificacao se form deve ser exibido -->
+{{/if_eq}} <!-- fim verificacao se form deve ser exibido -->
 
 
 <br /><br /><br />
 
 <div style="width:340px;float:left;font-size:11px;text-align:center;">
-    <br />_______________________________________<br />
-    
-    {{#if this.TtcProposta.detalhes_json.Proponente}}
-        <span>{{this.TtcProposta.detalhes_json.Proponente.nome}}</span><br />
+    {{#if this.TtcProposta.detalhes_json.Proponente.length}}
+        <table class="" style="width:340px;float:left;font-size:11px;text-align:center;">
+            {{#each this.TtcProposta.detalhes_json.Proponente}}
+              <tr>
+                
+                <td>
+                <br />_______________________________________<br />
+                {{ this.nome }} - {{cpf this.cpf_cnpj }}</span><br /><br />
+                Proponente
+                </td>
+                
+              </tr>
+            {{/each}}
+            <br />
+        </table>
     {{/if}}
-    Requerente
+    <br />
 </div>
 <div style="width:340px;float:right;font-size:11px;text-align:center;">
-    <br />_______________________________________<br />
-    
-    {{#if this.TtcProposta.detalhes_json.ResponsavelTecnico}}
-        <span>{{this.TtcProposta.detalhes_json.ResponsavelTecnico.nome}}</span><br />
+    {{#if this.TtcProposta.detalhes_json.ResponsavelTecnico.length}}
+        <table class="" style="width:340px;float:right;font-size:11px;text-align:center;">
+            {{#each this.TtcProposta.detalhes_json.ResponsavelTecnico}}
+              <tr>
+                
+                <td>
+                <br />_______________________________________<br />
+                {{ this.nome }} - {{cpf this.cpf }}</span><br /><br />
+                Responsável Técnico
+                </td>
+                
+              </tr>
+            {{/each}}
+            <br />
+        </table>
     {{/if}}
-    Responsável Técnico
+    <br />
 </div>
+<br />
 
 
+<!--<div style="margin-top:100px;">-->
+<!--    <h4 style="text-align:center;">Anexo</h4>-->
 
-<div style="margin-top:100px;">
-    <h4 style="text-align:center;">Anexo</h4>
-
-    <div>
-        <h5>1 – PROPONENTE</h5>
-        <p>- ART</p>
-        <p>- Orçamento </p>
-    </div>
-        <BR />
-    <div>
-        <h5>2 – CAR</h5>
-        <p>- Recibo CAR</p>
-        <p>- Cumprimento do Embargo </p>
-        <p>- Atestado Administrativo da FUNAI (Terra Inídígena) </p>
-        <p>- LAR</p>
-        <p>- TAC</p>
-        <p>- PRA</p>
-        <p>- PRADA</p>
-    </div>
-        <BR />
-    <div>
-        <h5>3 – IMÓVEIS</h5>
-        <span>- Memorial descritivo</span>
-        <span>- CCIR </span>
-    </div>
+<!--    <div>-->
+<!--        <h5>1 – PROPONENTE</h5>-->
+<!--        <p>- ART</p>-->
+<!--        <p>- Orçamento </p>-->
+<!--    </div>-->
+<!--        <BR />-->
+<!--    <div>-->
+<!--        <h5>2 – CAR</h5>-->
+<!--        <p>- Recibo CAR</p>-->
+<!--        <p>- Cumprimento do Embargo </p>-->
+<!--        <p>- Atestado Administrativo da FUNAI (Terra Inídígena) </p>-->
+<!--        <p>- LAR</p>-->
+<!--        <p>- TAC</p>-->
+<!--        <p>- PRA</p>-->
+<!--        <p>- PRADA</p>-->
+<!--    </div>-->
+<!--        <BR />-->
+<!--    <div>-->
+<!--        <h5>3 – IMÓVEIS</h5>-->
+<!--        <span>- Memorial descritivo</span>-->
+<!--        <span>- CCIR </span>-->
+<!--    </div>-->
     
-</div>
+<!--</div>-->
 
 <img src="http://dev-buscar-banco.branch.terras.agr.br/img/terrastool-credito.png" style="height: 66px;float:left;display:none;" alt="">
 <img src="http://dev-buscar-banco.branch.terras.agr.br/img/creditorural/log-basa-pdf.png" style="height: 70px;float:right;display:none;" alt="">
 
-<div style="margin-top:300px;">
-    <div style='page-break-before: always;'></div>
-    <h1 style="text-align:center;">Todos Anexos</h1>
-    <div style='page-break-before: always;'></div>
-</div>
+
 <div>
     {{#if this.AnexosImg}}
+    <div style="margin-top:300px;">
+        <div style='page-break-before: always;'></div>
+        <h1 style="text-align:center;">Anexos</h1>
+        <div style='page-break-before: always;'></div>
+    </div>
         {{#each this.AnexosImg}}
-               <img src="{{this}}" style="width:1100px; height: 1300px;">
+               <img src="{{this}}" style="width:700px; height: 900px;">
                 <div style='page-break-before: always;'></div>
         {{/each}}
     {{/if}}
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
