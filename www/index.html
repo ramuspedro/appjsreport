@@ -10,71 +10,13 @@
     <title>Starter Template for Bootstrap</title>
     <!-- Bootstrap core CSS -->
     <link href="./css/styles.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./bower_components/toastr/toastr.min.css" />
+    <link rel="stylesheet" href="./bower_components/toastr/toastr.min.css">
     <!-- <link rel="stylesheet" href="./bower_components/bootswatch/paper/bootstrap.min.css" /> -->
     <!-- <link rel="stylesheet" href="./bower_components/angular-filemanager/dist/angular-filemanager.min.css"> -->
 </head>
 
 <body>
-    <!-- <div class="ace-content">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link" href ng-click="chooseTab = 0;" ng-class="{'active' : chooseTab == 0}">page</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href ng-click="chooseTab = 1;" ng-class="{'active' : chooseTab == 1}">helper</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href ng-click="chooseTab = 2;" ng-class="{'active' : chooseTab == 2}">data</a>
-                        </li>
-                    </ul>
-                    
-                    <div class="ace-html" ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
-                        <textarea id="html"></textarea>
-                    </div>
-                
-                    <div class="ace-javascript" ng-class="{'display-none' : !(chooseTab == 1)}" ng-cloak>
-                        <textarea id="javascript"></textarea>
-                    </div>
-                    
-                    <div class="ace-json" ng-class="{'display-none' : !(chooseTab == 2)}" ng-cloak>
-                        <textarea id="json"></textarea>
-                    </div>
-                </div>
-                <div class="show-pdf">
-                    <object data="{{content}}" type="application/pdf" ng-if="$root.content"></object>
-                    <div class="without-pdf" ng-if="!$root.content">
-                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                        <br>Sem resultado
-                    </div>
-                </div> -->
     <ui-view></ui-view>
-    <!-- <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top con">
-        <div class="container">
-            <div class="header clearfix">
-                <nav>
-                    <ul class="nav nav-pills float-right">
-                        <li class="nav-item">
-                            <a class="nav-link active" href>Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href>About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href>Contact</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>*
-        </div>
-    </nav>
-    <div class="">
-        <pre id="editor"></pre>
-        <div id="statusBar">ace rocks!</div>
-    </div> -->
-    <!-- /.container -->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
@@ -87,7 +29,8 @@
     <!-- <script src="./bower_components/angular-translate/angular-translate.min.js"></script>
     <script src="./bower_components/angular-filemanager/dist/angular-filemanager.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="./js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./js/ie10-viewport-bug-workaround.js"></script>
     <!-- ACE -->
