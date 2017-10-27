@@ -30,13 +30,18 @@
                         //     $state.go("app", { projectId: result });
                         // }
                         var project = result;
+                        if(project.name) {
+                            console.log("OK");
+                            return;
+                        }
                         var url = result.replace(/\s/g,'');
                         //console.log("URL: ", url);
                         $http.post("http://localhost:8000/create-project", {
                             name: project,
                             url: url
                         }).then(function(result) {
-                            $state.go("app", {projectId: url})
+                            
+                            $state.go("app", {projectId: url});
                         });
                     });
                 });

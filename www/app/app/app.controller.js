@@ -4,7 +4,6 @@
     angular.module('jsReportingApp').controller('AppCtrl', ['$http', '$scope', '$state', '$sce', AppCtrl]);
 
     function AppCtrl($http, $scope, $state, $sce) {
-        console.log("TESTEEEEEEE: ", $state.params.projectId);
         var vm = this;
 
         /* Funcion as vm */
