@@ -10,6 +10,7 @@ body {
     text-align: center;
 }
 
+
 /*
  * Base structure
  */
@@ -20,6 +21,7 @@ body {
 body {
     /*padding-top: 50px;*/
 }
+
 
 
 
@@ -45,6 +47,7 @@ h1 {
 
 
 
+
 /*
  * Sidebar
  */
@@ -61,6 +64,7 @@ h1 {
     /* Scrollable contents if viewport is shorter than content. */
     border-right: 1px solid #eee;
 }
+
 
 
 
@@ -96,6 +100,7 @@ h1 {
 
 
 
+
 /*
     align
 */
@@ -105,9 +110,20 @@ h1 {
 }
 
 
+
 /* BUTTONS */
+
 .button-create-project {
     color: white !important;
+}
+
+
+/* GLOBAL */
+
+.box-shadow-bottom {
+    -webkit-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.4);
 }
 
 
@@ -132,11 +148,14 @@ h1 {
     background: #565656 !important;
 }
 
+
 /* Pointer */
 
 .cursor-pointer {
     cursor: pointer;
 }
+
+
 /* ACER */
 
 .ace_editor {
@@ -222,6 +241,7 @@ object {
         margin: 0 auto;
     }
 }
+
 
 
 
@@ -574,6 +594,7 @@ object {
 }
 
 
+
 /*!
  * font-awesome-animation - v0.0.6
  * https://github.com/l-lin/font-awesome-animation
@@ -761,6 +782,7 @@ object {
 
 
 
+
 /* PULSE */
 
 @-webkit-keyframes pulse {
@@ -806,6 +828,7 @@ object {
     -webkit-animation: pulse 2s linear infinite;
     animation: pulse 2s linear infinite;
 }
+
 
 
 

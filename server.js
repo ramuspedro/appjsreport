@@ -94,7 +94,7 @@ app.post('/generate-pdf', function(req, res, next) {
     var data = req.body.data;
     var helpers = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.body.projectName, 'helpers.js'), 'utf8');
     var header = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.body.projectName, 'header.html'), 'utf8');
-    console.log("HEADERRRRR:", header);
+    
     var footer = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.body.projectName, 'footer.html'), 'utf8');
 
     jsreport.init().then(function() {
@@ -147,6 +147,8 @@ app.get('/reporting/:url', function(req, res) {
     var header = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'header.html'), 'utf8');
     var footer = fs.readFileSync(path.join(__dirname, '/www/projects/' + req.params.url, 'footer.html'), 'utf8');
 
+    console.log("HEADERRRRR:", header);
+
     jsreport.init().then(function() {
         jsreport.render({
             template: {
@@ -162,9 +164,9 @@ app.get('/reporting/:url', function(req, res) {
                     timeout: 180000,
                     allowLocalFilesAccess: false,
                     header: header,
-                    headerHeight: "3cm",
+                    headerHeight: "1.8cm",
                     footer: footer,
-                    footerHeight: "21px"
+                    footerHeight: "1cm"
                 }
             },
             data: data
