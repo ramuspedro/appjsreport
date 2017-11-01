@@ -11,6 +11,7 @@
     <!-- Bootstrap core CSS -->
     <link href="./css/styles.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./bower_components/toastr/toastr.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- <link rel="stylesheet" href="./bower_components/bootswatch/paper/bootstrap.min.css" /> -->
     <!-- <link rel="stylesheet" href="./bower_components/angular-filemanager/dist/angular-filemanager.min.css"> -->
 </head>
@@ -19,9 +20,7 @@
     <ui-view></ui-view>
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-    window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
-    </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="./bower_components/angular/angular.min.js"></script>
     <script src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="./bower_components/toastr/toastr.min.js"></script>
@@ -38,36 +37,6 @@
     <!-- load ace themelist extension -->
     <script src="./js/src/ext-themelist.js"></script>
     <script src="./js/pace.min.js"></script>
-    <script>
-    // create first editor
-    /*var javascript = ace.edit("javascript");
-    javascript.setTheme("ace/theme/twilight");
-    javascript.session.setMode("ace/mode/javascript");
-    javascript.renderer.setScrollMargin(10, 10);
-    javascript.setOptions({
-        // "scrollPastEnd": 0.8,
-        autoScrollEditorIntoView: true
-    });
-
-    var json = ace.edit("json");
-    json.setTheme("ace/theme/twilight");
-    json.session.setMode("ace/mode/javascript");
-    json.renderer.setScrollMargin(10, 10);
-    json.setOptions({
-        // "scrollPastEnd": 0.8,
-        autoScrollEditorIntoView: true
-    });
-
-    var html = ace.edit("html");
-    html.setTheme("ace/theme/twilight");
-    html.session.setMode("ace/mode/html");
-    html.renderer.setScrollMargin(10, 10);
-    html.setOptions({
-        // "scrollPastEnd": 0.8,
-        autoScrollEditorIntoView: true
-    });*/
-
-    </script>
     <!-- <script src="./js/show_own_source.js"></script> -->
     <script src="./js/app.js"></script>
     <!-- Controllers -->
@@ -75,6 +44,7 @@
     <script src="./app/app/app.controller.js"></script>
     <!-- Directives -->
     <script src="./js/directives/create-project.directive.js"></script>
+    <script src="./js/directives/resizable.directive.js"></script>
 </body>
 
 </html>

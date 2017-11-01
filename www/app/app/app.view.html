@@ -42,7 +42,7 @@
 <div class="container-fluid">
     <div class="row">
         <main class="col-lg-7 pt-3">
-            <div class="ace-content">
+            <div class="ace-content" widget-resizable>
                 <ul class="nav nav-tabs nav-justified">
                     <li class="nav-item">
                         <a class="nav-link" href ng-click="vm.clickTab(0)" ng-class="{'active' : chooseTab == 0}">page</a>
@@ -76,21 +76,25 @@
                         </div>
                     </div> -->
                 </ul>
-                <div class="ace-editor" ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
-                    <textarea id="html"></textarea>
+                <div class="ace-editor ui-widget-content">
+                    <div ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
+                        <textarea id="html"></textarea>
+                    </div>
+                    <div ng-class="{'display-none' : !(chooseTab == 1)}" ng-cloak>
+                        <textarea id="javascript"></textarea>
+                    </div>
+                    <div ng-class="{'display-none' : !(chooseTab == 2)}" ng-cloak>
+                        <textarea id="json"></textarea>
+                    </div>
+                    <div ng-class="{'display-none' : !(chooseTab == 3)}" ng-cloak>
+                        <textarea id="header"></textarea>
+                    </div>
+                    <div ng-class="{'display-none' : !(chooseTab == 4)}" ng-cloak>
+                        <textarea id="footer"></textarea>
+                    </div>
                 </div>
-                <div class="ace-editor" ng-class="{'display-none' : !(chooseTab == 1)}" ng-cloak>
-                    <textarea id="javascript"></textarea>
-                </div>
-                <div class="ace-editor" ng-class="{'display-none' : !(chooseTab == 2)}" ng-cloak>
-                    <textarea id="json"></textarea>
-                </div>
-                <div class="ace-editor" ng-class="{'display-none' : !(chooseTab == 3)}" ng-cloak>
-                    <textarea id="header"></textarea>
-                </div>
-                <div class="ace-editor" ng-class="{'display-none' : !(chooseTab == 4)}" ng-cloak>
-                    <textarea id="footer"></textarea>
-                </div>
+                <!-- 
+    widgetResizable -->
             </div>
         </main>
         <div class="col-lg-5 show-pdf">
