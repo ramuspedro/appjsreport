@@ -40,8 +40,8 @@
     </div>
 </nav> -->
 <div class="container-fluid">
-    <div class="row">
-        <main class="col-lg-7 pt-3">
+    <div class="">
+        <main class="pt-3 row">
             <div class="ace-content" widget-resizable>
                 <ul class="nav nav-tabs nav-justified">
                     <li class="nav-item">
@@ -93,27 +93,25 @@
                         <textarea id="footer"></textarea>
                     </div>
                 </div>
-                <!-- 
-    widgetResizable -->
+            </div>
+            <div class="show-pdf">
+                <!-- <ul class="nav nav-tabs justify-content-end">
+                    <li class="nav-item">
+                        <a href="" class="nav-link active">Pré-visualizar</a>
+                    </li>
+                </ul> -->
+                <object data="{{pdf}}" type="application/pdf" ng-if="pdf"></object>
+                <div class="without-pdf" ng-if="!pdf">
+                    <div ng-show="!vm.loading.generate_pdf">
+                        <i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i>
+                        <br>Resultado PDF
+                    </div>
+                    <div ng-show="vm.loading.generate_pdf" class="">
+                        <i class="fa fa-file-pdf-o faa-pulse animated fa-3x" aria-hidden="true"></i>
+                        <br>Gerando PDF
+                    </div>
+                </div>
             </div>
         </main>
-        <div class="col-lg-5 show-pdf">
-            <ul class="nav nav-tabs justify-content-end">
-                <li class="nav-item">
-                    <a href="" class="nav-link active">Pré-visualizar</a>
-                </li>
-            </ul>
-            <object data="{{pdf}}" type="application/pdf" ng-if="pdf"></object>
-            <div class="without-pdf" ng-if="!pdf">
-                <div ng-show="!vm.loading.generate_pdf">
-                    <i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i>
-                    <br>Sem resultado
-                </div>
-                <div ng-show="vm.loading.generate_pdf" class="">
-                    <i class="fa fa-file-pdf-o faa-pulse animated fa-3x" aria-hidden="true"></i>
-                    <br>Gerando pdf
-                </div>
-            </div>
-        </div>
     </div>
 </div>

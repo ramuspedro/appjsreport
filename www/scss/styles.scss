@@ -128,8 +128,12 @@ h1 {
 
 
 /* JQuery UI */
-.ui-icon, .ui-widget-content .ui-icon {
-    display: none;
+.ui-icon-gripsmall-diagonal-se {
+    display: none !important;
+}
+
+.ui-resizable {
+    width: 50%;
 }
 
 
@@ -213,6 +217,7 @@ object {
 
 .show-pdf {
     height: 100%;
+    width: 50%;
     vertical-align: top;
     padding-top: 1.1rem;
     position: relative;
