@@ -26,7 +26,7 @@
         return directive;
 
         function LinkResizable(scope, element, attrs) {
-            console.log("TESTE MULti", element);
+            // console.log("TESTE MULti", element);
             element.resizable();
         }
     }

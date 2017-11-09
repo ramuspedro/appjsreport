@@ -13,6 +13,7 @@
         $scope.chooseTab = 0;
 
         var javascript, html, json, header, footer;
+        console.log($(window).height())
 
         $('.dropdown-toggle').dropdown();
 
@@ -55,6 +56,7 @@
         html.setOptions({
             // "scrollPastEnd": 0.8,
             autoScrollEditorIntoView: true,
+            // setAutoScrollEditorIntoView: true,
             maxLines: 50
         });
 
@@ -62,7 +64,7 @@
 
 
         $http.get(url + "page.html").then(function(data3) {
-            console.log("html", data3);
+            // console.log("html", data3);
             html.setValue(data3.data);
         });
 

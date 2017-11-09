@@ -40,32 +40,32 @@
     </div>
 </nav> -->
 <div class="container-fluid">
-    <div class="">
-        <main class="pt-3 row">
-            <div class="ace-content" widget-resizable>
-                <ul class="nav nav-tabs nav-justified">
-                    <li class="nav-item">
-                        <a class="nav-link" href ng-click="vm.clickTab(0)" ng-class="{'active' : chooseTab == 0}">page</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href ng-click="vm.clickTab(1)" ng-class="{'active' : chooseTab == 1}">helper</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href ng-click="vm.clickTab(2)" ng-class="{'active' : chooseTab == 2}">data</a>
-                    </li>
-                    <!-- <li class="nav-item dropdown show">
+    <div class="pt-3 view-of-project">
+        <div class="ace-content">
+        <!-- <div class="ace-content" widget-resizable> -->
+            <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item">
+                    <a class="nav-link" href ng-click="vm.clickTab(0)" ng-class="{'active' : chooseTab == 0}">page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href ng-click="vm.clickTab(1)" ng-class="{'active' : chooseTab == 1}">helper</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href ng-click="vm.clickTab(2)" ng-class="{'active' : chooseTab == 2}">data</a>
+                </li>
+                <!-- <li class="nav-item dropdown show">
                         <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i></a>
                     </li> -->
-                    <div class="dropdown">
-                        <li class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{vm.dropdownName}}
-                        </li>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href ng-click="vm.clickTab(3)">Header</a>
-                            <a class="dropdown-item" href ng-click="vm.clickTab(4)">Footer</a>
-                        </div>
+                <div class="dropdown">
+                    <li class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{vm.dropdownName}}
+                    </li>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href ng-click="vm.clickTab(3)">Header</a>
+                        <a class="dropdown-item" href ng-click="vm.clickTab(4)">Footer</a>
                     </div>
-                    <!-- <div class="dropdown">
+                </div>
+                <!-- <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Dropdown button
                         </button>
@@ -75,31 +75,31 @@
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </div> -->
-                </ul>
-                <div class="ace-editor ui-widget-content">
-                    <div ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
-                        <textarea id="html"></textarea>
-                    </div>
-                    <div ng-class="{'display-none' : !(chooseTab == 1)}" ng-cloak>
-                        <textarea id="javascript"></textarea>
-                    </div>
-                    <div ng-class="{'display-none' : !(chooseTab == 2)}" ng-cloak>
-                        <textarea id="json"></textarea>
-                    </div>
-                    <div ng-class="{'display-none' : !(chooseTab == 3)}" ng-cloak>
-                        <textarea id="header"></textarea>
-                    </div>
-                    <div ng-class="{'display-none' : !(chooseTab == 4)}" ng-cloak>
-                        <textarea id="footer"></textarea>
-                    </div>
+            </ul>
+            <div class="ace-editor ui-widget-content">
+                <div ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
+                    <textarea id="html"></textarea>
+                </div>
+                <div ng-class="{'display-none' : !(chooseTab == 1)}" ng-cloak>
+                    <textarea id="javascript"></textarea>
+                </div>
+                <div ng-class="{'display-none' : !(chooseTab == 2)}" ng-cloak>
+                    <textarea id="json"></textarea>
+                </div>
+                <div ng-class="{'display-none' : !(chooseTab == 3)}" ng-cloak>
+                    <textarea id="header"></textarea>
+                </div>
+                <div ng-class="{'display-none' : !(chooseTab == 4)}" ng-cloak>
+                    <textarea id="footer"></textarea>
                 </div>
             </div>
-            <div class="show-pdf">
-                <!-- <ul class="nav nav-tabs justify-content-end">
+        </div>
+        <!-- <ul class="nav nav-tabs justify-content-end">
                     <li class="nav-item">
                         <a href="" class="nav-link active">Pré-visualizar</a>
                     </li>
                 </ul> -->
+        <!-- <div class="show-pdf">
                 <object data="{{pdf}}" type="application/pdf" ng-if="pdf"></object>
                 <div class="without-pdf" ng-if="!pdf">
                     <div ng-show="!vm.loading.generate_pdf">
@@ -111,7 +111,6 @@
                         <br>Gerando PDF
                     </div>
                 </div>
-            </div>
-        </main>
+            </div> -->
     </div>
 </div>
