@@ -57,7 +57,7 @@
             // "scrollPastEnd": 0.8,
             autoScrollEditorIntoView: true,
             setAutoScrollEditorIntoView: true,
-            // maxLines: 50
+            maxLines: 50
         });
 
         // $('#html').css('height', '300px');
@@ -69,7 +69,8 @@
             // console.log("html", data3);
             html.setValue(data3.data);
         });
-        html.setOption('maxLines', 80);
+
+        // html.setOption('maxLines', 60);
 
         vm.clickTab = function(index) {
             $scope.chooseTab = index;
