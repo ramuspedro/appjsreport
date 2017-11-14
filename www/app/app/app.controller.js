@@ -57,7 +57,7 @@
             // "scrollPastEnd": 0.8,
             autoScrollEditorIntoView: true,
             setAutoScrollEditorIntoView: true,
-            maxLines: 50
+            maxLines: Infinity
         });
 
         // $('#html').css('height', '300px');
@@ -86,7 +86,8 @@
                     html.setOptions({
                         // "scrollPastEnd": 0.8,
                         autoScrollEditorIntoView: true,
-                        maxLines: 50
+                        setAutoScrollEditorIntoView: true,
+                        maxLines: Infinity
                     });
 
                     $http.get(url + "page.html").then(function(data3) {
@@ -102,7 +103,8 @@
                     javascript.setOptions({
                         // "scrollPastEnd": 0.8,
                         autoScrollEditorIntoView: true,
-                        maxLines: 50
+                        setAutoScrollEditorIntoView: true,
+                        maxLines: Infinity
                     });
 
                     $http.get(url + "helpers.js").then(function(data) {
@@ -119,7 +121,8 @@
                     json.setOptions({
                         // "scrollPastEnd": 0.8,
                         autoScrollEditorIntoView: true,
-                        maxLines: 50
+                        setAutoScrollEditorIntoView: true,
+                        maxLines: Infinity
                     });
 
                     $http.get(url + "data.json").then(function(data2) {
@@ -136,7 +139,8 @@
                     header.setOptions({
                         // "scrollPastEnd": 0.8,
                         autoScrollEditorIntoView: true,
-                        maxLines: 50
+                        setAutoScrollEditorIntoView: true,
+                        maxLines: Infinity
                     });
 
                     $http.get(url + "header.html").then(function(data2) {
@@ -153,7 +157,7 @@
                     footer.setOptions({
                         // "scrollPastEnd": 0.8,
                         autoScrollEditorIntoView: true,
-                        maxLines: 50
+                        maxLines: Infinity
                     });
 
 

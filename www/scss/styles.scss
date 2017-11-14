@@ -145,6 +145,10 @@ h1 {
     // width: 50vw;
 }
 
+.ui-widget-content {
+    border: 0px !important;
+}
+
 .ace-editor {
     // height: 100%;
     // display: -ms-flexbox;
@@ -156,8 +160,21 @@ h1 {
 
 pre {
     // height: 900px !important;
+    // width: 100% !important;
 }
 
+.ui-wrapper {
+    width: 100% !important;
+    height: 900px !important;
+    padding-right: 0 !important;
+}
+
+.ace_editor {
+    margin: auto;
+    min-height: 500px;
+    max-height: 500px;
+    overflow-y: auto !important;
+}
 
 /* ACER */
 
