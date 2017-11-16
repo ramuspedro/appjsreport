@@ -156,6 +156,7 @@ h1 {
     // display: -moz-box;
     // display: -ms-box;
     // display: box;
+    // overflow: hidden !important;
 }
 
 pre {
@@ -173,6 +174,11 @@ pre {
     margin: auto;
     min-height: 500px;
     max-height: 500px;
+    // overflow-y: auto !important;
+}
+
+.ace_scroller {
+    overflow-x: hidden !important;
     overflow-y: auto !important;
 }
 
