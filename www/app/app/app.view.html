@@ -1,18 +1,49 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
     <a class="navbar-brand" href="#">DocGen Report</a>
 </nav>
-<nav class="navbar navbar-expand-lg navbar-light bg-light box-shadow-bottom">
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link active" href ng-click="vm.executar()"><i class="fa fa-play" aria-hidden="true"></i> Executar <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href ng-click="vm.saveFiles()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar <span class="sr-only">(current)</span></a>
-        </div>
-    </div>
-    <form class="form-inline">
-        <a href create-new-project><i class="fa fa-plus-square" aria-hidden="true"></i> Novo projeto</a>
-    </form>
-</nav>
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+<div class="row">
+    <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Reports</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Analytics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Export</a>
+            </li>
+        </ul>
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Nav item</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Nav item again</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">One more nav</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Another nav item</a>
+            </li>
+        </ul>
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Nav item again</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">One more nav</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Another nav item</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -39,33 +70,44 @@
         </form>
     </div>
 </nav> -->
-<div class="container-fluid">
-    <div class="pt-3 view-of-project">
-        <div class="ace-content">
-        <!-- <div class="ace-content" widget-resizable> -->
-            <ul class="nav nav-tabs nav-justified">
-                <li class="nav-item">
-                    <a class="nav-link" href ng-click="vm.clickTab(0)" ng-class="{'active' : chooseTab == 0}">page</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href ng-click="vm.clickTab(1)" ng-class="{'active' : chooseTab == 1}">helper</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href ng-click="vm.clickTab(2)" ng-class="{'active' : chooseTab == 2}">data</a>
-                </li>
-                <!-- <li class="nav-item dropdown show">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                    </li> -->
-                <div class="dropdown">
-                    <li class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{vm.dropdownName}}
-                    </li>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href ng-click="vm.clickTab(3)">Header</a>
-                        <a class="dropdown-item" href ng-click="vm.clickTab(4)">Footer</a>
+    <div class="container-fluid">
+        <div class="col-sm-9 ml-sm-auto col-md-10 pt-3 view-of-project">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light box-shadow-bottom">
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" href ng-click="vm.executar()"><i class="fa fa-play" aria-hidden="true"></i> Executar <span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link" href ng-click="vm.saveFiles()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar <span class="sr-only">(current)</span></a>
                     </div>
                 </div>
-                <!-- <div class="dropdown">
+                <form class="form-inline">
+                    <a href create-new-project><i class="fa fa-plus-square" aria-hidden="true"></i> Novo projeto</a>
+                </form>
+            </nav>
+            <div class="ace-content">
+                <!-- <div class="ace-content" widget-resizable> -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="nav-item">
+                        <a class="nav-link" href ng-click="vm.clickTab(0)" ng-class="{'active' : chooseTab == 0}">page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href ng-click="vm.clickTab(1)" ng-class="{'active' : chooseTab == 1}">helper</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href ng-click="vm.clickTab(2)" ng-class="{'active' : chooseTab == 2}">data</a>
+                    </li>
+                    <!-- <li class="nav-item dropdown show">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                    </li> -->
+                    <div class="dropdown">
+                        <li class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{vm.dropdownName}}
+                        </li>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href ng-click="vm.clickTab(3)">Header</a>
+                            <a class="dropdown-item" href ng-click="vm.clickTab(4)">Footer</a>
+                        </div>
+                    </div>
+                    <!-- <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Dropdown button
                         </button>
@@ -75,31 +117,31 @@
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </div> -->
-            </ul>
-            <div class="ui-widget-content">
-                <div ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
-                    <textarea id="html" widget-resizable></textarea>
-                </div>
-                <div ng-class="{'display-none' : !(chooseTab == 1)}" ng-cloak>
-                    <textarea id="javascript" widget-resizable></textarea>
-                </div>
-                <div ng-class="{'display-none' : !(chooseTab == 2)}" ng-cloak>
-                    <textarea id="json" widget-resizable></textarea>
-                </div>
-                <div ng-class="{'display-none' : !(chooseTab == 3)}" ng-cloak>
-                    <textarea id="header" widget-resizable></textarea>
-                </div>
-                <div ng-class="{'display-none' : !(chooseTab == 4)}" ng-cloak>
-                    <textarea id="footer" widget-resizable></textarea>
+                </ul>
+                <div class="ui-widget-content">
+                    <div ng-class="{'display-none' : !(chooseTab == 0)}" ng-cloak>
+                        <textarea id="html" widget-resizable></textarea>
+                    </div>
+                    <div ng-class="{'display-none' : !(chooseTab == 1)}" ng-cloak>
+                        <textarea id="javascript" widget-resizable></textarea>
+                    </div>
+                    <div ng-class="{'display-none' : !(chooseTab == 2)}" ng-cloak>
+                        <textarea id="json" widget-resizable></textarea>
+                    </div>
+                    <div ng-class="{'display-none' : !(chooseTab == 3)}" ng-cloak>
+                        <textarea id="header" widget-resizable></textarea>
+                    </div>
+                    <div ng-class="{'display-none' : !(chooseTab == 4)}" ng-cloak>
+                        <textarea id="footer" widget-resizable></textarea>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- <ul class="nav nav-tabs justify-content-end">
+            <!-- <ul class="nav nav-tabs justify-content-end">
                     <li class="nav-item">
                         <a href="" class="nav-link active">Pré-visualizar</a>
                     </li>
                 </ul> -->
-        <!-- <div class="show-pdf">
+            <!-- <div class="show-pdf">
                 <object data="{{pdf}}" type="application/pdf" ng-if="pdf"></object>
                 <div class="without-pdf" ng-if="!pdf">
                     <div ng-show="!vm.loading.generate_pdf">
@@ -112,5 +154,6 @@
                     </div>
                 </div>
             </div> -->
+        </div>
     </div>
 </div>
